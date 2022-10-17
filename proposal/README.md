@@ -18,7 +18,9 @@ We are developing a system that will replace paper gradebooks. Professors can ad
 
 The plan is to start with the development of smaller components, such as the classes for each type of user, and the courses + assignments. These components will be used to complete the main functions of the system in a separate, overarching class. Edits can be made to the components as needed. 
 
-After the main functions are completed, ideally, a graphical user interface (GUI) would be made to accommodate and work alongside it. This may be achieved through the use of canvas API. 
+After the main functions are completed, ideally, a graphical user interface (GUI) would be made to accommodate and work alongside it. This may be achieved through the use of Java Swing. 
+
+If possible, Canvas API may be integrated to directly import grades from Canvas.
 
 
 **Functionality**:
