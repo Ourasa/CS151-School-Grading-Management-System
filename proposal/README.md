@@ -14,7 +14,7 @@ Schools need a gradebook(s) in order to keep track of the performance of each st
 **Intended Usage**: This system is intended to be used by schools. 
 
 **High-level Description of solution**: 
-We are developing a system that will replace paper gradebooks. Professors can add assignments and detail how many points each student obtained. In this system, all registered users (admins, professors, students) will be able to interact with the gradebook, with certain restrictions placed depending on the type of user. Users will have to login with their name and ID before being able to interact with the system. 
+We are developing a system that will replace paper gradebooks. Professors can add assignments and detail how many points each student obtained. In this system, all registered users (admins, professors, students) will be able to interact with the gradebook, with certain restrictions placed depending on the type of user. Users will have to login with their ID and password before being able to interact with the system. 
 
 The plan is to start with the development of smaller components, such as the classes for each type of user, and the courses + assignments. These components will be used to complete the main functions of the system in a separate, overarching class. Edits can be made to the components as needed. 
 
