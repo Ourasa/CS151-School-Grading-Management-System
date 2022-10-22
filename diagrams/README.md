@@ -1,1 +1,6 @@
-
+| File Name  | Summary    | 
+| ---------- | ---------- | 
+| [classDiagram.pdf](https://github.com/Ourasa/CS151-School-Grading-Management-System/blob/main/diagrams/classDiagram.pdf) | This displays a UML Class Diagram of this system. The diagrams describes the relationships between each of the classes in the project. | 
+| [useCaseDiagram.pdf](https://github.com/Ourasa/CS151-School-Grading-Management-System/blob/main/diagrams/useCaseDiagram.pdf) | This displays a UML Use Case Diagram of this system. Note that in this case, Students, Professors, and Admins are grouped together to be "User." This diagram describes the several users and cases of concern for the project.| 
+| [stateDiagram.pdf](https://github.com/Ourasa/CS151-School-Grading-Management-System/blob/main/diagrams/stateDiagram.pdf) | This displays a UML State Diagram of this system. The diagram showcases the different states that the system can enter, depending the user's actions.| 
+| [sequenceDiagram.pdf](https://github.com/Ourasa/CS151-School-Grading-Management-System/blob/main/diagrams/sequenceDiagram.pdf) | This displays a UML Sequence Diagram of this system. Note that in this case, Students, Professors, and Admins are grouped together to be "User." The diagram showcases how the user, GUI, and system interact in realtion with time. The start is at the top, and the end is at the bottom. |
