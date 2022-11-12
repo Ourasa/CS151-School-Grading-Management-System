@@ -1,6 +1,8 @@
 package project;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
@@ -21,27 +23,47 @@ public class UserInterface implements ActionListener {
 	 * 
 	 * Information is sent from this to the controller, which is then sent to the grade system.
 	 * 
+	 * 
+	 * Information about the scrollable!
+	 * - To make something scrollable, use JScrollPane.
+	 * 
+	 * - JScrollPane will automatically make something have scroll bars as need, but
+	 * 		ONLY IF the "preferred size" of the panel, container, etc. is smaller than what is shown.
+	 * 		This means you will need to use (container name).setPreferredSize(Dimension)
+	 * 
+	 * - Also, in the case a page is made to be scrollable, you only need to add the JScrollPane into the Frame.
 	 */
-	
+
 	private JFrame frame;
+	
+	//Login screen components
+	private JScrollPane loginScroll;
 	private JPanel loginPanel;
 	private JTextField idField;
 	private JPasswordField pwdField;
 	private JButton loginButton;
+	private JLabel loginHeadingLabel;
 	private JLabel statusLabel;
 	
 	
 	public UserInterface(Controller control) {
 		this.control = control;
 		frame = new JFrame();
-		
-		frame.setSize(425, 400);
+		frame.setSize(400, 275);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.setTitle("Pain System");
 		
+		setupLoginScreen();
+		
+		frame.setVisible(true);
+	}
+	
+	public void setupLoginScreen() {
 		loginPanel = new JPanel();
 		loginPanel.setLayout(null);
+		loginPanel.setPreferredSize(new Dimension(400, 275));
+		loginScroll = new JScrollPane(loginPanel);
 		
 		idField = new JTextField();
 		idField.setBounds(100, 100, 200, 25);
@@ -58,14 +80,27 @@ public class UserInterface implements ActionListener {
 		loginButton.setBounds(150,200, 100, 25);
 		loginPanel.add(loginButton);
 		
+		loginHeadingLabel = new JLabel();
+		loginHeadingLabel.setText("Gradebook Login");
+		loginHeadingLabel.setHorizontalAlignment(JLabel.CENTER);
+		loginHeadingLabel.setBounds(100, 50, 200, 25);
+		loginHeadingLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+		loginPanel.add(loginHeadingLabel);
+		
 		statusLabel = new JLabel();
 		statusLabel.setBounds(150, 250, 100, 25);
 		loginPanel.add(statusLabel);
 		
-		frame.add(loginPanel);
-		frame.setVisible(true);
+		
+		frame.add(loginScroll);
+		frame.pack();
 	}
-
+	
+	
+	public void setupAdminScreen() {
+		
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -80,7 +115,10 @@ public class UserInterface implements ActionListener {
 			} else {
 				statusLabel.setText("F for FAILURE");
 			}
+			
 		}
+		
+		
 	}
 
 	
