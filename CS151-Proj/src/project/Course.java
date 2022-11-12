@@ -20,6 +20,27 @@ public class Course {
 		this.studentBase = new TreeMap<Student, ArrayList<Assignment>>();
 	}
 	
+	
+	
+	
+	/**
+	 * This method is called multiple times by GradeSystem.  
+	 */
+	public void addAssignment(Student student, Assignment asgn) {
+		studentBase.get(student).add(asgn);
+	}
+	
+	
+//	/**
+//	 * 
+//	 * @param student
+//	 */
+//	public void editAssignment(Student student, Assignment asgn, double newPointsEarned) {
+//		
+//	}
+	
+
+	
 	public void addNewStudent(Student student) {
 		studentBase.put(student, new ArrayList<Assignment>());
 	}

@@ -39,12 +39,61 @@ public class UserInterface implements ActionListener {
 	//Login screen components
 	private JScrollPane loginScroll;
 	private JPanel loginPanel;
-	private JTextField idField;
-	private JPasswordField pwdField;
+	private JTextField loginIdField;
+	private JPasswordField loginPwdField;
 	private JButton loginButton;
+	private JLabel loginIdLabel;
+	private JLabel loginPwdLabel;
 	private JLabel loginHeadingLabel;
 	private JLabel statusLabel;
 	
+	//Admin - Pick an option page : Either buttons, or a drop down box and a confirm button.
+	private JScrollPane adminOptionScroll;
+	private JPanel adminOptionPanel;
+	private JComboBox<String> adminOptionsBox;
+	private JButton adminOptionConfirmBtn;
+	private JButton adminLogoutBtn;
+	private JLabel adminWelcomeLabel;
+	
+	//Admin - Add a user to system : Should have text fields to fill in the information of the new user
+	
+	//Admin - Remove a user from system : Probably a drop down box containing IDs? Then a confirm button to complete removal... I think
+	
+	//Admin - Add a course into system: TextFields, a drop down box for Professor, and confirm button. 
+	
+	//Admin - Remove a course from system: A drop down box, and a confirm button. 
+	
+	//Admin - Assign Professor to a Course : Likely 2 drop down boxes, one for courses, and another for Professor. Then a confirm button.
+	
+	//Admin - Remove Professor from Course : One drop down box, and a confirm button. (Only 1 professor is in a Course)
+	
+	//Admin - Add Student to a Course : 2 drop down boxes, one for courses, one for student. Then a confirm button.
+	
+	//Admin - Remove Student from a Course: 2 drop down boxes, one for the course, and one for its current student. Then a confirm button. 
+	
+	
+	
+	//Professor - Pick an option page
+	
+	//Professor - Add student screen from course
+	
+	//Professor - Remove student screen from course
+	
+	//Professor - Add an assignment for all students in a course.
+	
+	//Professor - Edit an assignment for all students in a course.
+	
+	//Professor - Remove an assignment for all students in a course.
+	
+	
+	
+	//Student - Pick an option page
+	
+	//Student - View all Courses + Grades
+	
+	//Student - View all Assignments (of a current course)
+	
+	//Student - Print transcript
 	
 	public UserInterface(Controller control) {
 		this.control = control;
@@ -52,9 +101,12 @@ public class UserInterface implements ActionListener {
 		frame.setSize(400, 275);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.setResizable(false);
-		frame.setTitle("Pain System");
+		frame.setTitle("Pain Grading System");
+		
 		
 		setupLoginScreen();
+		setupAdminOptionScreen();
+		
 		
 		frame.setVisible(true);
 	}
@@ -65,19 +117,26 @@ public class UserInterface implements ActionListener {
 		loginPanel.setPreferredSize(new Dimension(400, 275));
 		loginScroll = new JScrollPane(loginPanel);
 		
-		idField = new JTextField();
-		idField.setBounds(100, 100, 200, 25);
-		loginPanel.add(idField);
+		loginIdField = new JTextField();
+		loginIdField.setBounds(125, 100, 200, 25);
+		loginPanel.add(loginIdField);
 		
-		pwdField = new JPasswordField();
-		pwdField.setBounds(100, 150, 200, 25);
-		loginPanel.add(pwdField);
+		loginIdLabel = new JLabel("ID: ");
+		loginIdLabel.setBounds(100, 100, 100, 25);
+		loginPanel.add(loginIdLabel);
 		
+		loginPwdField = new JPasswordField();
+		loginPwdField.setBounds(125, 140, 200, 25);
+		loginPanel.add(loginPwdField);
+		
+		loginPwdLabel = new JLabel("Password: ");
+		loginPwdLabel.setBounds(55, 140, 100, 25);
+		loginPanel.add(loginPwdLabel);
 		
 		loginButton = new JButton();
 		loginButton.addActionListener(this);
 		loginButton.setText("Login");
-		loginButton.setBounds(150,200, 100, 25);
+		loginButton.setBounds(150, 210, 100, 25);
 		loginPanel.add(loginButton);
 		
 		loginHeadingLabel = new JLabel();
@@ -88,33 +147,99 @@ public class UserInterface implements ActionListener {
 		loginPanel.add(loginHeadingLabel);
 		
 		statusLabel = new JLabel();
-		statusLabel.setBounds(150, 250, 100, 25);
+		statusLabel.setBounds(100, 175, 200, 25);
+		statusLabel.setForeground(Color.RED);
+		statusLabel.setHorizontalAlignment(JLabel.CENTER);
+		statusLabel.setText("Incorrect Username or Password");
+		statusLabel.setVisible(false);
 		loginPanel.add(statusLabel);
-		
 		
 		frame.add(loginScroll);
 		frame.pack();
 	}
 	
 	
-	public void setupAdminScreen() {
+	public void setupAdminOptionScreen() {
+		adminOptionPanel = new JPanel();
+		adminOptionPanel.setLayout(null);
+		adminOptionPanel.setPreferredSize(new Dimension(400, 275));
+		adminOptionScroll = new JScrollPane(adminOptionPanel);
 		
+		String[] adminOptions = {"Add User", "Remove User", "Add Course", "Remove Course" , "Set Professor for Course", "Remove Professor from Course", "Add Student to Course", "Remove Student from Course"};
+		adminOptionsBox = new JComboBox<String>(adminOptions);
+		adminOptionsBox.setBounds(100, 140, 200, 25);
+		adminOptionPanel.add(adminOptionsBox);
+		
+		adminOptionConfirmBtn = new JButton();
+		adminOptionConfirmBtn.addActionListener(this);
+		adminOptionConfirmBtn.setBounds(210, 200, 90, 25);
+		adminOptionConfirmBtn.setText("Confirm");
+		adminOptionPanel.add(adminOptionConfirmBtn);
+		
+		adminLogoutBtn = new JButton();
+		adminLogoutBtn.addActionListener(this);
+		adminLogoutBtn.setBounds(100, 200, 90, 25);
+		adminLogoutBtn.setText("Logout");
+		adminOptionPanel.add(adminLogoutBtn);
+		
+		
+		adminWelcomeLabel = new JLabel();
+		adminWelcomeLabel.setText("Welcome, ----");
+		adminWelcomeLabel.setHorizontalAlignment(JLabel.HORIZONTAL);
+		adminWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+		adminWelcomeLabel.setBounds(90, 50, 225, 25);
+		adminOptionPanel.add(adminWelcomeLabel);
+		
+		
+		//frame.add(adminOptionScroll);
+		//frame.pack();
 	}
 	
 
+	public void setupProfessorOptionScreen() {
+		
+	}
+
+
+	public void setupStudentOptionScreen() {
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == loginButton) {
 			String pwd = "";
-			for (int i = 0; i < pwdField.getPassword().length; i++) {
-				pwd += pwdField.getPassword()[i];
+			for (int i = 0; i < loginPwdField.getPassword().length; i++) {
+				pwd += loginPwdField.getPassword()[i];
 			}
 			
-			if (control.loginUser(idField.getText(), pwd)) {
-				statusLabel.setText("Well, it worked!");
+			if (control.loginUser(loginIdField.getText(), pwd)) {
+				User user = control.getCurrentUser();
+				String fName = user.getFirstName();
+				String lName = user.getLastName();
+				adminWelcomeLabel.setText("Welcome, " + fName + " " + lName);
+				
+				statusLabel.setVisible(false);
+				loginIdField.setText("");
+				loginPwdField.setText("");
+				
+				adminOptionScroll.setVisible(true);
+				loginScroll.setVisible(false);
+				
+				frame.add(adminOptionScroll);
+				frame.remove(loginScroll);
+				frame.pack();
+				//statusLabel.setText("Well, it worked!");
 			} else {
-				statusLabel.setText("F for FAILURE");
+				statusLabel.setVisible(true);
 			}
+			
+		} else if (e.getSource() == adminLogoutBtn) {
+			loginScroll.setVisible(true);
+			adminOptionScroll.setVisible(false);
+			frame.add(loginScroll);
+			frame.remove(adminOptionScroll);
+			control.logoutUser();
 			
 		}
 		

@@ -7,6 +7,8 @@ public class Controller {
 	/*
 	 * Inspired by MVC.
 	 * Idea is that the UserInterface and GradeSystem interact through this class medium.
+	 * 
+	 * Predictably, UserInterface is often the one the initiates contact, since that is what the user is interacting with directly. 
 	 */
 	
 	public Controller() {
@@ -20,15 +22,26 @@ public class Controller {
 		return system.loginAttempt(id, password);
 	}
 	
+	public void logoutUser() {
+		system.logoutAttempt();
+	}
 	
 	public void addUser(User user) {
 		system.addUser(user);
 	}
-
-	
 	public User getCurrentUser() {
 		return system.getCurrentUser();
 	}
 	
+	
+	public void addNewStudent(String firstName, String lastName, String id, String password) {
+		system.addNewStudent(firstName, lastName, id, password);
+	}
+	public void addNewProfessor(String firstName, String lastName, String id, String password) {
+		system.addNewProfessor(firstName, lastName, id, password);
+	}
+	public void addNewAdmin(String firstName, String lastName, String id, String password) {
+		system.addNewAdmin(firstName, lastName, id, password);
+	}
 	
 }

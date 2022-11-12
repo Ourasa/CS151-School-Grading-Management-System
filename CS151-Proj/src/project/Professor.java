@@ -12,5 +12,9 @@ public class Professor extends User {
 	public void addCourse(Course course) {
 		courses.add(course);
 	}
+	
+	public ArrayList<Course> getCourses() {
+		return courses;
+	}
 
 }
