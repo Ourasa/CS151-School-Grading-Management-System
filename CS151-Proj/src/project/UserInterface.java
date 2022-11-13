@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class UserInterface implements ActionListener {
@@ -62,7 +64,21 @@ public class UserInterface implements ActionListener {
 	private JButton adminLogoutBtn;
 	private JLabel adminWelcomeLabel;
 	
-	//Admin - Add a user to system : Should have text fields to fill in the information of the new user
+	//Admin - Add a user to system : Should have text fields to fill in the information of the new user. Dropbox for type of User, likely.
+	private JScrollPane addUserScroll;
+	private JPanel addUserPanel;
+	private JComboBox<String> addUserTypeBox;
+	private JButton addUserConfirmBtn;
+	private JButton addUserCancelBtn;
+	private JTextField addUserFNameField;
+	private JTextField addUserLNameField;
+	private JPasswordField addUserPwdField;
+	
+	private JLabel addUserTitle;
+	private JLabel addUserTypeLabel;
+	private JLabel addFNameLabel;
+	private JLabel addLNameLabel;
+	private JLabel addPwdLabel;
 	
 	//Admin - Remove a user from system : Probably a drop down box containing IDs? Then a confirm button to complete removal... I think
 	
@@ -77,6 +93,16 @@ public class UserInterface implements ActionListener {
 	//Admin - Add Student to a Course : 2 drop down boxes, one for courses, one for student. Then a confirm button.
 	
 	//Admin - Remove Student from a Course: 2 drop down boxes, one for the course, and one for its current student. Then a confirm button. 
+	
+	//Admin - View all Users in the system
+	private JScrollPane viewUsersScroll;
+	private JPanel viewUsersPanel;
+	private JLabel viewUsersFNameLabel;
+	private JLabel viewUsersLNameLabel;
+	private JLabel viewUsersIdLabel;
+	private JLabel viewUsersPwdLabel;
+	private JLabel viewUsersTypeLabel;
+	private JButton viewUsersExitBtn;
 	
 	//------------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -97,6 +123,8 @@ public class UserInterface implements ActionListener {
 	//Professor - Edit an assignment for all students in a course.
 	
 	//Professor - Remove an assignment for all students in a course.
+	
+	//Professor - View students in a course + grades
 	
 	//------------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -126,9 +154,19 @@ public class UserInterface implements ActionListener {
 		
 		setupLoginScreen();
 		
+		//Setup "Home" menu for Users
 		setupAdminOptionScreen();
 		setupProfessorOptionScreen();
 		setupStudentOptionScreen();
+		
+		//Setup Admin specific GUI
+		setupAdminAddUserScreen();
+		
+		setupAdminViewUsersScreen();
+		
+		//Setup Professor specific GUI
+		
+		//Setup Student specific GUI
 		
 		frame.setVisible(true);
 	}
@@ -187,7 +225,7 @@ public class UserInterface implements ActionListener {
 		adminOptionPanel.setPreferredSize(new Dimension(400, 275));
 		adminOptionScroll = new JScrollPane(adminOptionPanel);
 		
-		String[] adminOptions = {"Add User", "Remove User", "Add Course", "Remove Course" , "Set Professor for Course", "Remove Professor from Course", "Add Student to Course", "Remove Student from Course"};
+		String[] adminOptions = {"Add User", "Remove User", "Add Course", "Remove Course" , "Set Professor for Course", "Remove Professor from Course", "Add Student to Course", "Remove Student from Course", "View All Users"};
 		adminOptionsBox = new JComboBox<String>(adminOptions);
 		adminOptionsBox.setBounds(100, 120, 200, 25);
 		adminOptionPanel.add(adminOptionsBox);
@@ -207,7 +245,7 @@ public class UserInterface implements ActionListener {
 		
 		adminWelcomeLabel = new JLabel();
 		adminWelcomeLabel.setText("Welcome, ----");
-		adminWelcomeLabel.setHorizontalAlignment(JLabel.HORIZONTAL);
+		adminWelcomeLabel.setHorizontalAlignment(JLabel.CENTER);
 		adminWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		adminWelcomeLabel.setBounds(90, 50, 225, 25);
 		adminOptionPanel.add(adminWelcomeLabel);
@@ -244,7 +282,7 @@ public class UserInterface implements ActionListener {
 		
 		profWelcomeLabel = new JLabel();
 		profWelcomeLabel.setText("Welcome, ----");
-		profWelcomeLabel.setHorizontalAlignment(JLabel.HORIZONTAL);
+		profWelcomeLabel.setHorizontalAlignment(JLabel.CENTER);
 		profWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		profWelcomeLabel.setBounds(90, 50, 225, 25);
 		profOptionPanel.add(profWelcomeLabel);
@@ -277,11 +315,160 @@ public class UserInterface implements ActionListener {
 		
 		studentWelcomeLabel = new JLabel();
 		studentWelcomeLabel.setText("Welcome, ----");
-		studentWelcomeLabel.setHorizontalAlignment(JLabel.HORIZONTAL);
+		studentWelcomeLabel.setHorizontalAlignment(JLabel.CENTER);
 		studentWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		studentWelcomeLabel.setBounds(90, 50, 225, 25);
 		studentOptionPanel.add(studentWelcomeLabel);
 	}
+	
+	
+	public void setupAdminAddUserScreen() {
+		addUserPanel = new JPanel();
+		addUserPanel.setLayout(null);
+		addUserPanel.setPreferredSize(new Dimension(400, 275));
+		addUserScroll = new JScrollPane(addUserPanel);
+		
+		String[] types = {"Admin", "Professor", "Student"};
+		addUserTypeBox = new JComboBox<String>(types);
+		addUserTypeBox.setBounds(100,80,100,25);
+		addUserPanel.add(addUserTypeBox);
+		
+		addUserFNameField = new JTextField();
+		addUserFNameField.setBounds(100, 110, 200, 25);
+		addUserPanel.add(addUserFNameField);
+		
+		addUserLNameField = new JTextField();
+		addUserLNameField.setBounds(100, 140, 200, 25);
+		addUserPanel.add(addUserLNameField);
+		
+		addUserPwdField = new JPasswordField();
+		addUserPwdField.setBounds(100, 170, 200, 25);
+		addUserPanel.add(addUserPwdField);
+		
+		addUserConfirmBtn = new JButton("Confirm");
+		addUserConfirmBtn.setBounds(200, 220, 100, 25);
+		addUserConfirmBtn.addActionListener(this);
+		addUserPanel.add(addUserConfirmBtn);
+		
+		addUserCancelBtn = new JButton("Cancel");
+		addUserCancelBtn.setBounds(80, 220, 100, 25);
+		addUserCancelBtn.addActionListener(this);
+		addUserPanel.add(addUserCancelBtn);
+		
+		addUserTitle = new JLabel("Add User");
+		addUserTitle.setHorizontalAlignment(JLabel.CENTER);
+		addUserTitle.setFont(new Font("Serif", Font.PLAIN, 18));
+		addUserTitle.setBounds(100, 30, 200, 25);
+		addUserPanel.add(addUserTitle);
+		
+		addUserTypeLabel = new JLabel("User Type");
+		addUserTypeLabel.setBounds(30, 80, 100, 25);
+		addUserPanel.add(addUserTypeLabel);
+		
+		addFNameLabel = new JLabel("First Name:");
+		addFNameLabel.setBounds(30, 110, 100, 25);
+		addUserPanel.add(addFNameLabel);
+		
+		addLNameLabel = new JLabel("Last Name:");
+		addLNameLabel.setBounds(30, 140, 100, 25);
+		addUserPanel.add(addLNameLabel);
+		
+		addPwdLabel = new JLabel("Password:");
+		addPwdLabel.setBounds(30, 170, 100, 25);
+		addUserPanel.add(addPwdLabel);
+		
+	}
+	
+	
+	
+	public void setupAdminViewUsersScreen() {
+		viewUsersPanel = new JPanel();
+		viewUsersPanel.setLayout(null);
+		viewUsersPanel.setPreferredSize(new Dimension(600, 500));
+		viewUsersScroll = new JScrollPane(viewUsersPanel);
+		
+		viewUsersTypeLabel = new JLabel("Type");
+		viewUsersTypeLabel.setBounds(50, 30, 100, 25);
+		viewUsersPanel.add(viewUsersTypeLabel);
+		
+		viewUsersFNameLabel = new JLabel("First name");
+		viewUsersFNameLabel.setBounds(150, 30, 100, 25);
+		viewUsersPanel.add(viewUsersFNameLabel);
+		
+		viewUsersLNameLabel = new JLabel("Last name");
+		viewUsersLNameLabel.setBounds(250, 30, 100, 25);
+		viewUsersPanel.add(viewUsersLNameLabel);
+		
+		viewUsersIdLabel = new JLabel("ID");
+		viewUsersIdLabel.setBounds(350, 30, 100, 25);
+		viewUsersPanel.add(viewUsersIdLabel);
+		
+		viewUsersPwdLabel = new JLabel("Password");
+		viewUsersPwdLabel.setBounds(450, 30, 100, 25);
+		viewUsersPanel.add(viewUsersPwdLabel);
+		
+		viewUsersExitBtn = new JButton("Exit");
+		viewUsersExitBtn.setBounds(40, 200, 100, 25);
+		viewUsersExitBtn.addActionListener(this);
+		viewUsersPanel.add(viewUsersExitBtn);
+	}
+	
+	private void updateViewUsersScreen() {
+		ArrayList<User> arr = control.getUserList();
+		
+		//Gets rid old data
+		viewUsersPanel = new JPanel();
+		viewUsersPanel.setLayout(null);
+		viewUsersPanel.setPreferredSize(new Dimension(600, 500));
+		viewUsersScroll = new JScrollPane(viewUsersPanel);
+		
+		viewUsersPanel.add(viewUsersTypeLabel);
+		viewUsersPanel.add(viewUsersFNameLabel);
+		viewUsersPanel.add(viewUsersLNameLabel);
+		viewUsersPanel.add(viewUsersIdLabel);
+		viewUsersPanel.add(viewUsersPwdLabel);
+		//viewUsersPanel.add(viewUsersExitBtn); 
+		
+		// For each User, we give them a NEW row. 
+		for (int i = 0; i < arr.size(); i++) {
+			User currentUser = arr.get(i);
+			JLabel type = null;
+			
+			if (currentUser instanceof Admin) {
+				type = new JLabel("Admin");
+			} else if (currentUser instanceof Professor) {
+				type = new JLabel("Professor");
+			} else if (currentUser instanceof Student) {
+				type = new JLabel("Student");
+			}
+			
+			type.setBounds(50, 50 + 20 * i, 100, 25);
+			
+			JLabel fName = new JLabel(currentUser.getFirstName());
+			fName.setBounds(150, 50 + 20 * i, 100, 25);
+			JLabel lName = new JLabel(currentUser.getLastName());
+			lName.setBounds(250, 50 + 20 * i, 100, 25);
+			JLabel id = new JLabel(currentUser.getId());
+			id.setBounds(350, 50 + 20 * i, 100, 25);
+			JLabel pwd = new JLabel(currentUser.getPassword());
+			pwd.setBounds(450, 50 + 20 * i, 100, 25);
+			
+			viewUsersPanel.add(type);
+			viewUsersPanel.add(fName);
+			viewUsersPanel.add(lName);
+			viewUsersPanel.add(id);
+			viewUsersPanel.add(pwd);
+			viewUsersExitBtn.setBounds(40, 80 + 20 * i, 100, 25);
+		}
+		viewUsersPanel.add(viewUsersExitBtn);
+		
+		if (arr.size() < 25) {
+			viewUsersPanel.setPreferredSize(new Dimension(600, arr.size() * 20 + 100));
+		} else {
+			viewUsersPanel.setPreferredSize(new Dimension(600, 600));
+		}
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -301,26 +488,21 @@ public class UserInterface implements ActionListener {
 				
 				if (user instanceof Admin) {
 					adminWelcomeLabel.setText("Welcome, " + fName + " " + lName);
-					adminOptionScroll.setVisible(true);
-					frame.add(adminOptionScroll);
+					pageTransition(loginScroll, adminOptionScroll);
 					
 				} else if (user instanceof Professor) {
 					profWelcomeLabel.setText("Welcome, " + fName + " " + lName);
-					profOptionScroll.setVisible(true);
-					frame.add(profOptionScroll);
+					pageTransition(loginScroll, profOptionScroll);
 				
 				} else if (user instanceof Student) {
 					studentWelcomeLabel.setText("Welcome, " + fName + " " + lName);
-					studentOptionScroll.setVisible(true);
-					frame.add(studentOptionScroll);
+					pageTransition(loginScroll, studentOptionScroll);
 				}
 				
 				statusLabel.setVisible(false);
 				loginIdField.setText("");
 				loginPwdField.setText("");
-				loginScroll.setVisible(false);
 				
-				frame.remove(loginScroll);
 				frame.pack();
 				
 			//Failed Login
@@ -330,30 +512,71 @@ public class UserInterface implements ActionListener {
 			
 		// Admin Logout
 		} else if (e.getSource() == adminLogoutBtn) {
-			loginScroll.setVisible(true);
-			adminOptionScroll.setVisible(false);
-			frame.add(loginScroll);
-			frame.remove(adminOptionScroll);
+			pageTransition(adminOptionScroll, loginScroll);
 			control.logoutUser();
+			
 		// Professor Logout	
 		} else if (e.getSource() == profLogoutBtn) {
-			loginScroll.setVisible(true);
-			profOptionScroll.setVisible(false);
-			frame.add(loginScroll);
-			frame.remove(profOptionScroll);
+			pageTransition(profOptionScroll, loginScroll);
 			control.logoutUser();
+		
 		// Student Logout		
 		} else if (e.getSource() == studentLogoutBtn){
-			loginScroll.setVisible(true);
-			studentOptionScroll.setVisible(false);
-			frame.add(loginScroll);
-			frame.remove(studentOptionScroll);
-			control.logoutUser();
+			pageTransition(studentOptionScroll, loginScroll);
+			control.logoutUser();	
+			
+		// Admin Picks an option
+		} else if (e.getSource() == adminOptionConfirmBtn) {
+			
+			if (((String)adminOptionsBox.getSelectedItem()).equals("Add User")) {
+				pageTransition(adminOptionScroll, addUserScroll);
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove User")) {
+				
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Add Course")) {
+				
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
+				
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
+				
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove Professor from Course")) {
+				
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
+				
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
+				
+				
+			} else if (((String)adminOptionsBox.getSelectedItem()).equals("View All Users")) {
+				updateViewUsersScreen();
+				pageTransition(adminOptionScroll, viewUsersScroll);
+			}
+			
+		// Admin cancels/exits
+		} else if (e.getSource() == addUserCancelBtn) {
+			addUserTypeBox.setSelectedIndex(0);
+			addUserFNameField.setText("");
+			addUserLNameField.setText("");
+			addUserPwdField.setText("");
+			pageTransition(addUserScroll, adminOptionScroll);
 		}
-		
-		
 	}
 
+	private void pageTransition(JScrollPane before, JScrollPane after) {
+		after.setVisible(true);
+		frame.add(after);
+		before.setVisible(false);
+		frame.remove(before);
+		frame.pack();
+	}
+	
+	
+	
 	
 	/*
 	 * List of possible commands it will need:

@@ -1,5 +1,7 @@
 package project;
 
+import java.util.ArrayList;
+
 public class Controller {
 	private UserInterface ui;
 	private GradeSystem system;
@@ -31,6 +33,11 @@ public class Controller {
 	}
 	public User getCurrentUser() {
 		return system.getCurrentUser();
+	}
+	
+	
+	public ArrayList<User> getUserList() {
+		return system.getUserList();
 	}
 	
 	

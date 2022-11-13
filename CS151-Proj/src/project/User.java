@@ -1,9 +1,9 @@
 package project;
 
 public abstract class User {
-	private String firstName;
+	private String firstName;		
 	private String lastName;
-	private String id;
+	private String id;				//Id should follow the format of first character of first name, first character of second name, dash, and 4 numbers. EX:  AB-0000
 	private String password;
 	
 	

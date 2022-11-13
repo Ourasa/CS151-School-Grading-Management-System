@@ -198,6 +198,12 @@ public class GradeSystem {
 		return currentUser;
 	}
 	
+	
+	public ArrayList<User> getUserList() {
+		return new ArrayList<User>(users.values());
+	}
+	
+	
 	public ArrayList<Course> getProfCourses() {
 		return ((Professor)currentUser).getCourses();
 	}
@@ -214,4 +220,13 @@ public class GradeSystem {
 	
 	
 	
+	
+	
+	public static String idNumGenerator() {
+		int[] nums = new int[4];
+		for (int i = 0; i < nums.length; i++) {
+			nums[i] = (int)(Math.random() * 10);
+		}
+		return "" + nums[0] + "" + nums[1] + "" + nums[2] + "" + nums[3];
+	}
 }
