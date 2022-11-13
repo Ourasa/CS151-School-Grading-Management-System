@@ -28,6 +28,14 @@ public class Student extends User {
 		return this.gpa;
 	}
 	
+	
+	public void updateGrade(Course course) {
+		char grade = course.getGrade(this);
+		curCourses.put(course, grade);
+	}
+	
+	
+	
 	//No clue if this works yet. We will see later on, for sure. 
 	public void updateGPA() {
 		double sum = 0;

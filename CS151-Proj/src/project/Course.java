@@ -62,4 +62,28 @@ public class Course {
 	public Professor getProfessor() {
 		return this.professor;
 	}
+	
+	
+	public char getGrade(Student student) {
+		double pointsEarned = 0;
+		double pointsTotal = 0;
+		
+		for (int i = 0; i < studentBase.get(student).size(); i++) {
+			pointsEarned += studentBase.get(student).get(i).getPointsEarned();
+			pointsTotal += studentBase.get(student).get(i).getPointsTotal();
+		}
+		
+		
+		if (pointsTotal == 0 || pointsEarned/pointsTotal < 0.6) {
+			return 'F';
+		} else if (pointsEarned/pointsTotal < 0.7) {
+			return 'D';
+		} else if (pointsEarned/pointsTotal < 0.8) {
+			return 'C';
+		} else if (pointsEarned/pointsTotal < 0.9) {
+			return 'B';
+		} else {
+			return 'A';
+		}
+	}
 }

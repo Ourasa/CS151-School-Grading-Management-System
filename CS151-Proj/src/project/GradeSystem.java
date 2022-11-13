@@ -1,6 +1,7 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 //import java.util.HashSet;
 
@@ -17,26 +18,75 @@ public class GradeSystem {
 	 * 
 	 * ================================================================ THINGS TO KEEP IN MIND================================================================
 	 * 
-	 * 1.) A Course only have 1 Professor. This can be defined, or null. 
+	 * 1.)  A Course only have 1 Professor. This can be defined, or null. 
 	 * 
-	 * 2.) Removal of a Student in a Course will destroy all assignments associated with them in that Course. 
+	 * 2.)  Removal of a Student in a Course will destroy all assignments associated with them in that Course. 
 	 * 
-	 * 3.) Removal of a Professor in a Course will simply set the Course's Professor to null.
+	 * 3.)  Removal of a Professor in a Course will simply set the Course's Professor to null.
 	 * 
-	 * 4.) Removal of an Admin will have no effect on the grades in the system.
+	 * 4.)  Removal of an Admin will have no effect on the grades in the system.
 	 * 
-	 * 5.) Removal of a Student in the system will remove them from all Courses, past or present. 
+	 * 5.)  Removal of a Student in the system will remove them from all Courses, past or present. 
 	 * 
-	 * 6.) Removal of a Professor in the system will set all Courses' Professors they are associated with to null.
+	 * 6.)  Removal of a Professor in the system will set all Courses' Professors they are associated with to null.
 	 * 
-	 * 7.) Only an Admin can add Users into the system. One is created by default upon system startup. 
+	 * 7.)  Only an Admin can add Users into the system. One is created by default upon system startup. 
 	 * 
-	 * 8.) Professors and Admins can both add or remove Students from a Course. The difference is that an Admin is not restricted by the Courses
+	 * 8.)  Professors and Admins can both add or remove Students from a Course. The difference is that an Admin is not restricted by the Courses
 	 * 		they are responsible for (a Course's Professor).
 	 * 
-	 * 9.) Professors can only edit the points earned for an Assignment. Debatable as to whether they should also be able to edit the total and name. 
+	 * 9.)  Professors can only edit the points earned for an Assignment. Debatable as to whether they should also be able to edit the total and name. 
+	 * 
+	 * 10.) Every time an assignment is added, the student's grade should be automatically updated. On top of that, the student's overall GPA should also be changed. 
+	 * 		This also applies when an assignment is edited. 
+	 * 
+	 * 11.) Removal of a Course will cause all Students to be kicked from the Course.
+	 * 
 	 * 
 	 * ========================================================================================================================================================
+	 *
+	 * ------ Completed ------
+	 * - Basic GUI for logging in
+	 * - GUI home page for each User type
+	 * - Actually logging the user in. 
+	 * - Preventing non-users from entering and using the system
+	 * 
+	 *
+	 * ------ Work in Progress/To be worked on ------
+	 * - GUI for each of the specific user options
+	 * 
+	 * - Admin Options
+	 * 		Adding User to system
+	 * 		Removing User from system
+	 * 
+	 * 		Adding Course to system
+	 * 		Removing Course from system
+	 * 
+	 * 		Assigning Professor to a Course
+	 * 		Removing Professor from a Course	
+	 * 
+	 * 		Adding Student to a Course
+	 * 		Removing Student from a Course
+	 * 		
+	 * - Professor Options
+	 * 		Adding Student to a Course
+	 * 		Removing Student from a Course
+	 * 
+	 * 		Adding an Assignment (for all Students).
+	 * 		Possible: Editing an Assignment (for one Student)?
+	 * 		Removing an Assignment (for all Students)
+	 * 
+	 * 		Viewing each Student in the class, and their grade in said class.
+	 * 
+	 * - Student Options
+	 * 		Viewing their current and past Courses, and Grades for each. Includes GPA probs
+	 *		Printing a transcript of their grades and courses.
+	 *
+	 * 
+	 * ------ Possible future implementations ------
+	 * - Making a "Finish Course" option. This would be different from removing a course, in insert the Course into the pastCourse for each student in that class. 
+	 * - Canvas API????
+	 * 
 	 */
 	
 	public GradeSystem(Controller control) {
@@ -65,7 +115,7 @@ public class GradeSystem {
 	}
 	
 	/**
-	 *Logs out current user. Pretty much a guaranteed success operation. 
+	 * Logs out current user. Pretty much a guaranteed success operation. 
 	 */
 	public void logoutAttempt() {
 		currentUser = null;
@@ -112,8 +162,6 @@ public class GradeSystem {
 			courses.put(course.getName(), course);
 		}
 		
-		
-		
 	
 	// ------------------------------------------------------ Professor-related Options ------------------------------------------------------
 	
@@ -130,9 +178,11 @@ public class GradeSystem {
 	public void addAssignment(Course course, Student student, String name, double pointsEarned, double pointsTotal) {
 		Assignment assignment = new Assignment(name, pointsEarned, pointsTotal);
 		course.addAssignment(student, assignment);
+		student.updateGrade(course);
+		student.updateGPA();
 	}
 	
-//	public void editAssignment(Course course, Student student, Assignment asgn) {
+//	public void editAssignment(Course course, Student student, String asgnName) {
 //		
 //	}
 		
@@ -148,9 +198,20 @@ public class GradeSystem {
 		return currentUser;
 	}
 	
-	public ArrayList<Course> getCourses() {
+	public ArrayList<Course> getProfCourses() {
 		return ((Professor)currentUser).getCourses();
 	}
+	
+	public ArrayList<Course> getAllCourses() {
+		ArrayList<Course> list = new ArrayList<Course>();
+		
+		for (Map.Entry<String, Course> set : courses.entrySet()) {
+			list.add(set.getValue());
+		}
+		
+		return list;
+	}
+	
 	
 	
 }
