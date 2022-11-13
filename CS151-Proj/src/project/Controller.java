@@ -14,8 +14,8 @@ public class Controller {
 	 */
 	
 	public Controller() {
-		ui = new UserInterface(this);
 		system = new GradeSystem(this);
+		ui = new UserInterface(this);
 	}
 
 	// Uses information to return a User in the database.

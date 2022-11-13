@@ -81,6 +81,13 @@ public class UserInterface implements ActionListener {
 	private JLabel addPwdLabel;
 	
 	//Admin - Remove a user from system : Probably a drop down box containing IDs? Then a confirm button to complete removal... I think
+	private JScrollPane removeUserScroll;
+	private JPanel removeUserPanel;
+	private JComboBox<String> removeUserListBox;
+	private JButton removeUserConfirmBtn;
+	private JButton removeUserCancelBtn;
+	private JLabel removeUserLabel;
+	private JLabel removeUserDeniedLabel;
 	
 	//Admin - Add a course into system: TextFields, a drop down box for Professor, and confirm button. 
 	
@@ -149,7 +156,7 @@ public class UserInterface implements ActionListener {
 		frame.setSize(400, 275);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//frame.setResizable(false);
-		frame.setTitle("Pain Grading System");
+		frame.setTitle("In Pain and Agony :D");
 		
 		
 		setupLoginScreen();
@@ -161,7 +168,7 @@ public class UserInterface implements ActionListener {
 		
 		//Setup Admin specific GUI
 		setupAdminAddUserScreen();
-		
+		setupAdminRemoveUserScreen();
 		setupAdminViewUsersScreen();
 		
 		//Setup Professor specific GUI
@@ -249,10 +256,6 @@ public class UserInterface implements ActionListener {
 		adminWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		adminWelcomeLabel.setBounds(90, 50, 225, 25);
 		adminOptionPanel.add(adminWelcomeLabel);
-		
-		
-		//frame.add(adminOptionScroll);
-		//frame.pack();
 	}
 	
 
@@ -379,7 +382,47 @@ public class UserInterface implements ActionListener {
 		
 	}
 	
+	public void setupAdminRemoveUserScreen() {
+		removeUserPanel = new JPanel();
+		removeUserPanel.setLayout(null);
+		removeUserPanel.setPreferredSize(new Dimension(400, 275));
+		removeUserScroll = new JScrollPane(removeUserPanel);
+		
+		removeUserConfirmBtn = new JButton("Confirm");
+		removeUserConfirmBtn.setBounds(210, 200, 90, 25);
+		removeUserConfirmBtn.addActionListener(this);
+		removeUserPanel.add(removeUserConfirmBtn);
+		
+		removeUserCancelBtn = new JButton("Cancel");
+		removeUserCancelBtn.setBounds(100, 200, 90, 25);
+		removeUserCancelBtn.addActionListener(this);
+		removeUserPanel.add(removeUserCancelBtn);
+		
+		removeUserLabel = new JLabel("Remove User");
+		removeUserLabel.setHorizontalAlignment(JLabel.CENTER);
+		removeUserLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+		removeUserLabel.setBounds(100, 30, 200, 25);
+		removeUserPanel.add(removeUserLabel);
+		
+		removeUserDeniedLabel = new JLabel("Denied: Must have minimum 1 Admin in System.");
+		removeUserDeniedLabel.setBounds(100, 150, 200, 25);
+		removeUserDeniedLabel.setForeground(Color.RED);
+		removeUserDeniedLabel.setVisible(false);
+		removeUserPanel.add(removeUserDeniedLabel);
+	}
 	
+	public void updateRemoveUserScreen() {
+		ArrayList<User> users = control.getUserList();
+		String[] userIds = new String[users.size()];
+		
+		for (int i = 0; i < users.size(); i++) {
+			userIds[i] = users.get(i).getId();
+		}
+		
+		removeUserListBox = new JComboBox<String>(userIds);
+		removeUserListBox.setBounds(100, 100, 200, 25);
+		removeUserPanel.add(removeUserListBox);
+	}
 	
 	public void setupAdminViewUsersScreen() {
 		viewUsersPanel = new JPanel();
@@ -427,7 +470,6 @@ public class UserInterface implements ActionListener {
 		viewUsersPanel.add(viewUsersLNameLabel);
 		viewUsersPanel.add(viewUsersIdLabel);
 		viewUsersPanel.add(viewUsersPwdLabel);
-		//viewUsersPanel.add(viewUsersExitBtn); 
 		
 		// For each User, we give them a NEW row. 
 		for (int i = 0; i < arr.size(); i++) {
@@ -512,18 +554,23 @@ public class UserInterface implements ActionListener {
 			
 		// Admin Logout
 		} else if (e.getSource() == adminLogoutBtn) {
+			adminOptionsBox.setSelectedIndex(0);
 			pageTransition(adminOptionScroll, loginScroll);
 			control.logoutUser();
 			
 		// Professor Logout	
 		} else if (e.getSource() == profLogoutBtn) {
+			profOptionsBox.setSelectedIndex(0);
 			pageTransition(profOptionScroll, loginScroll);
 			control.logoutUser();
 		
 		// Student Logout		
-		} else if (e.getSource() == studentLogoutBtn){
+		} else if (e.getSource() == studentLogoutBtn) {
+			studentOptionsBox.setSelectedIndex(0);
 			pageTransition(studentOptionScroll, loginScroll);
 			control.logoutUser();	
+
+// =========================================================================== ADMIN STUFF ===========================================================================			
 			
 		// Admin Picks an option
 		} else if (e.getSource() == adminOptionConfirmBtn) {
@@ -532,7 +579,8 @@ public class UserInterface implements ActionListener {
 				pageTransition(adminOptionScroll, addUserScroll);
 				
 			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove User")) {
-				
+				updateRemoveUserScreen();
+				pageTransition(adminOptionScroll, removeUserScroll);
 				
 			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Add Course")) {
 				
@@ -557,14 +605,22 @@ public class UserInterface implements ActionListener {
 				pageTransition(adminOptionScroll, viewUsersScroll);
 			}
 			
-		// Admin cancels/exits
+		// Admin cancels adding a user
 		} else if (e.getSource() == addUserCancelBtn) {
 			addUserTypeBox.setSelectedIndex(0);
 			addUserFNameField.setText("");
 			addUserLNameField.setText("");
 			addUserPwdField.setText("");
 			pageTransition(addUserScroll, adminOptionScroll);
+		
+		} else if (e.getSource() == removeUserCancelBtn) {	
+			pageTransition(removeUserScroll, adminOptionScroll);
+			
+		//Admin exits viewing all users
+		} else if (e.getSource() == viewUsersExitBtn) {
+			pageTransition(viewUsersScroll, adminOptionScroll);
 		}
+		
 	}
 
 	private void pageTransition(JScrollPane before, JScrollPane after) {
@@ -575,32 +631,4 @@ public class UserInterface implements ActionListener {
 		frame.pack();
 	}
 	
-	
-	
-	
-	/*
-	 * List of possible commands it will need:
-	 * 
-	 * - Get the current user
-	 * - Log out the current user
-	 * 
-	 * Admin 
-	 * - Add a new Student, Professor, or Admin
-	 * - Remove a Student, Professor, or Admin
-	 * - Set/Remove a course's professor
-	 * - Add/Remove student from class
-	 * 
-	 * 
-	 * Professor 
-	 * - Add an assignment
-	 * - Remove an assignment
-	 * - Edit an assignment
-	 * - Add/Remove student from class
-	 * 
-	 * 
-	 * Student 
-	 * - View assignments of current courses
-	 * - Print Transcript
-	 * 
-	 */
 }
