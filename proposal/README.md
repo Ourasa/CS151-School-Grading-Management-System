@@ -18,7 +18,9 @@ We are developing a system that will replace paper gradebooks. Professors can ad
 
 The plan is to start with the development of smaller components, such as the classes for each type of user, and the courses + assignments. These components will be used to complete the main functions of the system in a separate, overarching class. Edits can be made to the components as needed. 
 
-After the main functions are completed, ideally, a graphical user interface (GUI) would be made to accommodate and work alongside it. This may be achieved through the use of Java Swing. 
+OLD: After the main functions are completed, ideally, a graphical user interface (GUI) would be made to accommodate and work alongside it. This may be achieved through the use of Java Swing. 
+
+NEW: The main functions are to be developed in parallel with the GUI. This is to ensure that the GUI and backend are able to properly communicate with each other.
 
 If possible, Canvas API may be integrated to directly import grades from Canvas.
 
@@ -37,9 +39,13 @@ Furthermore, students will now be able to login and view their grades without ha
   Professors: 
   - Can add/remove assignments of students in the classes they are responsible for.
   - Can add or remove students from the class. Removal of a student will not delete the student from the system. 
+  - Can view their students and their grades in a course they are responsible for.
 
 
   Admins: 
-  - Can do everything a professor can do, without the restriction of only performing actions in the class they are in.  
-  - Can add new professors and students into the system. This can be done either manually, or by loading in a file (.txt preferably). 
+  - Can add or remove students from the class. Removal of a student will not delete the student from the system. 
+  - Can add new courses into the system. 
+  - Can add new professors and new students into the system.
+  - Can assign or remove a professor to/from a course.
   - Can remove professors and students from the system. 
+  - Can remove courses from the system. 
