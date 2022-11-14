@@ -11,6 +11,15 @@ public class Driver {
 		con.addUser(defaultAdmin);
 		con.addUser(defaultProfessor);
 		con.addUser(defaultStudent);
+		
+		Course course1 = new Course("ENGL-01");
+		Course course2 = new Course("CS 151-06");
+		Course course3 = new Course("MUSC10A-90");
+		
+		con.addCourse(course1);
+		con.addCourse(course2);
+		con.addCourse(course3);
+	
 	}
 
 }

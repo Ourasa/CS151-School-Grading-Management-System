@@ -14,6 +14,12 @@ public class Course {
 		this.studentBase = studentBase;
 	}
 	
+	public Course(String name, Professor professor) {
+		this.name = name;
+		this.professor = professor;
+		this.studentBase = new TreeMap<Student, ArrayList<Assignment>>();
+	}
+	
 	public Course(String name) {
 		this.name = name;
 		this.professor = null;

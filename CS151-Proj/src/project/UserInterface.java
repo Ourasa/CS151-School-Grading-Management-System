@@ -101,6 +101,14 @@ public class UserInterface implements ActionListener {
 	private JLabel addCourseProfLabel;
 	
 	//Admin - Remove a course from system: A drop down box, and a confirm button. 
+	private JScrollPane removeCourseScroll;
+	private JPanel removeCoursePanel;
+	private JComboBox<String> removeCourseBox;
+	private JButton removeCourseConfirmBtn;
+	private JButton removeCourseCancelBtn;
+	private JLabel removeCourseTitleLabel;
+	private JLabel removeCourseNameLabel;
+	
 	
 	//Admin - Assign Professor to a Course : Likely 2 drop down boxes, one for courses, and another for Professor. Then a confirm button.
 	
@@ -167,7 +175,6 @@ public class UserInterface implements ActionListener {
 		//frame.setResizable(false);
 		frame.setTitle("In Pain and Agony :D");
 		
-		
 		setupLoginScreen();
 		
 		//Setup "Home" menu for Users
@@ -179,6 +186,7 @@ public class UserInterface implements ActionListener {
 		setupAdminAddUserScreen();
 		setupAdminRemoveUserScreen();
 		setupAdminAddCourseScreen();
+		setupAdminRemoveCourseScreen();
 		setupAdminViewUsersScreen();
 		
 		//Setup Professor specific GUI
@@ -421,20 +429,20 @@ public class UserInterface implements ActionListener {
 		removeUserPanel.add(removeUserDeniedLabel);
 	}
 	
-	public void updateRemoveUserScreen() {
+	public void updateAdminRemoveUserScreen() {
 		ArrayList<User> users = control.getUserList();
-		String[] userIds = new String[users.size()];
+		String[] userIds = new String[users.size() + 1];
+		
+		userIds[0] = "Select a User";
 		
 		for (int i = 0; i < users.size(); i++) {
-			userIds[i] = users.get(i).getId();
+			userIds[i + 1] = users.get(i).getId();
 		}
 		
 		removeUserListBox = new JComboBox<String>(userIds);
 		removeUserListBox.setBounds(100, 100, 200, 25);
 		removeUserPanel.add(removeUserListBox);
 	}
-	
-	
 	
 	
 	
@@ -450,7 +458,7 @@ public class UserInterface implements ActionListener {
 		addCourseConfirmBtn = new JButton("Confirm");
 		addCourseConfirmBtn.setBounds(210, 200, 90, 25);
 		addCourseConfirmBtn.addActionListener(this);
-		addCoursePanel.add(removeUserConfirmBtn);
+		addCoursePanel.add(addCourseConfirmBtn);
 		
 		addCourseCancelBtn= new JButton("Cancel");
 		addCourseCancelBtn.setBounds(100, 200, 90, 25);
@@ -492,17 +500,58 @@ public class UserInterface implements ActionListener {
 		String[] profsBox = new String[professors.size()];
 		profsBox = professors.toArray(profsBox);
 		
-		for(String str : profsBox) {
-			System.out.println(str);
-		}
-		
 		addCourseProfessorBox = new JComboBox<String>(profsBox);
 		addCourseProfessorBox.setBounds(170, 130, 130, 25);
 		addCoursePanel.add(addCourseProfessorBox);
 	}
 	
 	
+	public void setupAdminRemoveCourseScreen() {
+		removeCoursePanel = new JPanel();
+		removeCoursePanel.setLayout(null);
+		removeCoursePanel.setPreferredSize(new Dimension(400, 275));
+		removeCourseScroll = new JScrollPane(removeCoursePanel);
+		
+		removeCourseBox = new JComboBox<String>();
+		
+		removeCourseConfirmBtn = new JButton("Confirm");
+		removeCourseConfirmBtn.setBounds(210, 200, 90, 25);
+		removeCourseConfirmBtn.addActionListener(this);
+		removeCoursePanel.add(removeCourseConfirmBtn);
+		
+		removeCourseCancelBtn = new JButton("Cancel");
+		removeCourseCancelBtn.setBounds(100, 200, 90, 25);
+		removeCourseCancelBtn.addActionListener(this);
+		removeCoursePanel.add(removeCourseCancelBtn);
+		
+		removeCourseTitleLabel = new JLabel("Remove Course");
+		removeCourseTitleLabel.setHorizontalAlignment(JLabel.CENTER);
+		removeCourseTitleLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+		removeCourseTitleLabel.setBounds(100, 30, 200, 25);
+		removeCoursePanel.add(removeCourseTitleLabel);
+		
+		removeCourseNameLabel = new JLabel("Course:");
+		removeCourseNameLabel.setBounds(100, 110, 100, 25);
+		removeCoursePanel.add(removeCourseNameLabel);
+	}
 	
+	public void updateAdminRemoveCourseScreen() {
+		ArrayList<Course> courses = control.getAllCourses();
+		ArrayList<String> coursesNames = new ArrayList<String>();
+		
+		coursesNames.add("Select a Course");
+		
+		for (int i = 0; i < courses.size(); i++) {
+			coursesNames.add(courses.get(i).getName());
+		}
+		
+		String[] coursesBox = new String[coursesNames.size()];
+		coursesBox = coursesNames.toArray(coursesBox);
+		
+		removeCourseBox = new JComboBox<String>(coursesBox);
+		removeCourseBox.setBounds(150, 110, 150, 25);
+		removeCoursePanel.add(removeCourseBox);
+	}
 	
 	
 	public void setupAdminViewUsersScreen() {
@@ -668,7 +717,7 @@ public class UserInterface implements ActionListener {
 				pageTransition(adminOptionScroll, addUserScroll);
 				
 			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove User")) {
-				updateRemoveUserScreen();
+				updateAdminRemoveUserScreen();
 				pageTransition(adminOptionScroll, removeUserScroll);
 				
 			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Add Course")) {
@@ -676,7 +725,8 @@ public class UserInterface implements ActionListener {
 				pageTransition(adminOptionScroll, addCourseScroll);
 				
 			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
-				
+				updateAdminRemoveCourseScreen();
+				pageTransition(adminOptionScroll, removeCourseScroll);
 				
 			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
 				
@@ -712,6 +762,10 @@ public class UserInterface implements ActionListener {
 			addCourseNameField.setText("");
 			addCourseProfessorBox.setSelectedIndex(0);
 			pageTransition(addCourseScroll, adminOptionScroll);
+			
+		} else if (e.getSource() == removeCourseCancelBtn){
+			removeCourseBox.setSelectedIndex(0);
+			pageTransition(removeCourseScroll, adminOptionScroll);
 			
 		//Admin exits viewing all users
 		} else if (e.getSource() == viewUsersExitBtn) {

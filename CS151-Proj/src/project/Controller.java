@@ -31,11 +31,17 @@ public class Controller {
 	public void addUser(User user) {
 		system.addUser(user);
 	}
+	
 	public User getCurrentUser() {
 		return system.getCurrentUser();
 	}
+	
 	public ArrayList<User> getUserList() {
 		return system.getUserList();
+	}
+	
+	public ArrayList<Course> getAllCourses() {
+		return system.getAllCourses();
 	}
 	
 	
@@ -49,4 +55,11 @@ public class Controller {
 		system.addNewAdmin(firstName, lastName, id, password);
 	}
 	
+	
+	public void addCourse(Course course) {
+		system.addCourse(course);
+	}
+	public void addCourse(String courseName, String professorID) {
+		system.addCourse(courseName, professorID);
+	}
 }
