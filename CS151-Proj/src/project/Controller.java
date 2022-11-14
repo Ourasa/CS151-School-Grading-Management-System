@@ -34,8 +34,6 @@ public class Controller {
 	public User getCurrentUser() {
 		return system.getCurrentUser();
 	}
-	
-	
 	public ArrayList<User> getUserList() {
 		return system.getUserList();
 	}

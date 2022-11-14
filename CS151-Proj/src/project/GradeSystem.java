@@ -52,14 +52,14 @@ public class GradeSystem {
 	 * - Preventing non-users from entering and using the system
 	 * 
 	 *
-	 * ------ Work in Progress/To be worked on ------
+	 * ------ Work in Progress/To be worked on ------ 	(X = GUI created, O = Functioning)
 	 * - GUI for each of the specific user options
 	 * 
 	 * - Admin Options
-	 * 		Adding User to system
-	 * 		Removing User from system
+	 * 		Adding User to system X
+	 * 		Removing User from system X
 	 * 
-	 * 		Adding Course to system
+	 * 		Adding Course to system X
 	 * 		Removing Course from system
 	 * 
 	 * 		Assigning Professor to a Course
