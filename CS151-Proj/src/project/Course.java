@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Course {
-	private String name;
+	private String name;					//Course name should be similar to our system, like "CS 151-06"
 	private Professor professor;
 	private TreeMap<Student, ArrayList<Assignment>> studentBase;
 	
@@ -12,6 +12,12 @@ public class Course {
 		this.name = name;
 		this.professor = professor;
 		this.studentBase = studentBase;
+	}
+	
+	public Course(String name, Professor professor) {
+		this.name = name;
+		this.professor = professor;
+		this.studentBase = new TreeMap<Student, ArrayList<Assignment>>();
 	}
 	
 	public Course(String name) {

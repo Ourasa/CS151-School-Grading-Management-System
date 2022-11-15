@@ -52,14 +52,14 @@ public class GradeSystem {
 	 * - Preventing non-users from entering and using the system
 	 * 
 	 *
-	 * ------ Work in Progress/To be worked on ------
+	 * ------ Work in Progress/To be worked on ------ 	(X = GUI created, O = Functioning)
 	 * - GUI for each of the specific user options
 	 * 
 	 * - Admin Options
-	 * 		Adding User to system
-	 * 		Removing User from system
+	 * 		Adding User to system X
+	 * 		Removing User from system X
 	 * 
-	 * 		Adding Course to system
+	 * 		Adding Course to system X
 	 * 		Removing Course from system
 	 * 
 	 * 		Assigning Professor to a Course
@@ -158,6 +158,9 @@ public class GradeSystem {
 		public void addCourse(String name) {
 			courses.put(name, new Course(name));
 		}
+		public void addCourse(String courseName, String professorID) {
+			courses.put(courseName, new Course(courseName, (Professor)users.get(professorID)));
+		}
 		public void addCourse(Course course) {
 			courses.put(course.getName(), course);
 		}
@@ -203,20 +206,24 @@ public class GradeSystem {
 		return new ArrayList<User>(users.values());
 	}
 	
+	public ArrayList<Course> getAllCourses() {
+		return new ArrayList<Course>(courses.values());
+	}
+	
 	
 	public ArrayList<Course> getProfCourses() {
 		return ((Professor)currentUser).getCourses();
 	}
 	
-	public ArrayList<Course> getAllCourses() {
-		ArrayList<Course> list = new ArrayList<Course>();
-		
-		for (Map.Entry<String, Course> set : courses.entrySet()) {
-			list.add(set.getValue());
-		}
-		
-		return list;
-	}
+//	public ArrayList<Course> getAllCourses() {
+//		ArrayList<Course> list = new ArrayList<Course>();
+//		
+//		for (Map.Entry<String, Course> set : courses.entrySet()) {
+//			list.add(set.getValue());
+//		}
+//		
+//		return list;
+//	}
 	
 	
 	
@@ -229,4 +236,5 @@ public class GradeSystem {
 		}
 		return "" + nums[0] + "" + nums[1] + "" + nums[2] + "" + nums[3];
 	}
+	
 }
