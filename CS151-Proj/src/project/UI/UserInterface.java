@@ -10,7 +10,7 @@ import javax.swing.*;
 import project.*;
 
 public class UserInterface implements ActionListener {
-	private Controller control;
+	Controller control;
 
 	/*
 	 * The guy that the user actually sees. Good idea to use Java swing for this.
@@ -46,7 +46,7 @@ public class UserInterface implements ActionListener {
 	 * JScrollPane into the Frame.
 	 */
 
-	private JFrame frame;
+	JFrame frame;
 
 	// Login screen components
 	LoginScrollPane loginScroll;
@@ -55,7 +55,7 @@ public class UserInterface implements ActionListener {
 
 	// Admin - Pick an option page : Either buttons, or a drop down box and a
 	// confirm button.
-	private AdminOptionScroll adminOptionScroll;
+	AdminOptionScroll adminOptionScroll;
 
 	// Admin - Add a user to system : Should have text fields to fill in the
 	// information of the new user. Dropbox for type of User, likely.
@@ -561,64 +561,12 @@ public class UserInterface implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// Login Attempt
-		if (e.getSource() == loginScroll.loginButton) {
-			String pwd = "";
-			for (int i = 0; i < loginScroll.loginPwdField.getPassword().length; i++) {
-				pwd += loginScroll.loginPwdField.getPassword()[i];
-			}
-
-			// Successful Login
-			if (control.loginUser(loginScroll.loginIdField.getText(), pwd)) {
-				User user = control.getCurrentUser();
-				String fName = user.getFirstName();
-				String lName = user.getLastName();
-
-				if (user instanceof Admin) {
-					adminOptionScroll.adminWelcomeLabel.setText("Welcome, " + fName + " " + lName);
-					pageTransition(loginScroll, adminOptionScroll);
-
-				} else if (user instanceof Professor) {
-					professorOptionScroll.profWelcomeLabel.setText("Welcome, " + fName + " " + lName);
-					pageTransition(loginScroll, professorOptionScroll);
-
-				} else if (user instanceof Student) {
-					studentOptionScroll.studentWelcomeLabel.setText("Welcome, " + fName + " " + lName);
-					pageTransition(loginScroll, studentOptionScroll);
-				}
-
-				loginScroll.statusLabel.setVisible(false);
-				loginScroll.loginIdField.setText("");
-				loginScroll.loginPwdField.setText("");
-
-				frame.pack();
-
-				// Failed Login
-			} else {
-				loginScroll.statusLabel.setVisible(true);
-			}
-
-			// Admin Logout
-		} else if (e.getSource() == adminOptionScroll.adminLogoutBtn) {
-			adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
-			pageTransition(adminOptionScroll, loginScroll);
-			control.logoutUser();
-
-			// Professor Logout
-		} else if (e.getSource() == professorOptionScroll.profLogoutBtn) {
-			professorOptionScroll.profOptionsBox.setSelectedIndex(0);
-			pageTransition(professorOptionScroll, loginScroll);
-			control.logoutUser();
-
-			// Student Logout
-		} else if (e.getSource() == studentOptionScroll.studentLogoutBtn) {
-			studentOptionScroll.studentOptionsBox.setSelectedIndex(0);
-			pageTransition(studentOptionScroll, loginScroll);
-			control.logoutUser();
+		
 
 // =========================================================================== ADMIN STUFF ===========================================================================			
 
 			// Admin Picks an option
-		} else if (e.getSource() == adminOptionScroll.adminOptionConfirmBtn) {
+		if (e.getSource() == adminOptionScroll.adminOptionConfirmBtn) {
 
 			if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Add User")) {
 				pageTransition(adminOptionScroll, addUserScroll);

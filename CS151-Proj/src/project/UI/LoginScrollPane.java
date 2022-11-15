@@ -13,6 +13,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import project.Admin;
+import project.Professor;
+import project.Student;
+import project.User;
+
 public class LoginScrollPane extends JScrollPane implements ActionListener {
 	JPanel loginPanel;
 	JTextField loginIdField;
@@ -26,6 +31,7 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 
 	public LoginScrollPane(UserInterface in) {
 		frame = in;
+		this.setBackground(Color.lightGray);
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400, 275));
 
@@ -70,7 +76,68 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		if (e.getSource() == loginButton) {
+			String pwd = "";
+			for (int i = 0; i < loginPwdField.getPassword().length; i++) {
+				pwd += loginPwdField.getPassword()[i];
+			}
+
+			// Successful Login
+			if (frame.control.loginUser(loginIdField.getText(), pwd)) {
+				User user = frame.control.getCurrentUser();
+				String fName = user.getFirstName();
+				String lName = user.getLastName();
+
+				if (user instanceof Admin) {
+					frame.adminOptionScroll.adminWelcomeLabel.setText("Welcome, " + fName + " " + lName);
+					pageTransition(frame.loginScroll, frame.adminOptionScroll);
+
+				} else if (user instanceof Professor) {
+					frame.professorOptionScroll.profWelcomeLabel.setText("Welcome, " + fName + " " + lName);
+					pageTransition(frame.loginScroll, frame.professorOptionScroll);
+
+				} else if (user instanceof Student) {
+					frame.studentOptionScroll.studentWelcomeLabel.setText("Welcome, " + fName + " " + lName);
+					pageTransition(frame.loginScroll, frame.studentOptionScroll);
+				}
+
+				frame.loginScroll.statusLabel.setVisible(false);
+				frame.loginScroll.loginIdField.setText("");
+				frame.loginScroll.loginPwdField.setText("");
+
+				frame.frame.pack();
+
+				// Failed Login
+			} else {
+				frame.loginScroll.statusLabel.setVisible(true);
+			}
+
+			// Admin Logout
+		} else if (e.getSource() == frame.adminOptionScroll.adminLogoutBtn) {
+			frame.adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
+			pageTransition(frame.adminOptionScroll, frame.loginScroll);
+			frame.control.logoutUser();
+
+			// Professor Logout
+		} else if (e.getSource() ==frame.professorOptionScroll.profLogoutBtn) {
+			frame.professorOptionScroll.profOptionsBox.setSelectedIndex(0);
+			pageTransition(frame.professorOptionScroll, frame.loginScroll);
+			frame.control.logoutUser();
+
+			// Student Logout
+		} else if (e.getSource() == frame.studentOptionScroll.studentLogoutBtn) {
+			frame.studentOptionScroll.studentOptionsBox.setSelectedIndex(0);
+			pageTransition(frame.studentOptionScroll, frame.loginScroll);
+			frame.control.logoutUser();
+		}
+	}
+
+	private void pageTransition(JScrollPane before, JScrollPane after) {
+		after.setVisible(true);
+		frame.frame.add(after);
+		before.setVisible(false);
+		frame.frame.remove(before);
+		frame.frame.pack();
 	}
 
 }
