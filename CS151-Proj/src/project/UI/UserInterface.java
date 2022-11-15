@@ -118,12 +118,7 @@ public class UserInterface implements ActionListener {
 	//------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	//Professor - Pick an option page
-	private JScrollPane profOptionScroll;
-	private JPanel profOptionPanel;
-	private JComboBox<String> profOptionsBox;
-	private JButton profOptionConfirmBtn;
-	private JButton profLogoutBtn;
-	private JLabel profWelcomeLabel;
+	ProfessorOptionScroll professorOptionScroll;
 	
 	//Professor - Add student screen from course
 	private JScrollPane addStudentScroll;
@@ -176,11 +171,13 @@ public class UserInterface implements ActionListener {
 		//frame.setResizable(false);
 		frame.setTitle("In Pain and Agony :D");
 		
-		setupLoginScreen();
+		loginScroll = new LoginScrollPane(this);
+		frame.add(loginScroll);
+		frame.pack();
 		
 		//Setup "Home" menu for Users
-		setupAdminOptionScreen();
-		setupProfessorOptionScreen();
+		adminOptionScroll = new AdminOptionScroll(this);
+		professorOptionScroll = new ProfessorOptionScroll(this);
 		setupStudentOptionScreen();
 		
 		//Setup Admin specific GUI
@@ -198,48 +195,8 @@ public class UserInterface implements ActionListener {
 		frame.setVisible(true);
 	}
 	
-	public void setupLoginScreen() {
-		loginScroll = new LoginScrollPane(this);
-		frame.add(loginScroll);
-		frame.pack();
-	}
-	
-	
-	public void setupAdminOptionScreen() {
-		adminOptionScroll = new AdminOptionScroll(this);
-	}
-	
 
 	public void setupProfessorOptionScreen() {
-		profOptionPanel = new JPanel();
-		profOptionPanel.setLayout(null);
-		profOptionPanel.setPreferredSize(new Dimension(400, 275));
-		profOptionScroll = new JScrollPane(profOptionPanel);
-		
-		String[] profOptions = {"Add Student to Course", "Remove Student from Course", "Add an Assignment", "Edit an Assignment", "Remove an Assignment", "View Students + Grades"};
-		profOptionsBox = new JComboBox<String>(profOptions);
-		profOptionsBox.setBounds(100, 120, 200, 25);
-		profOptionPanel.add(profOptionsBox);
-		
-		profOptionConfirmBtn = new JButton();
-		profOptionConfirmBtn.addActionListener(this);
-		profOptionConfirmBtn.setBounds(210, 200, 90, 25);
-		profOptionConfirmBtn.setText("Confirm");
-		profOptionPanel.add(profOptionConfirmBtn);
-		
-		profLogoutBtn = new JButton();
-		profLogoutBtn.addActionListener(this);
-		profLogoutBtn.setBounds(100, 200, 90, 25);
-		profLogoutBtn.setText("Logout");
-		profOptionPanel.add(profLogoutBtn);
-		
-		
-		profWelcomeLabel = new JLabel();
-		profWelcomeLabel.setText("Welcome, ----");
-		profWelcomeLabel.setHorizontalAlignment(JLabel.CENTER);
-		profWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-		profWelcomeLabel.setBounds(90, 50, 225, 25);
-		profOptionPanel.add(profWelcomeLabel);
 	}
 
 
@@ -653,8 +610,8 @@ public class UserInterface implements ActionListener {
 					pageTransition(loginScroll, adminOptionScroll);
 					
 				} else if (user instanceof Professor) {
-					profWelcomeLabel.setText("Welcome, " + fName + " " + lName);
-					pageTransition(loginScroll, profOptionScroll);
+					professorOptionScroll.profWelcomeLabel.setText("Welcome, " + fName + " " + lName);
+					pageTransition(loginScroll, professorOptionScroll);
 				
 				} else if (user instanceof Student) {
 					studentWelcomeLabel.setText("Welcome, " + fName + " " + lName);
@@ -679,9 +636,9 @@ public class UserInterface implements ActionListener {
 			control.logoutUser();
 			
 		// Professor Logout	
-		} else if (e.getSource() == profLogoutBtn) {
-			profOptionsBox.setSelectedIndex(0);
-			pageTransition(profOptionScroll, loginScroll);
+		} else if (e.getSource() == professorOptionScroll.profLogoutBtn) {
+			professorOptionScroll.profOptionsBox.setSelectedIndex(0);
+			pageTransition(professorOptionScroll, loginScroll);
 			control.logoutUser();
 		
 		// Student Logout		
@@ -757,24 +714,24 @@ public class UserInterface implements ActionListener {
 		// =========================================================================== PROFESSOR STUFF ===========================================================================			
 		
 		//Professor pick a option
-    else if (e.getSource() == profOptionConfirmBtn ) {
+    else if (e.getSource() == professorOptionScroll.profOptionConfirmBtn ) {
 			
-			if (((String)profOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
-				pageTransition(profOptionScroll, addStudentScroll);
+			if (((String)professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
+				pageTransition(professorOptionScroll, addStudentScroll);
 				
-			} else if (((String)profOptionsBox.getSelectedItem()).equals("Remove Student from Course")){
-				
-				
-			} else if (((String)profOptionsBox.getSelectedItem()).equals("Add an Assignment")) {
+			} else if (((String)professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Remove Student from Course")){
 				
 				
-			} else if (((String)profOptionsBox.getSelectedItem()).equals("Edit an Assignment")) {
+			} else if (((String)professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Add an Assignment")) {
 				
 				
-			} else if (((String)profOptionsBox.getSelectedItem()).equals("Remove an Assignment")) {
+			} else if (((String)professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Edit an Assignment")) {
 				
 				
-			} else if (((String)profOptionsBox.getSelectedItem()).equals("View Students + Grades")) {
+			} else if (((String)professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Remove an Assignment")) {
+				
+				
+			} else if (((String)professorOptionScroll.profOptionsBox.getSelectedItem()).equals("View Students + Grades")) {
 				
 				
 		
@@ -785,7 +742,7 @@ public class UserInterface implements ActionListener {
 						addStudentFNameField.setText("");
 						addStudentLNameField.setText("");
 						addStudentPwdField.setText("");
-						pageTransition(addStudentScroll, profOptionScroll);
+						pageTransition(addStudentScroll, professorOptionScroll);
 }
 	}
 
