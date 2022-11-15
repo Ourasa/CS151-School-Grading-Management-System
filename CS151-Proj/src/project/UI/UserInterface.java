@@ -57,12 +57,7 @@ public class UserInterface implements ActionListener {
 	//------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	//Admin - Pick an option page : Either buttons, or a drop down box and a confirm button.
-	private JScrollPane adminOptionScroll;
-	private JPanel adminOptionPanel;
-	private JComboBox<String> adminOptionsBox;
-	private JButton adminOptionConfirmBtn;
-	private JButton adminLogoutBtn;
-	private JLabel adminWelcomeLabel;
+	private AdminOptionScroll adminOptionScroll;
 	
 	//Admin - Add a user to system : Should have text fields to fill in the information of the new user. Dropbox for type of User, likely.
 	private JScrollPane addUserScroll;
@@ -260,35 +255,7 @@ public class UserInterface implements ActionListener {
 	
 	
 	public void setupAdminOptionScreen() {
-		adminOptionPanel = new JPanel();
-		adminOptionPanel.setLayout(null);
-		adminOptionPanel.setPreferredSize(new Dimension(400, 275));
-		adminOptionScroll = new JScrollPane(adminOptionPanel);
-		
-		String[] adminOptions = {"Add User", "Remove User", "Add Course", "Remove Course" , "Set Professor for Course", "Remove Professor from Course", "Add Student to Course", "Remove Student from Course", "View All Users"};
-		adminOptionsBox = new JComboBox<String>(adminOptions);
-		adminOptionsBox.setBounds(100, 120, 200, 25);
-		adminOptionPanel.add(adminOptionsBox);
-		
-		adminOptionConfirmBtn = new JButton();
-		adminOptionConfirmBtn.addActionListener(this);
-		adminOptionConfirmBtn.setBounds(210, 200, 90, 25);
-		adminOptionConfirmBtn.setText("Confirm");
-		adminOptionPanel.add(adminOptionConfirmBtn);
-		
-		adminLogoutBtn = new JButton();
-		adminLogoutBtn.addActionListener(this);
-		adminLogoutBtn.setBounds(100, 200, 90, 25);
-		adminLogoutBtn.setText("Logout");
-		adminOptionPanel.add(adminLogoutBtn);
-		
-		
-		adminWelcomeLabel = new JLabel();
-		adminWelcomeLabel.setText("Welcome, ----");
-		adminWelcomeLabel.setHorizontalAlignment(JLabel.CENTER);
-		adminWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-		adminWelcomeLabel.setBounds(90, 50, 225, 25);
-		adminOptionPanel.add(adminWelcomeLabel);
+		adminOptionScroll = new AdminOptionScroll(this);
 	}
 	
 
@@ -731,7 +698,7 @@ public class UserInterface implements ActionListener {
 				String lName = user.getLastName();
 				
 				if (user instanceof Admin) {
-					adminWelcomeLabel.setText("Welcome, " + fName + " " + lName);
+					adminOptionScroll.adminWelcomeLabel.setText("Welcome, " + fName + " " + lName);
 					pageTransition(loginScroll, adminOptionScroll);
 					
 				} else if (user instanceof Professor) {
@@ -755,8 +722,8 @@ public class UserInterface implements ActionListener {
 			}
 			
 		// Admin Logout
-		} else if (e.getSource() == adminLogoutBtn) {
-			adminOptionsBox.setSelectedIndex(0);
+		} else if (e.getSource() == adminOptionScroll.adminLogoutBtn) {
+			adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
 			pageTransition(adminOptionScroll, loginScroll);
 			control.logoutUser();
 			
@@ -775,36 +742,36 @@ public class UserInterface implements ActionListener {
 // =========================================================================== ADMIN STUFF ===========================================================================			
 			
 		// Admin Picks an option
-		} else if (e.getSource() == adminOptionConfirmBtn) {
+		} else if (e.getSource() == adminOptionScroll.adminOptionConfirmBtn) {
 			
-			if (((String)adminOptionsBox.getSelectedItem()).equals("Add User")) {
+			if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Add User")) {
 				pageTransition(adminOptionScroll, addUserScroll);
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove User")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Remove User")) {
 				updateAdminRemoveUserScreen();
 				pageTransition(adminOptionScroll, removeUserScroll);
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Add Course")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Add Course")) {
 				updateAdminAddCourseScreen();
 				pageTransition(adminOptionScroll, addCourseScroll);
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
 				updateAdminRemoveCourseScreen();
 				pageTransition(adminOptionScroll, removeCourseScroll);
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
 				
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove Professor from Course")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Remove Professor from Course")) {
 				
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
 				
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
 				
 				
-			} else if (((String)adminOptionsBox.getSelectedItem()).equals("View All Users")) {
+			} else if (((String)adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("View All Users")) {
 				updateViewUsersScreen();
 				pageTransition(adminOptionScroll, viewUsersScroll);
 			}
