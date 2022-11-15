@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 
 public class AdminOptionScroll extends JScrollPane implements ActionListener {
 
-	JPanel adminOptionPanel;
 	JComboBox<String> adminOptionsBox;
 	JButton adminOptionConfirmBtn;
 	JButton adminLogoutBtn;
@@ -23,15 +22,8 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 
 	public AdminOptionScroll(UserInterface in) {
 		frame = in;
-		adminOptionPanel = new JPanel();
-//		adminOptionsBox = new JComboBox();
-//		adminOptionConfirmBtn = new JButton();
-//		adminLogoutBtn = new JButton();
-//		adminWelcomeLabel = new JLabel();
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400, 275));
-//		adminOptionPanel.setLayout(null);
-//		adminOptionPanel.setPreferredSize(new Dimension(400, 275));
 
 		String[] adminOptions = { "Add User", "Remove User", "Add Course", "Remove Course", "Set Professor for Course",
 				"Remove Professor from Course", "Add Student to Course", "Remove Student from Course",
@@ -58,9 +50,6 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 		adminWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		adminWelcomeLabel.setBounds(90, 50, 225, 25);
 		this.add(adminWelcomeLabel);
-		
-
-		
 	}
 
 	@Override

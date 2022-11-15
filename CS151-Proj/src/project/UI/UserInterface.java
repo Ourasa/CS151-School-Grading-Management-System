@@ -44,15 +44,7 @@ public class UserInterface implements ActionListener {
 	private JFrame frame;
 	
 	//Login screen components
-	private JScrollPane loginScroll;
-	private JPanel loginPanel;
-	private JTextField loginIdField;
-	private JPasswordField loginPwdField;
-	private JButton loginButton;
-	private JLabel loginIdLabel;
-	private JLabel loginPwdLabel;
-	private JLabel loginHeadingLabel;
-	private JLabel statusLabel;
+	LoginScrollPane loginScroll;
 	
 	//------------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -207,48 +199,7 @@ public class UserInterface implements ActionListener {
 	}
 	
 	public void setupLoginScreen() {
-		loginPanel = new JPanel();
-		loginPanel.setLayout(null);
-		loginPanel.setPreferredSize(new Dimension(400, 275));
-		loginScroll = new JScrollPane(loginPanel);
-		
-		loginIdField = new JTextField();
-		loginIdField.setBounds(125, 100, 200, 25);
-		loginPanel.add(loginIdField);
-		
-		loginIdLabel = new JLabel("ID: ");
-		loginIdLabel.setBounds(100, 100, 100, 25);
-		loginPanel.add(loginIdLabel);
-		
-		loginPwdField = new JPasswordField();
-		loginPwdField.setBounds(125, 140, 200, 25);
-		loginPanel.add(loginPwdField);
-		
-		loginPwdLabel = new JLabel("Password: ");
-		loginPwdLabel.setBounds(55, 140, 100, 25);
-		loginPanel.add(loginPwdLabel);
-		
-		loginButton = new JButton();
-		loginButton.addActionListener(this);
-		loginButton.setText("Login");
-		loginButton.setBounds(150, 210, 100, 25);
-		loginPanel.add(loginButton);
-		
-		loginHeadingLabel = new JLabel();
-		loginHeadingLabel.setText("Gradebook Login");
-		loginHeadingLabel.setHorizontalAlignment(JLabel.CENTER);
-		loginHeadingLabel.setBounds(100, 50, 200, 25);
-		loginHeadingLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-		loginPanel.add(loginHeadingLabel);
-		
-		statusLabel = new JLabel();
-		statusLabel.setBounds(100, 175, 200, 25);
-		statusLabel.setForeground(Color.RED);
-		statusLabel.setHorizontalAlignment(JLabel.CENTER);
-		statusLabel.setText("Incorrect Username or Password");
-		statusLabel.setVisible(false);
-		loginPanel.add(statusLabel);
-		
+		loginScroll = new LoginScrollPane(this);
 		frame.add(loginScroll);
 		frame.pack();
 	}
@@ -685,14 +636,14 @@ public class UserInterface implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		// Login Attempt
-		if (e.getSource() == loginButton) {
+		if (e.getSource() == loginScroll.loginButton) {
 			String pwd = "";
-			for (int i = 0; i < loginPwdField.getPassword().length; i++) {
-				pwd += loginPwdField.getPassword()[i];
+			for (int i = 0; i < loginScroll.loginPwdField.getPassword().length; i++) {
+				pwd += loginScroll.loginPwdField.getPassword()[i];
 			}
 			
 			//Successful Login
-			if (control.loginUser(loginIdField.getText(), pwd)) {
+			if (control.loginUser(loginScroll.loginIdField.getText(), pwd)) {
 				User user = control.getCurrentUser();
 				String fName = user.getFirstName();
 				String lName = user.getLastName();
@@ -710,15 +661,15 @@ public class UserInterface implements ActionListener {
 					pageTransition(loginScroll, studentOptionScroll);
 				}
 				
-				statusLabel.setVisible(false);
-				loginIdField.setText("");
-				loginPwdField.setText("");
+				loginScroll.statusLabel.setVisible(false);
+				loginScroll.loginIdField.setText("");
+				loginScroll.loginPwdField.setText("");
 				
 				frame.pack();
 				
 			//Failed Login
 			} else {
-				statusLabel.setVisible(true);
+				loginScroll.statusLabel.setVisible(true);
 			}
 			
 		// Admin Logout
@@ -845,5 +796,7 @@ public class UserInterface implements ActionListener {
 		frame.remove(before);
 		frame.pack();
 	}
+
+
 	
 }
