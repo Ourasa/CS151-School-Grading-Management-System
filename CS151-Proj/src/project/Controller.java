@@ -2,6 +2,8 @@ package project;
 
 import java.util.ArrayList;
 
+import project.UI.UserInterface;
+
 public class Controller {
 	private UserInterface ui;
 	private GradeSystem system;

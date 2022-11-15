@@ -1,4 +1,4 @@
-package project;
+package project.UI;
 
 //import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,8 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
 import java.util.ArrayList;
-
 import javax.swing.*;
+import project.*;
 
 public class UserInterface implements ActionListener {
 	private Controller control;
