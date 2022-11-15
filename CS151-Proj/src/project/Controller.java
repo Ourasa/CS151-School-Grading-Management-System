@@ -18,48 +18,70 @@ public class Controller {
 		ui = new UserInterface(this);
 	}
 
-	// Uses information to return a User in the database.
-	// If such a user does not exists, returns null;
+	// LOGGING IN USER
+	// If such a user does not exists, returns false;
 	public boolean loginUser(String id, String password) {
 		return system.loginAttempt(id, password);
 	}
 	
+	//LOGGING OUT USER
 	public void logoutUser() {
 		system.logoutAttempt();
 	}
 	
+	// ADDING A USER - MAINLY FOR DRIVER USE
 	public void addUser(User user) {
 		system.addUser(user);
 	}
 	
+	// ----------------------------- ADMIN OPTIONS -----------------------------
+	
+	// ADDING A USER. Returns the randomly generated ID String made for the User.
+	public String addUser(String type, String firstName, String lastName, String password) {
+		return system.addUser(type, firstName, lastName, password);	
+	}
+	
+	//REMOVING A USER. Returns whether operation was a success or not. Failure may occur for Admin removal attempt, with only 1 Admin left. 
+	public boolean removeUser(String id) {
+		return system.removeUser(id);
+	}
+	
+	// ADD A COURSE
+	public void addCourse(Course course) {
+		system.addCourse(course);
+	}	
+	public void addCourse(String courseName, String professorID) {
+		system.addCourse(courseName, professorID);
+	}
+	
+	//REMOVE A COURSE
+	public void removeCourse(String name) {
+		system.removeCourse(name);
+	}
+	
+	//SET COURSE PROFESSOR
+	public void setProfessorForCourse(String courseName, String professorId) {
+		system.setProfessorForCourse(courseName, professorId);
+	}
+	
+	// REMOVE COURSE PROFESSOR
+	public void removeProfessorFromCourse(String courseName) {
+		system.removeProfessorFromCourse(courseName);
+	}
+	
+	// GET CURRENT USER
 	public User getCurrentUser() {
 		return system.getCurrentUser();
 	}
 	
+	// GET USER LIST
 	public ArrayList<User> getUserList() {
 		return system.getUserList();
 	}
 	
+	// GET ALL COURSES
 	public ArrayList<Course> getAllCourses() {
 		return system.getAllCourses();
 	}
 	
-	
-	public void addNewStudent(String firstName, String lastName, String id, String password) {
-		system.addNewStudent(firstName, lastName, id, password);
-	}
-	public void addNewProfessor(String firstName, String lastName, String id, String password) {
-		system.addNewProfessor(firstName, lastName, id, password);
-	}
-	public void addNewAdmin(String firstName, String lastName, String id, String password) {
-		system.addNewAdmin(firstName, lastName, id, password);
-	}
-	
-	
-	public void addCourse(Course course) {
-		system.addCourse(course);
-	}
-	public void addCourse(String courseName, String professorID) {
-		system.addCourse(courseName, professorID);
-	}
 }

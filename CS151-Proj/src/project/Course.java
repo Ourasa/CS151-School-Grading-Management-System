@@ -27,8 +27,6 @@ public class Course {
 	}
 	
 	
-	
-	
 	/**
 	 * This method is called multiple times by GradeSystem.  
 	 */
@@ -55,6 +53,10 @@ public class Course {
 		studentBase.put(student, asgn);
 	}
 	
+	
+	public void removeStudent(Student student) {
+		studentBase.remove(student);
+	}
 	
 	
 	public void setProfessor(Professor professor) {
@@ -88,8 +90,13 @@ public class Course {
 			return 'C';
 		} else if (pointsEarned/pointsTotal < 0.9) {
 			return 'B';
-		} else {
+		} else {  //Anything above 90%
 			return 'A';
 		}
+	}
+	
+	
+	public ArrayList<Student> getStudents() {
+		return new ArrayList<Student>(studentBase.keySet());
 	}
 }

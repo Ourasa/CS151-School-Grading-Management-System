@@ -24,17 +24,11 @@ public class Student extends User {
 		updateGPA();
 	}
 	
-	public double getGPA() {
-		return this.gpa;
-	}
-	
-	
+	//Updates the student's grade for the specified Course
 	public void updateGrade(Course course) {
 		char grade = course.getGrade(this);
 		curCourses.put(course, grade);
 	}
-	
-	
 	
 	//No clue if this works yet. We will see later on, for sure. 
 	public void updateGPA() {
@@ -76,4 +70,20 @@ public class Student extends User {
 		
 		gpa = sum/coursesCount;
 	}
+	
+	
+	public double getGPA() {
+		return this.gpa;
+	}
+	
+	
+	public TreeMap<Course, Character> getCurCourses() {
+		return curCourses;
+	}
+	
+	
+	public TreeMap<Course, Character> getPastCourses() {
+		return pastCourses;
+	}
+	
 }

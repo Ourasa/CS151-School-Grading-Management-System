@@ -13,6 +13,10 @@ public class Professor extends User {
 		courses.add(course);
 	}
 	
+	public void removeCourse(Course course) {
+		courses.remove(course);
+	}
+	
 	public ArrayList<Course> getCourses() {
 		return courses;
 	}
