@@ -111,24 +111,16 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 			} else {
 				frame.loginScroll.statusLabel.setVisible(true);
 			}
+		}
 
-			// Admin Logout
-		} else if (e.getSource() == frame.adminOptionScroll.adminLogoutBtn) {
-			frame.adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
-			pageTransition(frame.adminOptionScroll, frame.loginScroll);
-			frame.control.logoutUser();
+		// Admin Logout
 
-			// Professor Logout
-		} else if (e.getSource() ==frame.professorOptionScroll.profLogoutBtn) {
-			frame.professorOptionScroll.profOptionsBox.setSelectedIndex(0);
-			pageTransition(frame.professorOptionScroll, frame.loginScroll);
-			frame.control.logoutUser();
+		// Professor Logout
 
-			// Student Logout
-		} else if (e.getSource() == frame.studentOptionScroll.studentLogoutBtn) {
-			frame.studentOptionScroll.studentOptionsBox.setSelectedIndex(0);
-			pageTransition(frame.studentOptionScroll, frame.loginScroll);
-			frame.control.logoutUser();
+		// Student Logout
+
+		else {
+			frame.actionPerformed(e);
 		}
 	}
 

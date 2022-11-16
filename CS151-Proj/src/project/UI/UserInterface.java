@@ -59,51 +59,18 @@ public class UserInterface implements ActionListener {
 
 	// Admin - Add a user to system : Should have text fields to fill in the
 	// information of the new user. Dropbox for type of User, likely.
-	private JScrollPane addUserScroll;
-	private JPanel addUserPanel;
-	private JComboBox<String> addUserTypeBox;
-	private JButton addUserConfirmBtn;
-	private JButton addUserCancelBtn;
-	private JTextField addUserFNameField;
-	private JTextField addUserLNameField;
-	private JPasswordField addUserPwdField;
-
-	private JLabel addUserTitle;
-	private JLabel addUserTypeLabel;
-	private JLabel addFNameLabel;
-	private JLabel addLNameLabel;
-	private JLabel addPwdLabel;
+	AdminAddUser adminAddUser;
 
 	// Admin - Remove a user from system : Probably a drop down box containing IDs?
 	// Then a confirm button to complete removal... I think
-	private JScrollPane removeUserScroll;
-	private JPanel removeUserPanel;
-	private JComboBox<String> removeUserListBox;
-	private JButton removeUserConfirmBtn;
-	private JButton removeUserCancelBtn;
-	private JLabel removeUserLabel;
-	private JLabel removeUserDeniedLabel;
+	AdminRemoveUser adminRemoveUser;
 
 	// Admin - Add a course into system: TextFields, a drop down box for Professor,
 	// and confirm button.
-	private JScrollPane addCourseScroll;
-	private JPanel addCoursePanel;
-	private JComboBox<String> addCourseProfessorBox;
-	private JButton addCourseConfirmBtn;
-	private JButton addCourseCancelBtn;
-	private JTextField addCourseNameField;
-	private JLabel addCourseTitleLabel;
-	private JLabel addCourseNameLabel;
-	private JLabel addCourseProfLabel;
+	AdminAddCourse adminAddCourse;
 
 	// Admin - Remove a course from system: A drop down box, and a confirm button.
-	private JScrollPane removeCourseScroll;
-	private JPanel removeCoursePanel;
-	private JComboBox<String> removeCourseBox;
-	private JButton removeCourseConfirmBtn;
-	private JButton removeCourseCancelBtn;
-	private JLabel removeCourseTitleLabel;
-	private JLabel removeCourseNameLabel;
+	AdminRemoveCourse adminRemoveCourse;
 
 	// Admin - Assign Professor to a Course : Likely 2 drop down boxes, one for
 	// courses, and another for Professor. Then a confirm button.
@@ -118,7 +85,7 @@ public class UserInterface implements ActionListener {
 	// and one for its current student. Then a confirm button.
 
 	// Admin - View all Users in the system
-	private JScrollPane viewUsersScroll;
+	JScrollPane viewUsersScroll;
 	private JPanel viewUsersPanel;
 	private JLabel viewUsersFNameLabel;
 	private JLabel viewUsersLNameLabel;
@@ -186,10 +153,11 @@ public class UserInterface implements ActionListener {
 		professorOptionScroll = new ProfessorOptionScroll(this);
 		studentOptionScroll = new StudentOptionScroll(this);
 		// Setup Admin specific GUI
-		setupAdminAddUserScreen();
-		setupAdminRemoveUserScreen();
-		setupAdminAddCourseScreen();
-		setupAdminRemoveCourseScreen();
+		adminAddUser = new AdminAddUser(this);
+		adminRemoveUser = new AdminRemoveUser(this);
+		adminAddCourse = new AdminAddCourse(this);
+		adminRemoveCourse = new AdminRemoveCourse(this);
+
 		setupAdminViewUsersScreen();
 
 		// Setup Professor specific GUI
@@ -198,96 +166,6 @@ public class UserInterface implements ActionListener {
 		// Setup Student specific GUI
 
 		frame.setVisible(true);
-	}
-
-	public void setupStudentOptionScreen() {
-
-	}
-
-	public void setupAdminAddUserScreen() {
-		addUserPanel = new JPanel();
-		addUserPanel.setLayout(null);
-		addUserPanel.setPreferredSize(new Dimension(400, 275));
-		addUserScroll = new JScrollPane(addUserPanel);
-
-		String[] types = { "Admin", "Professor", "Student" };
-		addUserTypeBox = new JComboBox<String>(types);
-		addUserTypeBox.setBounds(100, 80, 100, 25);
-		addUserPanel.add(addUserTypeBox);
-
-		addUserFNameField = new JTextField();
-		addUserFNameField.setBounds(100, 110, 200, 25);
-		addUserPanel.add(addUserFNameField);
-
-		addUserLNameField = new JTextField();
-		addUserLNameField.setBounds(100, 140, 200, 25);
-		addUserPanel.add(addUserLNameField);
-
-		addUserPwdField = new JPasswordField();
-		addUserPwdField.setBounds(100, 170, 200, 25);
-		addUserPanel.add(addUserPwdField);
-
-		addUserConfirmBtn = new JButton("Confirm");
-		addUserConfirmBtn.setBounds(200, 220, 100, 25);
-		addUserConfirmBtn.addActionListener(this);
-		addUserPanel.add(addUserConfirmBtn);
-
-		addUserCancelBtn = new JButton("Cancel");
-		addUserCancelBtn.setBounds(80, 220, 100, 25);
-		addUserCancelBtn.addActionListener(this);
-		addUserPanel.add(addUserCancelBtn);
-
-		addUserTitle = new JLabel("Add User");
-		addUserTitle.setHorizontalAlignment(JLabel.CENTER);
-		addUserTitle.setFont(new Font("Serif", Font.PLAIN, 18));
-		addUserTitle.setBounds(100, 30, 200, 25);
-		addUserPanel.add(addUserTitle);
-
-		addUserTypeLabel = new JLabel("User Type");
-		addUserTypeLabel.setBounds(30, 80, 100, 25);
-		addUserPanel.add(addUserTypeLabel);
-
-		addFNameLabel = new JLabel("First Name:");
-		addFNameLabel.setBounds(30, 110, 100, 25);
-		addUserPanel.add(addFNameLabel);
-
-		addLNameLabel = new JLabel("Last Name:");
-		addLNameLabel.setBounds(30, 140, 100, 25);
-		addUserPanel.add(addLNameLabel);
-
-		addPwdLabel = new JLabel("Password:");
-		addPwdLabel.setBounds(30, 170, 100, 25);
-		addUserPanel.add(addPwdLabel);
-
-	}
-
-	public void setupAdminRemoveUserScreen() {
-		removeUserPanel = new JPanel();
-		removeUserPanel.setLayout(null);
-		removeUserPanel.setPreferredSize(new Dimension(400, 275));
-		removeUserScroll = new JScrollPane(removeUserPanel);
-
-		removeUserConfirmBtn = new JButton("Confirm");
-		removeUserConfirmBtn.setBounds(210, 200, 90, 25);
-		removeUserConfirmBtn.addActionListener(this);
-		removeUserPanel.add(removeUserConfirmBtn);
-
-		removeUserCancelBtn = new JButton("Cancel");
-		removeUserCancelBtn.setBounds(100, 200, 90, 25);
-		removeUserCancelBtn.addActionListener(this);
-		removeUserPanel.add(removeUserCancelBtn);
-
-		removeUserLabel = new JLabel("Remove User");
-		removeUserLabel.setHorizontalAlignment(JLabel.CENTER);
-		removeUserLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-		removeUserLabel.setBounds(100, 30, 200, 25);
-		removeUserPanel.add(removeUserLabel);
-
-		removeUserDeniedLabel = new JLabel("Denied: Must have minimum 1 Admin in System.");
-		removeUserDeniedLabel.setBounds(100, 150, 200, 25);
-		removeUserDeniedLabel.setForeground(Color.RED);
-		removeUserDeniedLabel.setVisible(false);
-		removeUserPanel.add(removeUserDeniedLabel);
 	}
 
 	public void updateAdminRemoveUserScreen() {
@@ -300,115 +178,9 @@ public class UserInterface implements ActionListener {
 			userIds[i + 1] = users.get(i).getId();
 		}
 
-		removeUserListBox = new JComboBox<String>(userIds);
-		removeUserListBox.setBounds(100, 100, 200, 25);
-		removeUserPanel.add(removeUserListBox);
-	}
-
-	public void setupAdminAddCourseScreen() {
-
-		addCoursePanel = new JPanel();
-		addCoursePanel.setLayout(null);
-		addCoursePanel.setPreferredSize(new Dimension(400, 275));
-		addCourseScroll = new JScrollPane(addCoursePanel);
-
-		addCourseProfessorBox = new JComboBox<String>();
-
-		addCourseConfirmBtn = new JButton("Confirm");
-		addCourseConfirmBtn.setBounds(210, 200, 90, 25);
-		addCourseConfirmBtn.addActionListener(this);
-		addCoursePanel.add(addCourseConfirmBtn);
-
-		addCourseCancelBtn = new JButton("Cancel");
-		addCourseCancelBtn.setBounds(100, 200, 90, 25);
-		addCourseCancelBtn.addActionListener(this);
-		addCoursePanel.add(addCourseCancelBtn);
-
-		addCourseNameField = new JTextField();
-		addCourseNameField.setBounds(100, 80, 200, 25);
-		addCoursePanel.add(addCourseNameField);
-
-		addCourseNameLabel = new JLabel("Name: ");
-		addCourseNameLabel.setBounds(50, 80, 100, 25);
-		addCoursePanel.add(addCourseNameLabel);
-
-		addCourseTitleLabel = new JLabel("Add Course");
-		addCourseTitleLabel.setHorizontalAlignment(JLabel.CENTER);
-		addCourseTitleLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-		addCourseTitleLabel.setBounds(100, 30, 200, 25);
-		addCoursePanel.add(addCourseTitleLabel);
-
-		addCourseProfLabel = new JLabel("Assign Professor:");
-		addCourseProfLabel.setBounds(50, 130, 200, 25);
-		addCoursePanel.add(addCourseProfLabel);
-
-	}
-
-	public void updateAdminAddCourseScreen() {
-		ArrayList<User> users = control.getUserList();
-		ArrayList<String> professors = new ArrayList<String>();
-
-		professors.add("N/a");
-
-		for (int i = 0; i < users.size(); i++) {
-			if (users.get(i) instanceof Professor) {
-				professors.add(users.get(i).getId());
-			}
-		}
-
-		String[] profsBox = new String[professors.size()];
-		profsBox = professors.toArray(profsBox);
-
-		addCourseProfessorBox = new JComboBox<String>(profsBox);
-		addCourseProfessorBox.setBounds(170, 130, 130, 25);
-		addCoursePanel.add(addCourseProfessorBox);
-	}
-
-	public void setupAdminRemoveCourseScreen() {
-		removeCoursePanel = new JPanel();
-		removeCoursePanel.setLayout(null);
-		removeCoursePanel.setPreferredSize(new Dimension(400, 275));
-		removeCourseScroll = new JScrollPane(removeCoursePanel);
-
-		removeCourseBox = new JComboBox<String>();
-
-		removeCourseConfirmBtn = new JButton("Confirm");
-		removeCourseConfirmBtn.setBounds(210, 200, 90, 25);
-		removeCourseConfirmBtn.addActionListener(this);
-		removeCoursePanel.add(removeCourseConfirmBtn);
-
-		removeCourseCancelBtn = new JButton("Cancel");
-		removeCourseCancelBtn.setBounds(100, 200, 90, 25);
-		removeCourseCancelBtn.addActionListener(this);
-		removeCoursePanel.add(removeCourseCancelBtn);
-
-		removeCourseTitleLabel = new JLabel("Remove Course");
-		removeCourseTitleLabel.setHorizontalAlignment(JLabel.CENTER);
-		removeCourseTitleLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-		removeCourseTitleLabel.setBounds(100, 30, 200, 25);
-		removeCoursePanel.add(removeCourseTitleLabel);
-
-		removeCourseNameLabel = new JLabel("Course:");
-		removeCourseNameLabel.setBounds(100, 110, 100, 25);
-		removeCoursePanel.add(removeCourseNameLabel);
-	}
-
-	public void updateAdminRemoveCourseScreen() {
-		ArrayList<Course> courses = control.getAllCourses();
-		ArrayList<String> coursesNames = new ArrayList<String>();
-
-		coursesNames.add("Select a Course");
-
-		for (int i = 0; i < courses.size(); i++) {
-			coursesNames.add(courses.get(i).getName());
-		}
-
-		String[] coursesBox = new String[coursesNames.size()];
-		coursesBox = coursesNames.toArray(coursesBox);
-
-		removeCourseBox = new JComboBox<String>(coursesBox);
-		removeCourseBox.setBounds(150, 110, 150, 25);
-		removeCoursePanel.add(removeCourseBox);
+		adminRemoveUser.removeUserListBox = new JComboBox<String>(userIds);
+		adminRemoveUser.removeUserListBox.setBounds(100, 100, 200, 25);
+		adminRemoveUser.add(adminRemoveUser.removeUserListBox);
 	}
 
 	public void setupAdminViewUsersScreen() {
@@ -561,65 +333,32 @@ public class UserInterface implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// Login Attempt
-		
 
 // =========================================================================== ADMIN STUFF ===========================================================================			
 
-			// Admin Picks an option
-		if (e.getSource() == adminOptionScroll.adminOptionConfirmBtn) {
+		// Admin Picks an option
 
-			if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Add User")) {
-				pageTransition(adminOptionScroll, addUserScroll);
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Remove User")) {
-				updateAdminRemoveUserScreen();
-				pageTransition(adminOptionScroll, removeUserScroll);
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Add Course")) {
-				updateAdminAddCourseScreen();
-				pageTransition(adminOptionScroll, addCourseScroll);
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
-				updateAdminRemoveCourseScreen();
-				pageTransition(adminOptionScroll, removeCourseScroll);
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem())
-					.equals("Set Professor for Course")) {
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem())
-					.equals("Remove Professor from Course")) {
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem())
-					.equals("Remove Student from Course")) {
-
-			} else if (((String) adminOptionScroll.adminOptionsBox.getSelectedItem()).equals("View All Users")) {
-				updateViewUsersScreen();
-				pageTransition(adminOptionScroll, viewUsersScroll);
-			}
-
-			// Admin cancels adding a user
-		} else if (e.getSource() == addUserCancelBtn) {
-			addUserTypeBox.setSelectedIndex(0);
-			addUserFNameField.setText("");
-			addUserLNameField.setText("");
-			addUserPwdField.setText("");
-			pageTransition(addUserScroll, adminOptionScroll);
+		// Admin cancels adding a user
+		if (e.getSource() == adminAddUser.addUserCancelBtn) {
+			adminAddUser.addUserTypeBox.setSelectedIndex(0);
+			adminAddUser.addUserFNameField.setText("");
+			adminAddUser.addUserLNameField.setText("");
+			adminAddUser.addUserPwdField.setText("");
+			pageTransition(adminAddUser, adminOptionScroll);
 
 			// Admin cancels removing a user
-		} else if (e.getSource() == removeUserCancelBtn) {
-			pageTransition(removeUserScroll, adminOptionScroll);
+		} else if (e.getSource() == adminRemoveUser.removeUserCancelBtn) {
+			pageTransition(adminRemoveUser, adminOptionScroll);
 
 			// Admin cancels adding a course
-		} else if (e.getSource() == addCourseCancelBtn) {
-			addCourseNameField.setText("");
-			addCourseProfessorBox.setSelectedIndex(0);
-			pageTransition(addCourseScroll, adminOptionScroll);
+		} else if (e.getSource() == adminAddCourse.addCourseCancelBtn) {
+			adminAddCourse.addCourseNameField.setText("");
+			adminAddCourse.addCourseProfessorBox.setSelectedIndex(0);
+			pageTransition(adminAddCourse, adminOptionScroll);
 
-		} else if (e.getSource() == removeCourseCancelBtn) {
-			removeCourseBox.setSelectedIndex(0);
-			pageTransition(removeCourseScroll, adminOptionScroll);
+		} else if (e.getSource() == adminRemoveCourse.removeCourseCancelBtn) {
+			adminRemoveCourse.removeCourseBox.setSelectedIndex(0);
+			pageTransition(adminRemoveCourse, adminOptionScroll);
 
 			// Admin exits viewing all users
 		} else if (e.getSource() == viewUsersExitBtn) {
@@ -660,7 +399,7 @@ public class UserInterface implements ActionListener {
 		}
 	}
 
-	private void pageTransition(JScrollPane before, JScrollPane after) {
+	void pageTransition(JScrollPane before, JScrollPane after) {
 		after.setVisible(true);
 		frame.add(after);
 		before.setVisible(false);

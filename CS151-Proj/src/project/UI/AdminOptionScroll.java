@@ -54,6 +54,40 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		if (e.getSource() == adminOptionConfirmBtn) {
+
+			if (((String) adminOptionsBox.getSelectedItem()).equals("Add User")) {
+				frame.pageTransition(this, frame.adminAddUser);
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove User")) {
+				frame.updateAdminRemoveUserScreen();
+				frame.pageTransition(this, frame.adminRemoveUser);
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Course")) {
+				frame.adminAddCourse.updateAdminAddCourseScreen();
+				frame.pageTransition(this, frame.adminAddCourse);
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
+				frame.adminRemoveCourse.updateAdminRemoveCourseScreen();
+				frame.pageTransition(this, frame.adminRemoveCourse);
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Professor from Course")) {
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
+
+			} else if (((String) adminOptionsBox.getSelectedItem()).equals("View All Users")) {
+				frame.updateViewUsersScreen();
+				frame.pageTransition(this, frame.viewUsersScroll);
+			}
+		} else {
+			frame.adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
+			frame.pageTransition(frame.adminOptionScroll, frame.loginScroll);
+			frame.control.logoutUser();
+
+		}
 	}
 }

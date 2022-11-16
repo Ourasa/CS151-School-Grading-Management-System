@@ -51,7 +51,13 @@ public class StudentOptionScroll extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		if (e.getSource() == frame.studentOptionScroll.studentLogoutBtn) {
+			frame.studentOptionScroll.studentOptionsBox.setSelectedIndex(0);
+			frame.pageTransition(frame.studentOptionScroll, frame.loginScroll);
+			frame.control.logoutUser();
+		} else {
+			frame.actionPerformed(e);
+		}
 	}
 
 }
