@@ -47,7 +47,10 @@ public class Student extends User {
 				sum += 1;
 			} else if (set.getValue() == 'F') {
 				sum += 0;
+			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards gpa.
+				coursesCount -= 1;
 			}
+			
 			coursesCount += 1;
 		}
 		
@@ -63,17 +66,28 @@ public class Student extends User {
 				sum += 1;
 			} else if (set.getValue() == 'F') {
 				sum += 0;
+			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards gpa.
+				coursesCount -= 1;
 			}
 			
 			coursesCount += 1;
 		}
 		
-		gpa = sum/coursesCount;
+		if (coursesCount == 0) {
+			gpa = 0;
+		} else {
+			gpa = sum/coursesCount;
+		}
 	}
 	
 	
 	public double getGPA() {
 		return this.gpa;
+	}
+	
+	
+	public void addCurCourse(Course course) {
+		curCourses.put(course, 'N');
 	}
 	
 	

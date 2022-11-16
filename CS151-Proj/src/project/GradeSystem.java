@@ -192,7 +192,7 @@ public class GradeSystem {
 			course.getProfessor().removeCourse(course);
 			ArrayList<Student> students = course.getStudents();
 			
-			//For each student, removes the course from their active courses. Also updates their GPA based on that.
+			//For each student, removes the course from their active courses. Also updates their GPA.
 			for (int i = 0; i < students.size(); i++) {
 				TreeMap<Course, Character> curCourses = students.get(i).getCurCourses();
 				curCourses.remove(course);
@@ -225,39 +225,79 @@ public class GradeSystem {
 		
 		
 		// ----------- Add Student to Course -----------
+		public boolean addStudentToCourse(String courseName, String studentId) {
+			Student student = ((Student)users.get(studentId));
+			Course course = courses.get(courseName);
+			
+			if (student.getCurCourses().keySet().contains(course)) {	//Student is already in the course. Returns false, indicating failure.
+				return false;
+			}
+			course.addNewStudent(student);
+			student.addCurCourse(course);
+			student.updateGPA();
+			return true;
+		}
+		
 		
 		// ----------- Remove Student from Course -----------
+		public void removeStudentFromCourse(String courseName, String studentId) {
+			Student student = ((Student)users.get(studentId));
+			Course course = courses.get(courseName);
+			
+			student.getCurCourses().remove(course);
+			course.removeStudent(student);
+			
+		}
+		
 		
 		// ----------- View All Users -----------
 		
+		
+		
 		// ----------- View All Courses ----------- (Not In Options Yet)
+		
 		
 		
 		
 	
 	// ------------------------------------------------------ Professor Options ------------------------------------------------------
 	
-	/**
-	 * The way this works is that this method would be called multiple times for each student.
-	 * Proc-ed by the controller, which is proc-ed by the user interface.
-	 * 
-	 * @param course
-	 * @param student
-	 * @param name 
-	 * @param pointsEarned
-	 * @param pointsTotal
-	 */
-	public void addAssignment(Course course, Student student, String name, double pointsEarned, double pointsTotal) {
+	
+	//Adding an assignment. Called multiple times by the GUI. 
+	public void addAssignment(String courseName, String studentId, String name, double pointsEarned, double pointsTotal) {
+		Course course = courses.get(courseName);
+		Student student = (Student)users.get(studentId);
+		
 		Assignment assignment = new Assignment(name, pointsEarned, pointsTotal);
 		course.addAssignment(student, assignment);
 		student.updateGrade(course);
 		student.updateGPA();
 	}
 	
-//	public void editAssignment(Course course, Student student, String asgnName) {
-//		
-//	}
+	//Edits an assignment points earned - Still uncertain as to what should be edit-able or not.
+	public void editAssignment(String courseName, String studentId, String asgnName, double newPointsEarned) {
+		Course course = courses.get(courseName);
+		Student student = (Student)users.get(studentId);
+		ArrayList<Assignment> asgn = course.getStudentAssignments(student);
 		
+		for (int i = 0; i < asgn.size(); i++) {
+			if (asgn.get(i).getName().equals(asgnName)) {
+				asgn.get(i).setPointsEarned(newPointsEarned);
+				break;
+			}
+		}
+		
+		student.updateGrade(course);
+		student.updateGPA();
+	}
+	
+	//Removes an assignment for all of the Students in a given Course. 
+	public void removeAssignment(String courseName, String asgnName) {
+		Course course = courses.get(courseName);
+		course.removeAssignmentAllStudents(asgnName);
+	}
+		
+	
 	
 	// ------------------------------------------------------ Student-related Options ------------------------------------------------------
 	
@@ -319,6 +359,13 @@ public class GradeSystem {
 		}
 		return students;
 	}
+	
+	
+	
+	
+//	public ArrayList<Student> getCourseStudents(String courseName) {
+//		
+//	}
 	
 //	public ArrayList<Course> getAllCourses() {
 //		ArrayList<Course> list = new ArrayList<Course>();

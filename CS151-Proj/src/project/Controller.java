@@ -36,12 +36,12 @@ public class Controller {
 	
 	// ----------------------------- ADMIN OPTIONS -----------------------------
 	
-	// ADDING A USER. Returns the randomly generated ID String made for the User.
+	// ADDING A USER - Returns the randomly generated ID String made for the User.
 	public String addUser(String type, String firstName, String lastName, String password) {
 		return system.addUser(type, firstName, lastName, password);	
 	}
 	
-	//REMOVING A USER. Returns whether operation was a success or not. Failure may occur for Admin removal attempt, with only 1 Admin left. 
+	//REMOVING A USER - Returns boolean indication if operation is successful. Failure may occur for Admin removal attempt, with only 1 Admin left. 
 	public boolean removeUser(String id) {
 		return system.removeUser(id);
 	}
@@ -68,6 +68,49 @@ public class Controller {
 	public void removeProfessorFromCourse(String courseName) {
 		system.removeProfessorFromCourse(courseName);
 	}
+	
+	//ADD STUDENT TO COURSE - Returns boolean indicating if operation is success. Failure may occur if student is already in that course. 
+	public boolean addStudentToCourse(String courseName, String studentId) {
+		return system.addStudentToCourse(courseName, courseName);
+	}
+	
+	//REMOVE STUDENT FROM COURSE
+	public void removeStudentFromCourse(String courseName, Course studentId) {
+		system.removeStudentFromCourse(courseName, courseName);
+	}
+	
+	//Special: VIEW ALL USERS - Handled by GUI. 
+	
+	//Special: VIEW ALL COURSES - Likely to be handled by GUI.
+	
+	
+	// ----------------------------- PROFESSOR OPTIONS -----------------------------
+	
+	//ADD STUDENT TO COURSE - Use addStudentToCourse from Admin. 
+	
+	//REMOVE STUDENT FROM COURSE - Use removeStudentFromCourse from Admin.
+	
+	//ADD ASSIGNEMNT
+	public void addAssignment(String courseName, String studentId, String name, double pointsEarned, double pointsTotal) {
+		system.addAssignment(courseName, studentId, name, pointsEarned, pointsTotal);
+	}
+	
+	//EDIT ASSIGNMENT - For now, only edits the points earned. Not sure just exactly how much we want to edit.
+	public void editAssignment(String courseName, String studentId, String asgnName, double newPointsEarned) {
+		system.editAssignment(courseName, studentId, asgnName, newPointsEarned);
+	}
+	
+	//REMOVE ASSIGNMENT
+	public void removeAssignment(String courseName, String asgnName) {
+		system.removeAssignment(courseName, asgnName);
+	}
+	
+	//VIEW STUDENTS + GRADES - Handled by the GUI after using getters from the backend??
+	
+	// ----------------------------- STUDENT OPTIONS -----------------------------
+	
+	
+	// ----------------------------- MISC. OPTIONS -----------------------------
 	
 	// GET CURRENT USER
 	public User getCurrentUser() {
