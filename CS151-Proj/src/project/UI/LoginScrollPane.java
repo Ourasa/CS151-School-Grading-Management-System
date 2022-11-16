@@ -31,7 +31,6 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 
 	public LoginScrollPane(UserInterface in) {
 		frame = in;
-		this.setBackground(Color.lightGray);
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400, 275));
 

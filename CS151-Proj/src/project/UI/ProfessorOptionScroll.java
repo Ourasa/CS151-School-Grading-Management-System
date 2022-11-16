@@ -54,6 +54,7 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == frame.professorOptionScroll.profLogoutBtn) {
 			frame.professorOptionScroll.profOptionsBox.setSelectedIndex(0);
+			frame.loginScroll= new LoginScrollPane(frame);
 			frame.pageTransition(frame.professorOptionScroll, frame.loginScroll);
 			frame.control.logoutUser();
 

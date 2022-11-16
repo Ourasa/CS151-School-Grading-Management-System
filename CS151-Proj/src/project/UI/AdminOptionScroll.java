@@ -60,7 +60,7 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 				frame.pageTransition(this, frame.adminAddUser);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove User")) {
-				frame.updateAdminRemoveUserScreen();
+				frame.adminRemoveUser.updateAdminRemoveUserScreen();
 				frame.pageTransition(this, frame.adminRemoveUser);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Course")) {
@@ -85,8 +85,10 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 			}
 		} else {
 			frame.adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
+			frame.loginScroll= new LoginScrollPane(frame);
 			frame.pageTransition(frame.adminOptionScroll, frame.loginScroll);
 			frame.control.logoutUser();
+			System.out.println("here");
 
 		}
 	}

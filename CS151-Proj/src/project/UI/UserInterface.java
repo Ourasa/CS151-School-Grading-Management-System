@@ -2,6 +2,7 @@ package project.UI;
 
 //import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
@@ -47,42 +48,16 @@ public class UserInterface implements ActionListener {
 	 */
 
 	JFrame frame;
-
-	// Login screen components
+	public Container contentPane;
 	LoginScrollPane loginScroll;
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	// Admin - Pick an option page : Either buttons, or a drop down box and a
-	// confirm button.
 	AdminOptionScroll adminOptionScroll;
-
-	// Admin - Add a user to system : Should have text fields to fill in the
-	// information of the new user. Dropbox for type of User, likely.
 	AdminAddUser adminAddUser;
-
-	// Admin - Remove a user from system : Probably a drop down box containing IDs?
-	// Then a confirm button to complete removal... I think
 	AdminRemoveUser adminRemoveUser;
-
-	// Admin - Add a course into system: TextFields, a drop down box for Professor,
-	// and confirm button.
 	AdminAddCourse adminAddCourse;
-
-	// Admin - Remove a course from system: A drop down box, and a confirm button.
 	AdminRemoveCourse adminRemoveCourse;
-
-	// Admin - Assign Professor to a Course : Likely 2 drop down boxes, one for
-	// courses, and another for Professor. Then a confirm button.
-
-	// Admin - Remove Professor from Course : One drop down box, and a confirm
-	// button. (Only 1 professor is in a Course)
-
-	// Admin - Add Student to a Course : 2 drop down boxes, one for courses, one for
-	// student. Then a confirm button.
-
-	// Admin - Remove Student from a Course: 2 drop down boxes, one for the course,
-	// and one for its current student. Then a confirm button.
 
 	// Admin - View all Users in the system
 	JScrollPane viewUsersScroll;
@@ -143,10 +118,11 @@ public class UserInterface implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// frame.setResizable(false);
 		frame.setTitle("In Pain and Agony :D");
-
+		contentPane = frame.getContentPane();
 		loginScroll = new LoginScrollPane(this);
-		frame.add(loginScroll);
-		frame.pack();
+		contentPane.add(loginScroll);
+		contentPane.validate();
+		frame.setVisible(true);
 
 		// Setup "Home" menu for Users
 		adminOptionScroll = new AdminOptionScroll(this);
@@ -165,23 +141,9 @@ public class UserInterface implements ActionListener {
 
 		// Setup Student specific GUI
 
-		frame.setVisible(true);
 	}
 
-	public void updateAdminRemoveUserScreen() {
-		ArrayList<User> users = control.getUserList();
-		String[] userIds = new String[users.size() + 1];
-
-		userIds[0] = "Select a User";
-
-		for (int i = 0; i < users.size(); i++) {
-			userIds[i + 1] = users.get(i).getId();
-		}
-
-		adminRemoveUser.removeUserListBox = new JComboBox<String>(userIds);
-		adminRemoveUser.removeUserListBox.setBounds(100, 100, 200, 25);
-		adminRemoveUser.add(adminRemoveUser.removeUserListBox);
-	}
+	
 
 	public void setupAdminViewUsersScreen() {
 		viewUsersPanel = new JPanel();
@@ -335,33 +297,9 @@ public class UserInterface implements ActionListener {
 		// Login Attempt
 
 // =========================================================================== ADMIN STUFF ===========================================================================			
+		// AdminaddcourseCancelled
 
-		// Admin Picks an option
-
-		// Admin cancels adding a user
-		if (e.getSource() == adminAddUser.addUserCancelBtn) {
-			adminAddUser.addUserTypeBox.setSelectedIndex(0);
-			adminAddUser.addUserFNameField.setText("");
-			adminAddUser.addUserLNameField.setText("");
-			adminAddUser.addUserPwdField.setText("");
-			pageTransition(adminAddUser, adminOptionScroll);
-
-			// Admin cancels removing a user
-		} else if (e.getSource() == adminRemoveUser.removeUserCancelBtn) {
-			pageTransition(adminRemoveUser, adminOptionScroll);
-
-			// Admin cancels adding a course
-		} else if (e.getSource() == adminAddCourse.addCourseCancelBtn) {
-			adminAddCourse.addCourseNameField.setText("");
-			adminAddCourse.addCourseProfessorBox.setSelectedIndex(0);
-			pageTransition(adminAddCourse, adminOptionScroll);
-
-		} else if (e.getSource() == adminRemoveCourse.removeCourseCancelBtn) {
-			adminRemoveCourse.removeCourseBox.setSelectedIndex(0);
-			pageTransition(adminRemoveCourse, adminOptionScroll);
-
-			// Admin exits viewing all users
-		} else if (e.getSource() == viewUsersExitBtn) {
+		if (e.getSource() == viewUsersExitBtn) {
 			pageTransition(viewUsersScroll, adminOptionScroll);
 		}
 
@@ -400,11 +338,10 @@ public class UserInterface implements ActionListener {
 	}
 
 	void pageTransition(JScrollPane before, JScrollPane after) {
-		after.setVisible(true);
-		frame.add(after);
-		before.setVisible(false);
-		frame.remove(before);
-		frame.pack();
+		contentPane.removeAll();
+		contentPane.add(after);
+		contentPane.repaint();
+		contentPane.revalidate();
 	}
 
 }

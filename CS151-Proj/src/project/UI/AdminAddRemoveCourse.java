@@ -67,7 +67,11 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		 if (e.getSource() == addCourseCancelBtn) {
+				addCourseNameField.setText("");
+				addCourseProfessorBox.setSelectedIndex(0);
+				frame.pageTransition(frame.adminAddUser, frame.adminOptionScroll);
+		 }
 	}
 	
 	public void updateAdminAddCourseScreen() {
@@ -149,7 +153,12 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		if (e.getSource() == removeCourseCancelBtn) {
+			removeCourseBox.setSelectedIndex(0);
+			frame.pageTransition(frame.adminRemoveCourse, frame.adminOptionScroll);
+
+			// Admin exits viewing all users
+		} 
 	}
 
 }

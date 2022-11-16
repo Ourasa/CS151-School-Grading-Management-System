@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import project.User;
 
 class AdminAddUser extends JScrollPane implements ActionListener {
 
@@ -91,10 +94,15 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		if (e.getSource() == addUserCancelBtn) {
+			addUserTypeBox.setSelectedIndex(0);
+			addUserFNameField.setText("");
+			addUserLNameField.setText("");
+			addUserPwdField.setText("");
+			frame.pageTransition(frame.adminAddUser, frame.adminOptionScroll);
+		}
 
 	}
-
 }
 
 class AdminRemoveUser extends JScrollPane implements ActionListener {
@@ -133,11 +141,30 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 		removeUserDeniedLabel.setVisible(false);
 		this.add(removeUserDeniedLabel);
 	}
+	
+	public void updateAdminRemoveUserScreen() {
+		ArrayList<User> users = frame.control.getUserList();
+		String[] userIds = new String[users.size() + 1];
+
+		userIds[0] = "Select a User";
+
+		for (int i = 0; i < users.size(); i++) {
+			userIds[i + 1] = users.get(i).getId();
+		}
+
+		removeUserListBox = new JComboBox<String>(userIds);
+		removeUserListBox.setBounds(100, 100, 200, 25);
+		add(removeUserListBox);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		// Admin cancels removing a user
 
+		if (e.getSource() == removeUserCancelBtn) {
+			frame.pageTransition(frame.adminRemoveUser, frame.adminOptionScroll);
+
+		}
 	}
 
 }
