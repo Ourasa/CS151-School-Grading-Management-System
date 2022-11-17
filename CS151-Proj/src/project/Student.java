@@ -24,17 +24,11 @@ public class Student extends User {
 		updateGPA();
 	}
 	
-	public double getGPA() {
-		return this.gpa;
-	}
-	
-	
+	//Updates the student's grade for the specified Course
 	public void updateGrade(Course course) {
 		char grade = course.getGrade(this);
 		curCourses.put(course, grade);
 	}
-	
-	
 	
 	//No clue if this works yet. We will see later on, for sure. 
 	public void updateGPA() {
@@ -43,6 +37,7 @@ public class Student extends User {
 		
 		//Iterates through past courses
 		for (Map.Entry<Course, Character> set : pastCourses.entrySet()) {
+			
 			if (set.getValue() == 'A') {
 				sum += 4;
 			} else if (set.getValue() == 'B') {
@@ -53,7 +48,10 @@ public class Student extends User {
 				sum += 1;
 			} else if (set.getValue() == 'F') {
 				sum += 0;
+			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards GPA.
+				coursesCount -= 1;
 			}
+			
 			coursesCount += 1;
 		}
 		
@@ -69,11 +67,39 @@ public class Student extends User {
 				sum += 1;
 			} else if (set.getValue() == 'F') {
 				sum += 0;
+			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards GPA.
+				coursesCount -= 1;
 			}
 			
 			coursesCount += 1;
 		}
 		
-		gpa = sum/coursesCount;
+		if (coursesCount == 0) {
+			gpa = 0;
+		} else {
+			gpa = sum/coursesCount;
+		}
 	}
+	
+	
+	public double getGPA() {
+		return this.gpa;
+	}
+	
+	
+	public void addCurCourse(Course course) {
+		curCourses.put(course, 'N');
+	}
+	
+	
+	public TreeMap<Course, Character> getCurCourses() {
+		return curCourses;
+	}
+	
+	
+	public TreeMap<Course, Character> getPastCourses() {
+		return pastCourses;
+	}
+
+	
 }
