@@ -58,16 +58,8 @@ public class UserInterface implements ActionListener {
 	AdminRemoveUser adminRemoveUser;
 	AdminAddCourse adminAddCourse;
 	AdminRemoveCourse adminRemoveCourse;
-
+	AdminViewUser adminViewUsers;
 	// Admin - View all Users in the system
-	JScrollPane viewUsersScroll;
-	private JPanel viewUsersPanel;
-	private JLabel viewUsersFNameLabel;
-	private JLabel viewUsersLNameLabel;
-	private JLabel viewUsersIdLabel;
-	private JLabel viewUsersPwdLabel;
-	private JLabel viewUsersTypeLabel;
-	private JButton viewUsersExitBtn;
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -133,8 +125,7 @@ public class UserInterface implements ActionListener {
 		adminRemoveUser = new AdminRemoveUser(this);
 		adminAddCourse = new AdminAddCourse(this);
 		adminRemoveCourse = new AdminRemoveCourse(this);
-
-		setupAdminViewUsersScreen();
+		adminViewUsers = new AdminViewUser(this);
 
 		// Setup Professor specific GUI
 		setupProfessorAddStudentScreen();
@@ -144,95 +135,6 @@ public class UserInterface implements ActionListener {
 	}
 
 	
-
-	public void setupAdminViewUsersScreen() {
-		viewUsersPanel = new JPanel();
-		viewUsersPanel.setLayout(null);
-		viewUsersPanel.setPreferredSize(new Dimension(600, 500));
-		viewUsersScroll = new JScrollPane(viewUsersPanel);
-
-		viewUsersTypeLabel = new JLabel("Type");
-		viewUsersTypeLabel.setBounds(50, 30, 100, 25);
-		viewUsersPanel.add(viewUsersTypeLabel);
-
-		viewUsersFNameLabel = new JLabel("First name");
-		viewUsersFNameLabel.setBounds(150, 30, 100, 25);
-		viewUsersPanel.add(viewUsersFNameLabel);
-
-		viewUsersLNameLabel = new JLabel("Last name");
-		viewUsersLNameLabel.setBounds(250, 30, 100, 25);
-		viewUsersPanel.add(viewUsersLNameLabel);
-
-		viewUsersIdLabel = new JLabel("ID");
-		viewUsersIdLabel.setBounds(350, 30, 100, 25);
-		viewUsersPanel.add(viewUsersIdLabel);
-
-		viewUsersPwdLabel = new JLabel("Password");
-		viewUsersPwdLabel.setBounds(450, 30, 100, 25);
-		viewUsersPanel.add(viewUsersPwdLabel);
-
-		viewUsersExitBtn = new JButton("Exit");
-		viewUsersExitBtn.setBounds(40, 200, 100, 25);
-		viewUsersExitBtn.addActionListener(this);
-		viewUsersPanel.add(viewUsersExitBtn);
-	}
-
-	public void updateViewUsersScreen() {
-		ArrayList<User> arr = control.getUserList();
-
-		// Gets rid old data
-		viewUsersPanel = new JPanel();
-		viewUsersPanel.setLayout(null);
-		viewUsersPanel.setPreferredSize(new Dimension(600, 500));
-		viewUsersScroll = new JScrollPane(viewUsersPanel);
-
-		viewUsersPanel.add(viewUsersTypeLabel);
-		viewUsersPanel.add(viewUsersFNameLabel);
-		viewUsersPanel.add(viewUsersLNameLabel);
-		viewUsersPanel.add(viewUsersIdLabel);
-		viewUsersPanel.add(viewUsersPwdLabel);
-
-		// For each User, we give them a NEW row.
-		for (int i = 0; i < arr.size(); i++) {
-			User currentUser = arr.get(i);
-			JLabel type = null;
-
-			if (currentUser instanceof Admin) {
-				type = new JLabel("Admin");
-			} else if (currentUser instanceof Professor) {
-				type = new JLabel("Professor");
-			} else if (currentUser instanceof Student) {
-				type = new JLabel("Student");
-			}
-
-			type.setBounds(50, 50 + 20 * i, 100, 25);
-
-			JLabel fName = new JLabel(currentUser.getFirstName());
-			fName.setBounds(150, 50 + 20 * i, 100, 25);
-			JLabel lName = new JLabel(currentUser.getLastName());
-			lName.setBounds(250, 50 + 20 * i, 100, 25);
-			JLabel id = new JLabel(currentUser.getId());
-			id.setBounds(350, 50 + 20 * i, 100, 25);
-			JLabel pwd = new JLabel(currentUser.getPassword());
-			pwd.setBounds(450, 50 + 20 * i, 100, 25);
-
-			viewUsersPanel.add(type);
-			viewUsersPanel.add(fName);
-			viewUsersPanel.add(lName);
-			viewUsersPanel.add(id);
-			viewUsersPanel.add(pwd);
-			viewUsersExitBtn.setBounds(40, 80 + 20 * i, 100, 25); // Adjusts location of exit button depending on # of
-																	// users
-		}
-		viewUsersPanel.add(viewUsersExitBtn);
-
-		if (arr.size() < 25) {
-			viewUsersPanel.setPreferredSize(new Dimension(600, arr.size() * 20 + 100));
-		} else {
-			viewUsersPanel.setPreferredSize(new Dimension(600, 600)); // Ensures we don't have an oversized window.
-		}
-	}
-
 	public void setupProfessorAddStudentScreen() {
 		addStudentPanel = new JPanel();
 		addStudentPanel.setLayout(null);
@@ -299,8 +201,8 @@ public class UserInterface implements ActionListener {
 // =========================================================================== ADMIN STUFF ===========================================================================			
 		// AdminaddcourseCancelled
 
-		if (e.getSource() == viewUsersExitBtn) {
-			pageTransition(viewUsersScroll, adminOptionScroll);
+		if (e.getSource() == adminViewUsers.viewUsersExitBtn) {
+			pageTransition(adminViewUsers, adminOptionScroll);
 		}
 
 		// ===========================================================================
