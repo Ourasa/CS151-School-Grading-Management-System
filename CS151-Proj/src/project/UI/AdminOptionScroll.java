@@ -57,19 +57,19 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 		if (e.getSource() == adminOptionConfirmBtn) {
 
 			if (((String) adminOptionsBox.getSelectedItem()).equals("Add User")) {
-				frame.pageTransition(this, frame.adminAddUser);
+				frame.pageTransition(frame.adminAddUser);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove User")) {
 				frame.adminRemoveUser.updateAdminRemoveUserScreen();
-				frame.pageTransition(this, frame.adminRemoveUser);
+				frame.pageTransition(frame.adminRemoveUser);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Course")) {
 				frame.adminAddCourse.updateAdminAddCourseScreen();
-				frame.pageTransition(this, frame.adminAddCourse);
+				frame.pageTransition(frame.adminAddCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
 				frame.adminRemoveCourse.updateAdminRemoveCourseScreen();
-				frame.pageTransition(this, frame.adminRemoveCourse);
+				frame.pageTransition(frame.adminRemoveCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
 
@@ -81,12 +81,12 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("View All Users")) {
 				frame.adminViewUsers.updateViewUsersScreen();
-				frame.pageTransition(this, frame.adminViewUsers);
+				frame.pageTransition(frame.adminViewUsers);
 			}
 		} else {
 			frame.adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
 			frame.loginScroll= new LoginScrollPane(frame);
-			frame.pageTransition(frame.adminOptionScroll, frame.loginScroll);
+			frame.pageTransition(frame.loginScroll);
 			frame.control.logoutUser();
 			System.out.println("here");
 

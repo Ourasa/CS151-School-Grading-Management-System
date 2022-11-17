@@ -1,6 +1,5 @@
 package project.UI;
 
-//import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import project.*;
 
-public class UserInterface implements ActionListener {
+public class UserInterface{
 	Controller control;
 
 	/*
@@ -47,8 +46,8 @@ public class UserInterface implements ActionListener {
 	 * JScrollPane into the Frame.
 	 */
 
-	JFrame frame;
-	public Container contentPane;
+	public static final JFrame frame = new JFrame();
+	public static final Container contentPane = frame.getContentPane();
 	LoginScrollPane loginScroll;
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,20 +66,7 @@ public class UserInterface implements ActionListener {
 	ProfessorOptionScroll professorOptionScroll;
 
 	// Professor - Add student screen from course
-	private JScrollPane addStudentScroll;
-	private JPanel addStudentPanel;
-	private JComboBox<String> addStudentTypeBox;
-	private JButton addStudentConfirmBtn;
-	private JButton addStudentCancelBtn;
-	private JTextField addStudentFNameField;
-	private JTextField addStudentLNameField;
-	private JPasswordField addStudentPwdField;
-
-	private JLabel addStudentTitle;
-	private JLabel addStudentTypeLabel;
-	private JLabel addSFNameLabel;
-	private JLabel addSLNameLabel;
-	private JLabel addSPwdLabel;
+	ProfessorAddStudent professorAddStudent;
 
 	// Professor - Remove student screen from course
 
@@ -105,17 +91,13 @@ public class UserInterface implements ActionListener {
 
 	public UserInterface(Controller control) {
 		this.control = control;
-		frame = new JFrame();
 		frame.setSize(400, 275);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// frame.setResizable(false);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setTitle("In Pain and Agony :D");
-		contentPane = frame.getContentPane();
 		loginScroll = new LoginScrollPane(this);
 		contentPane.add(loginScroll);
 		contentPane.validate();
 		frame.setVisible(true);
-
 		// Setup "Home" menu for Users
 		adminOptionScroll = new AdminOptionScroll(this);
 		professorOptionScroll = new ProfessorOptionScroll(this);
@@ -126,120 +108,14 @@ public class UserInterface implements ActionListener {
 		adminAddCourse = new AdminAddCourse(this);
 		adminRemoveCourse = new AdminRemoveCourse(this);
 		adminViewUsers = new AdminViewUser(this);
-
 		// Setup Professor specific GUI
-		setupProfessorAddStudentScreen();
+		professorAddStudent = new ProfessorAddStudent(this);
 
 		// Setup Student specific GUI
 
 	}
 
-	
-	public void setupProfessorAddStudentScreen() {
-		addStudentPanel = new JPanel();
-		addStudentPanel.setLayout(null);
-		addStudentPanel.setPreferredSize(new Dimension(400, 275));
-		addStudentScroll = new JScrollPane(addStudentPanel);
-
-		addStudentFNameField = new JTextField();
-		addStudentFNameField.setBounds(100, 110, 200, 25);
-		addStudentPanel.add(addStudentFNameField);
-
-		addStudentLNameField = new JTextField();
-		addStudentLNameField.setBounds(100, 140, 200, 25);
-		addStudentPanel.add(addStudentLNameField);
-
-		addStudentPwdField = new JPasswordField();
-		addStudentPwdField.setBounds(100, 170, 200, 25);
-		addStudentPanel.add(addStudentPwdField);
-
-		addStudentConfirmBtn = new JButton("Confirm");
-		addStudentConfirmBtn.setBounds(200, 220, 100, 25);
-		addStudentConfirmBtn.addActionListener(this);
-		addStudentPanel.add(addStudentConfirmBtn);
-
-		addStudentCancelBtn = new JButton("Cancel");
-		addStudentCancelBtn.setBounds(80, 220, 100, 25);
-		addStudentCancelBtn.addActionListener(this);
-		addStudentPanel.add(addStudentCancelBtn);
-
-		addStudentTitle = new JLabel("Add Student");
-		addStudentTitle.setHorizontalAlignment(JLabel.CENTER);
-		addStudentTitle.setFont(new Font("Serif", Font.PLAIN, 18));
-		addStudentTitle.setBounds(100, 30, 200, 25);
-		addStudentPanel.add(addStudentTitle);
-
-		addSFNameLabel = new JLabel("First Name:");
-		addSFNameLabel.setBounds(30, 110, 100, 25);
-		addStudentPanel.add(addSFNameLabel);
-
-		addSLNameLabel = new JLabel("Last Name:");
-		addSLNameLabel.setBounds(30, 140, 100, 25);
-		addStudentPanel.add(addSLNameLabel);
-
-		addSPwdLabel = new JLabel("Student ID:");
-		addSPwdLabel.setBounds(30, 170, 100, 25);
-		addStudentPanel.add(addSPwdLabel);
-	}
-
-	// ============================================================================
-	// GIANT MESSY ACTION LISTENER/PERFORMED BLOB
-	// ============================================================================
-
-	/*
-	 * It is planned to break down each of the "pages" (ScrollPane + Panels) into
-	 * their own classes. This will make things a LOT neater, as they can have their
-	 * own actionListeners that way. Not only that, but the variables should become
-	 * easier to read, since they will be in their own page's class.
-	 */
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		// Login Attempt
-
-// =========================================================================== ADMIN STUFF ===========================================================================			
-		// AdminaddcourseCancelled
-
-		if (e.getSource() == adminViewUsers.viewUsersExitBtn) {
-			pageTransition(adminViewUsers, adminOptionScroll);
-		}
-
-		// ===========================================================================
-		// PROFESSOR STUFF
-		// ===========================================================================
-
-		// Professor pick a option
-		else if (e.getSource() == professorOptionScroll.profOptionConfirmBtn) {
-
-			if (((String) professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
-				pageTransition(professorOptionScroll, addStudentScroll);
-
-			} else if (((String) professorOptionScroll.profOptionsBox.getSelectedItem())
-					.equals("Remove Student from Course")) {
-
-			} else if (((String) professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Add an Assignment")) {
-
-			} else if (((String) professorOptionScroll.profOptionsBox.getSelectedItem()).equals("Edit an Assignment")) {
-
-			} else if (((String) professorOptionScroll.profOptionsBox.getSelectedItem())
-					.equals("Remove an Assignment")) {
-
-			} else if (((String) professorOptionScroll.profOptionsBox.getSelectedItem())
-					.equals("View Students + Grades")) {
-
-			}
-			// Professor cancels adding a student
-		} else if (e.getSource() == addStudentCancelBtn) {
-
-			addStudentFNameField.setText("");
-			addStudentLNameField.setText("");
-			addStudentPwdField.setText("");
-			pageTransition(addStudentScroll, professorOptionScroll);
-		}
-	}
-
-	void pageTransition(JScrollPane before, JScrollPane after) {
+	void pageTransition(JScrollPane after) {
 		contentPane.removeAll();
 		contentPane.add(after);
 		contentPane.repaint();

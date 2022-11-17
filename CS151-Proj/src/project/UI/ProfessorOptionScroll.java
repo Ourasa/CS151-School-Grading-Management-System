@@ -52,14 +52,28 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == frame.professorOptionScroll.profLogoutBtn) {
-			frame.professorOptionScroll.profOptionsBox.setSelectedIndex(0);
-			frame.loginScroll= new LoginScrollPane(frame);
-			frame.pageTransition(frame.professorOptionScroll, frame.loginScroll);
-			frame.control.logoutUser();
+		if (e.getSource() == profOptionConfirmBtn) {
 
-		} else {
-			frame.actionPerformed(e);
+			if (((String) profOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
+				frame.pageTransition(frame.professorAddStudent);
+
+			} else if (((String) profOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
+
+			} else if (((String) profOptionsBox.getSelectedItem()).equals("Add an Assignment")) {
+
+			} else if (((String) profOptionsBox.getSelectedItem()).equals("Edit an Assignment")) {
+
+			} else if (((String) profOptionsBox.getSelectedItem()).equals("Remove an Assignment")) {
+
+			} else if (((String) profOptionsBox.getSelectedItem()).equals("View Students + Grades")) {
+
+			}
+			// Professor cancels adding a student
+		} else if (e.getSource() == frame.professorOptionScroll.profLogoutBtn) {
+			frame.professorOptionScroll.profOptionsBox.setSelectedIndex(0);
+			frame.loginScroll = new LoginScrollPane(frame);
+			frame.pageTransition(frame.loginScroll);
+			frame.control.logoutUser();
 
 		}
 	}

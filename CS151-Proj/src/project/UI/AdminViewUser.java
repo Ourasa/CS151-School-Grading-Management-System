@@ -114,7 +114,9 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.actionPerformed(e);
+		if (e.getSource() == viewUsersExitBtn) {
+			frame.pageTransition(frame.adminOptionScroll);
+		}
 
 	}
 
