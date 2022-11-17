@@ -1,6 +1,6 @@
 package project;
 
-public abstract class User {
+public abstract class User implements Comparable {
 	private String firstName;		
 	private String lastName;
 	private String id;				//Id should follow the format of first character of first name, first character of second name, dash, and 4 numbers. EX:  AB-0000
@@ -74,5 +74,8 @@ public abstract class User {
 		this.password = password;
 	}
 	
-	
+	public int compareTo(Object o) {
+		User other = (User)o;
+		return this.getId().compareTo(other.getId());
+	}
 }

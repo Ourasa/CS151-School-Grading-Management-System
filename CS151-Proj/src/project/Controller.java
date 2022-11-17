@@ -71,12 +71,12 @@ public class Controller {
 	
 	//ADD STUDENT TO COURSE - Returns boolean indicating if operation is success. Failure may occur if student is already in that course. 
 	public boolean addStudentToCourse(String courseName, String studentId) {
-		return system.addStudentToCourse(courseName, courseName);
+		return system.addStudentToCourse(courseName, studentId);
 	}
 	
 	//REMOVE STUDENT FROM COURSE
-	public void removeStudentFromCourse(String courseName, Course studentId) {
-		system.removeStudentFromCourse(courseName, courseName);
+	public void removeStudentFromCourse(String courseName, String studentId) {
+		system.removeStudentFromCourse(courseName, studentId);
 	}
 	
 	//Special: VIEW ALL USERS - Handled by GUI. 
@@ -109,6 +109,10 @@ public class Controller {
 	
 	// ----------------------------- STUDENT OPTIONS -----------------------------
 	
+	//Prints a txt file containing courses and past grades. WARNING: EXPERIMENTAL
+	public void printTranscript() { 
+		system.printTranscript();
+	}
 	
 	// ----------------------------- MISC. OPTIONS -----------------------------
 	

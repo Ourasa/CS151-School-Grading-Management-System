@@ -37,6 +37,7 @@ public class Student extends User {
 		
 		//Iterates through past courses
 		for (Map.Entry<Course, Character> set : pastCourses.entrySet()) {
+			
 			if (set.getValue() == 'A') {
 				sum += 4;
 			} else if (set.getValue() == 'B') {
@@ -47,7 +48,7 @@ public class Student extends User {
 				sum += 1;
 			} else if (set.getValue() == 'F') {
 				sum += 0;
-			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards gpa.
+			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards GPA.
 				coursesCount -= 1;
 			}
 			
@@ -66,7 +67,7 @@ public class Student extends User {
 				sum += 1;
 			} else if (set.getValue() == 'F') {
 				sum += 0;
-			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards gpa.
+			} else if (set.getValue() == 'N') { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards GPA.
 				coursesCount -= 1;
 			}
 			
@@ -99,5 +100,6 @@ public class Student extends User {
 	public TreeMap<Course, Character> getPastCourses() {
 		return pastCourses;
 	}
+
 	
 }

@@ -3,12 +3,16 @@ package project;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+
+import java.io.File;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 //import java.util.HashSet;
 
 public class GradeSystem {
 	private Controller control;
 	private TreeMap<String, User> users;		//Key: UserID			Value: User
-	
 	private TreeMap<String, Course> courses;	//Key: course's name		Value: Course
 	private User currentUser;
 	
@@ -182,6 +186,7 @@ public class GradeSystem {
 		}
 		public void addCourse(Course course) {								//Used in Driver to add in some dummy courses. 
 			courses.put(course.getName(), course);
+			System.out.println(course.getName());
 		}
 		
 		
@@ -229,7 +234,7 @@ public class GradeSystem {
 			Student student = ((Student)users.get(studentId));
 			Course course = courses.get(courseName);
 			
-			if (student.getCurCourses().keySet().contains(course)) {	//Student is already in the course. Returns false, indicating failure.
+			if (student.getCurCourses().containsKey(course)) {	//Student is already in the course. Returns false, indicating failure.
 				return false;
 			}
 			course.addNewStudent(student);
@@ -249,26 +254,16 @@ public class GradeSystem {
 			
 		}
 		
-		
-		// ----------- View All Users -----------
-		
-		
-		
-		// ----------- View All Courses ----------- (Not In Options Yet)
-		
-		
-		
-		
 	
 	// ------------------------------------------------------ Professor Options ------------------------------------------------------
 	
 	
-	//Adding an assignment. Called multiple times by the GUI. 
+	//Adds an assignment. Called multiple times by the GUI. 
 	public void addAssignment(String courseName, String studentId, String name, double pointsEarned, double pointsTotal) {
 		Course course = courses.get(courseName);
 		Student student = (Student)users.get(studentId);
-		
 		Assignment assignment = new Assignment(name, pointsEarned, pointsTotal);
+		
 		course.addAssignment(student, assignment);
 		student.updateGrade(course);
 		student.updateGPA();
@@ -301,6 +296,32 @@ public class GradeSystem {
 	
 	// ------------------------------------------------------ Student-related Options ------------------------------------------------------
 	
+	//Print transcripts in txt format. Experimental, work in progress.
+	public void printTranscript() {
+		try {
+			String fileName = currentUser.getId() + "Transcript.txt";
+			File file = new File(fileName);
+			
+			int counter = 1;
+			while (!file.createNewFile()) {	//If a file is already generated, then it makes another one. 
+				fileName = currentUser.getId() + "Transcript ("+ counter +").txt";
+				file = new File(fileName);
+				counter++;
+			}
+			
+			//Option is only accessible by a student.
+			Student student = (Student)currentUser;
+			
+			FileWriter writer = new FileWriter(file);
+			writeStudentTranscript(file, writer, student);
+			writer.close();
+			
+		} catch (IOException e) {
+			System.out.println("Error occurred");
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	
@@ -378,8 +399,24 @@ public class GradeSystem {
 //	}
 	
 	
-	
-	
+	public void writeStudentTranscript(File file, FileWriter writer, Student student) throws IOException{
+		writer.write("Student Name: " + student.getFirstName() + " " + student.getLastName());
+		writer.write("\n\nID: " + student.getId());
+		writer.write("\n\nGPA: " + student.getGPA());
+		
+		writer.write("\n\n=======| CURRENT COURSES |==========");
+		TreeMap<Course, Character> courses = student.getCurCourses();
+		for (Map.Entry<Course, Character> set : courses.entrySet()) {
+			writer.write("\n" + String.format("%-14s", set.getKey().getName()) + "\t\t" + set.getValue());
+		}
+		
+		writer.write("\n\n=======| PAST COURSES |==========");
+		courses = student.getPastCourses();
+		for (Map.Entry<Course, Character> set : courses.entrySet()) {
+			writer.write("\n" + String.format("%-14s", set.getKey().getName()) + "\t\t" + set.getValue());
+		}
+		
+	}
 	
 	public String idNumGenerator() {
 		int[] nums = new int[4];

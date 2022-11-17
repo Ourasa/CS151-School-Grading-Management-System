@@ -19,7 +19,18 @@ public class Driver {
 		con.addCourse(course1);
 		con.addCourse(course2);
 		con.addCourse(course3);
-	
+		
+//		Testing the file writer. 
+		con.setProfessorForCourse("ENGL-01", "DP-0000");
+		
+		con.addStudentToCourse("ENGL-01", "DS-0000");
+		con.addStudentToCourse("MUSC10A-90", "DS-0000");
+		con.addStudentToCourse("CS 151-06", "DS-0000");
+		
+		con.addAssignment("ENGL-01", "DS-0000", "English HW", 1, 1);
+		con.addAssignment("CS 151-06", "DS-0000", "DFAKL", 5, 5);
+		con.loginUser("DS-0000", "Password3");
+		con.printTranscript();
 	}
 
 }
