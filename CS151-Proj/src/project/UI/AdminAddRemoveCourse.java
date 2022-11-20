@@ -135,7 +135,7 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 
 	public void updateAdminRemoveCourseScreen() {
 		ArrayList<Course> courses = frame.control.getAllCourses();
-		ArrayList<String> coursesNames = new ArrayList<String>();
+		ArrayList<String> coursesNames = new ArrayList<>();
 
 		coursesNames.add("Select a Course");
 
