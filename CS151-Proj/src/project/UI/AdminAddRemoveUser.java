@@ -95,26 +95,17 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == addUserCancelBtn) {
-			addUserTypeBox.setSelectedIndex(0);
-			addUserFNameField.setText("");
-			addUserLNameField.setText("");
-			addUserPwdField.setText("");
-			frame.pageTransition(frame.adminOptionScroll);
 
-		} else if (e.getSource() == addUserConfirmBtn) {
+		if (e.getSource() == addUserConfirmBtn) {
 			String generatedId = frame.control.addUser((String) addUserTypeBox.getSelectedItem(),
 					addUserFNameField.getText(), addUserLNameField.getText(), frame.getPwd(addUserPwdField));
 			JOptionPane.showMessageDialog(this, "Success. Username generated is: " + generatedId);
-
-			addUserTypeBox.setSelectedIndex(0);
-			addUserFNameField.setText("");
-			addUserLNameField.setText("");
-			addUserPwdField.setText("");
-
-			frame.pageTransition(frame.adminOptionScroll);
 		}
-
+		addUserTypeBox.setSelectedIndex(0);
+		addUserFNameField.setText("");
+		addUserLNameField.setText("");
+		addUserPwdField.setText("");
+		frame.pageTransition(frame.adminOptionScroll);
 	}
 }
 

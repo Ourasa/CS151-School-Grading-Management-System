@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -67,11 +68,15 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == addCourseCancelBtn) {
-			addCourseNameField.setText("");
-			addCourseProfessorBox.setSelectedIndex(0);
-			frame.pageTransition(frame.adminOptionScroll);
+		if (e.getSource() == addCourseConfirmBtn) {
+			frame.control.addCourse((String) addCourseNameField.getText(),
+					((Professor) addCourseProfessorBox.getSelectedItem()).getId());
+			JOptionPane.showMessageDialog(this, "Successfully added course.");
 		}
+		addCourseNameField.setText("");
+		addCourseProfessorBox.setSelectedIndex(0);
+		frame.pageTransition(frame.adminOptionScroll);
+
 	}
 
 	public void updateAdminAddCourseScreen() {
