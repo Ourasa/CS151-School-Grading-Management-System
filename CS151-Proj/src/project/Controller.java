@@ -1,8 +1,10 @@
 package project;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import project.UI.UserInterface;
+import project.UI.*;
 
 public class Controller {
 	private UserInterface ui;
@@ -133,4 +135,19 @@ public class Controller {
 		return system.getAllCourses();
 	}
 	
+	
+	
+	// Saves the information of the gradebook into a txt file. 
+	public void saveAsTxtFile() {
+		
+	}
+	
+	//Reads and loads a gradebook. To be completed
+	public void loadTxtFile(File file) {
+//		try {
+//			
+//		} catch () {
+//			
+//		}
+	}
 }
