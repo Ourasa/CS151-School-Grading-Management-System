@@ -58,6 +58,7 @@ public class UserInterface{
 	AdminAddCourse adminAddCourse;
 	AdminRemoveCourse adminRemoveCourse;
 	AdminViewUser adminViewUsers;
+	AddStudentToCourse addStudentToCourse;
 	// Admin - View all Users in the system
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -108,6 +109,7 @@ public class UserInterface{
 		adminAddCourse = new AdminAddCourse(this);
 		adminRemoveCourse = new AdminRemoveCourse(this);
 		adminViewUsers = new AdminViewUser(this);
+		addStudentToCourse = new AddStudentToCourse(this);
 		// Setup Professor specific GUI
 		professorAddStudent = new ProfessorAddStudent(this);
 

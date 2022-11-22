@@ -76,6 +76,8 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Professor from Course")) {
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
+				frame.addStudentToCourse.courseListBox();
+				frame.pageTransition(frame.addStudentToCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
 
