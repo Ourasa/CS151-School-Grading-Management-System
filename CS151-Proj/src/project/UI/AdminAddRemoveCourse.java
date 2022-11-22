@@ -156,8 +156,6 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 		if (e.getSource() == removeCourseCancelBtn) {
 			removeCourseBox.setSelectedIndex(0);
 			frame.pageTransition(frame.adminOptionScroll);
-
-			// Admin exits viewing all users
 		}
 	}
 
