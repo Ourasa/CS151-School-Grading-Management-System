@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -100,6 +101,17 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 			addUserLNameField.setText("");
 			addUserPwdField.setText("");
 			frame.pageTransition(frame.adminOptionScroll);
+			
+		} else if (e.getSource() == addUserConfirmBtn) {
+			String generatedId = frame.control.addUser((String)addUserTypeBox.getSelectedItem(), addUserFNameField.getText(), addUserLNameField.getText(), frame.getPwd(addUserPwdField));
+			JOptionPane.showMessageDialog(this, "Success. Username generated is: " + generatedId);
+			
+			addUserTypeBox.setSelectedIndex(0);
+			addUserFNameField.setText("");
+			addUserLNameField.setText("");
+			addUserPwdField.setText("");
+			
+			frame.pageTransition(frame.adminOptionScroll);
 		}
 
 	}
@@ -164,6 +176,23 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 		if (e.getSource() == removeUserCancelBtn) {
 			frame.pageTransition(frame.adminOptionScroll);
 
+		} else if (e.getSource() == removeUserConfirmBtn) {
+			
+			if (removeUserListBox.getSelectedIndex() == 0) {
+				removeUserDeniedLabel.setText("Denied: Please Select a User");	// failure due to no selection being done. 
+				removeUserDeniedLabel.setVisible(true);
+				
+			} else if (!frame.control.removeUser((String)removeUserListBox.getSelectedItem())) {	//method returns false on failure due to only having 1 Admin.
+				removeUserDeniedLabel.setText("<html>Denied: Must have minimum 1 Admin in System.</html>");
+				removeUserDeniedLabel.setVisible(true);
+				
+			} else {
+				JOptionPane.showMessageDialog(this, "Success. User removed: " + removeUserListBox.getSelectedItem());
+				removeUserDeniedLabel.setVisible(false);
+				removeUserListBox.setSelectedIndex(0);
+				frame.pageTransition(frame.adminOptionScroll);
+			}
+			
 		}
 	}
 

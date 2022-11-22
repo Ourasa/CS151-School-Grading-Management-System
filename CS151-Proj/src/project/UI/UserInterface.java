@@ -58,8 +58,6 @@ public class UserInterface{
 	AdminAddCourse adminAddCourse;
 	AdminRemoveCourse adminRemoveCourse;
 	AdminViewUser adminViewUsers;
-	AddStudentToCourse addStudentToCourse;
-	RemoveUserFromCourse removeUserFromCourse;
 	// Admin - View all Users in the system
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,40 +90,55 @@ public class UserInterface{
 	// Student - Print transcript
 
 	public UserInterface(Controller control) {
-		loginScroll = new LoginScrollPane(this);
-		contentPane.add(loginScroll);
 		this.control = control;
+		frame.setSize(400, 275);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setTitle("In Pain and Agony :D");
-		frame.setSize(400, 275);
-
+		loginScroll = new LoginScrollPane(this);
+		contentPane.add(loginScroll);
+		contentPane.validate();
+		frame.setVisible(true);
+		frame.pack();
+		
 		// Setup "Home" menu for Users
 		adminOptionScroll = new AdminOptionScroll(this);
 		professorOptionScroll = new ProfessorOptionScroll(this);
 		studentOptionScroll = new StudentOptionScroll(this);
+		
 		// Setup Admin specific GUI
 		adminAddUser = new AdminAddUser(this);
 		adminRemoveUser = new AdminRemoveUser(this);
 		adminAddCourse = new AdminAddCourse(this);
 		adminRemoveCourse = new AdminRemoveCourse(this);
 		adminViewUsers = new AdminViewUser(this);
-		addStudentToCourse = new AddStudentToCourse(this);
-		removeUserFromCourse = new RemoveUserFromCourse(this);
+		
 		// Setup Professor specific GUI
 		professorAddStudent = new ProfessorAddStudent(this);
 
 		// Setup Student specific GUI
-		frame.pack();
-
-		frame.setVisible(true);
 
 	}
 
-	void pageTransition(JScrollPane after) {
+	public void pageTransition(JScrollPane after) {
 		contentPane.removeAll();
 		contentPane.add(after);
 		contentPane.repaint();
 		contentPane.revalidate();
+		frame.pack();
+	}
+	
+	public static String getPwd(JPasswordField field) {
+		char[] pwd = field.getPassword();
+		String completePwd = "";
+		
+		for (int i = 0; i < pwd.length; i++) {
+			completePwd += pwd[i];
+		}
+		
+		pwd = null;
+		
+		return completePwd;
+		
 	}
 
 }

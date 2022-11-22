@@ -72,16 +72,13 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 				frame.pageTransition(frame.adminRemoveCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
-
+				
+				
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Professor from Course")) {
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
-				frame.addStudentToCourse.courseListBox();
-				frame.pageTransition(frame.addStudentToCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
-				frame.removeUserFromCourse.courseListBox();
-				frame.pageTransition(frame.removeUserFromCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("View All Users")) {
 				frame.adminViewUsers.updateViewUsersScreen();
@@ -92,8 +89,7 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 			frame.loginScroll= new LoginScrollPane(frame);
 			frame.pageTransition(frame.loginScroll);
 			frame.control.logoutUser();
-			System.out.println("here");
-
+			//System.out.println("here");
 		}
 	}
 }
