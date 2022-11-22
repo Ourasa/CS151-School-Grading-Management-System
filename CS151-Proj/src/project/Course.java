@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class Course implements Comparable {
+public class Course implements Comparable<Course> {
 	private String name;											//Course name should be similar to our system, like "CS 151-06"
 	private Professor professor;
 	private TreeMap<Student, ArrayList<Assignment>> studentBase;
@@ -138,8 +138,7 @@ public class Course implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		Course other = (Course)o;
+	public int compareTo(Course other) {
 		return this.name.compareTo(other.name);
 	}
 	

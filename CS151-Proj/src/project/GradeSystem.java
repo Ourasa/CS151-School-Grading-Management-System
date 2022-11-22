@@ -169,9 +169,11 @@ public class GradeSystem {
 				
 			} else { //Admin(s) do not have any particular ties with Students or Professors. HOWEVER, there must at least be one. This is the only means in which removal can fail.
 				ArrayList<Admin> admins = getAdminList();
+				
 				if (admins.size() <= 1) {
 					return false;
 				}
+				
 			}
 			users.remove(id);		//After necessary operations done, the user is permanently removed from the system. 
 			return true;
@@ -186,7 +188,6 @@ public class GradeSystem {
 		}
 		public void addCourse(Course course) {								//Used in Driver to add in some dummy courses. 
 			courses.put(course.getName(), course);
-			System.out.println(course.getName());
 		}
 		
 		
@@ -316,6 +317,8 @@ public class GradeSystem {
 			writeStudentTranscript(file, writer, student);
 			writer.close();
 			
+			//file.setReadOnly();	
+			
 		} catch (IOException e) {
 			System.out.println("Error occurred");
 			e.printStackTrace();
@@ -432,6 +435,13 @@ public class GradeSystem {
 			id = "" + a + "" + b + "-"  + idNumGenerator();
 		}
 		return id;
+		
+	}
+
+	
+	// ------------------------------------------------------ LOADING FILE INTO THE SYSTEM ------------------------------------------------------\
+	
+	public void loadTxtFile(File file) {
 		
 	}
 	

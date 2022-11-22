@@ -28,9 +28,9 @@ public class Driver {
 		con.addStudentToCourse("CS 151-06", "DS-0000");
 		
 		con.addAssignment("ENGL-01", "DS-0000", "English HW", 1, 1);
-		con.addAssignment("CS 151-06", "DS-0000", "DFAKL", 5, 5);
+		con.addAssignment("CS 151-06", "DS-0000", "DFAKL", 3, 5);
 		con.loginUser("DS-0000", "Password3");
-		con.printTranscript();
+//		con.printTranscript();
 	}
 
 }
