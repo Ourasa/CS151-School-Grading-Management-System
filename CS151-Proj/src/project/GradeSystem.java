@@ -223,7 +223,7 @@ public class GradeSystem {
 	// ----------- Removing an (active) Course from the system -----------
 	public void removeCourse(String name) {
 		Course course = courses.get(name);
-
+		courses.remove(name);
 		course.getProfessor().removeCourse(course);
 		ArrayList<Student> students = course.getStudents();
 

@@ -70,7 +70,7 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addCourseConfirmBtn) {
 			frame.control.addCourse((String) addCourseNameField.getText(),
-					((Professor) addCourseProfessorBox.getSelectedItem()).getId());
+					(String) addCourseProfessorBox.getSelectedItem());
 			JOptionPane.showMessageDialog(this, "Successfully added course.");
 		}
 		addCourseNameField.setText("");
@@ -142,7 +142,7 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 		ArrayList<Course> courses = frame.control.getAllCourses();
 		ArrayList<String> coursesNames = new ArrayList<String>();
 
-		coursesNames.add("Select a Course");
+		// coursesNames.add("Select a Course");
 
 		for (int i = 0; i < courses.size(); i++) {
 			coursesNames.add(courses.get(i).getName());
@@ -158,12 +158,12 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == removeCourseCancelBtn) {
-			removeCourseBox.setSelectedIndex(0);
-			frame.pageTransition(frame.adminOptionScroll);
-
-			// Admin exits viewing all users
+		if (e.getSource() == removeCourseConfirmBtn) {
+			frame.control.removeCourse((String) removeCourseBox.getSelectedItem());
+			JOptionPane.showMessageDialog(this, "Successfully removed course.");
 		}
+		removeCourseBox.setSelectedIndex(0);
+		frame.pageTransition(frame.adminOptionScroll);
 	}
 
 }
