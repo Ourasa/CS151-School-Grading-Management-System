@@ -92,14 +92,13 @@ public class UserInterface{
 	// Student - Print transcript
 
 	public UserInterface(Controller control) {
-		this.control = control;
-		frame.setSize(400, 275);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setTitle("In Pain and Agony :D");
 		loginScroll = new LoginScrollPane(this);
 		contentPane.add(loginScroll);
-		contentPane.validate();
-		frame.setVisible(true);
+		this.control = control;
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setTitle("In Pain and Agony :D");
+		frame.setSize(400, 275);
+
 		// Setup "Home" menu for Users
 		adminOptionScroll = new AdminOptionScroll(this);
 		professorOptionScroll = new ProfessorOptionScroll(this);
@@ -116,6 +115,9 @@ public class UserInterface{
 		professorAddStudent = new ProfessorAddStudent(this);
 
 		// Setup Student specific GUI
+		frame.pack();
+
+		frame.setVisible(true);
 
 	}
 
