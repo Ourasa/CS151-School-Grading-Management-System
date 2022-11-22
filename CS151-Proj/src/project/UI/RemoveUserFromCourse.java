@@ -17,15 +17,13 @@ import project.Professor;
 import project.Student;
 import project.User;
 
-class AddStudentToCourse extends JScrollPane implements ActionListener{
+class RemoveUserFromCourse extends JScrollPane implements ActionListener{
 	
 	UserInterface frame;
 	ArrayList<Course> courses; 
 	JComboBox<String> courseComboBox;
 	JComboBox<String> studentListComboBox;
-	
 	JButton adminOptionConfirmBtn;
-
 	JButton addStudentToCourseButton;
 	JButton cancelButton;
 	JTextField addCourseNameField;
@@ -34,7 +32,7 @@ class AddStudentToCourse extends JScrollPane implements ActionListener{
 	JLabel selectStudentLabel;
 
 	
-	public AddStudentToCourse(UserInterface in) {
+	public RemoveUserFromCourse(UserInterface in) {
 		frame = in;
 		courses = frame.control.getAllCourses();
 		this.setLayout(null);
@@ -47,21 +45,21 @@ class AddStudentToCourse extends JScrollPane implements ActionListener{
 		cancelButton.addActionListener(this);
 		this.add(cancelButton);
 		
-		addCourseTitleLabel = new JLabel("Add Student to Course");
+		addCourseTitleLabel = new JLabel("Remove Student From Course");
 		addCourseTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 		addCourseTitleLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		addCourseTitleLabel.setBounds(100, 30, 200, 25);
 		this.add(addCourseTitleLabel);
+		
+		selectCourseNameLabel = new JLabel("Course:");
+		selectCourseNameLabel.setBounds(100, 110, 100, 25);
+		this.add(selectCourseNameLabel);
 		
 		adminOptionConfirmBtn = new JButton();
 		adminOptionConfirmBtn.addActionListener(this);
 		adminOptionConfirmBtn.setBounds(210, 200, 90, 25);
 		adminOptionConfirmBtn.setText("Confirm");
 		this.add(adminOptionConfirmBtn);
-		
-		selectCourseNameLabel = new JLabel("Course:");
-		selectCourseNameLabel.setBounds(100, 110, 100, 25);
-		this.add(selectCourseNameLabel);
 		
 		selectStudentLabel = new JLabel("Student:");
 		selectStudentLabel.setBounds(100, 70, 100, 25);
