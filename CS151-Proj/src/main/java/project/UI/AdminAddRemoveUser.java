@@ -1,4 +1,4 @@
-package project.UI;
+package main.java.project.UI;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import com.gradebook.gradebookproject.*;
+import main.java.com.gradebook.gradebookproject.*;
 
 class AdminAddUser extends JScrollPane implements ActionListener {
 

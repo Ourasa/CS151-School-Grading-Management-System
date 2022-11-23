@@ -1,4 +1,4 @@
-package project.UI;
+package main.java.project.UI;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -8,8 +8,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-import com.gradebook.gradebookproject.*;
-
+import main.java.com.gradebook.gradebookproject.*;
 import project.*;
 
 public class UserInterface {

@@ -1,4 +1,4 @@
-package project.UI;
+package main.java.project.UI;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -14,8 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import com.gradebook.gradebookproject.*;
-
+import main.java.com.gradebook.gradebookproject.*;
 
 class AdminAddCourse extends JScrollPane implements ActionListener {
 

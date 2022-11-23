@@ -1,10 +1,10 @@
-package com.gradebook.gradebookproject;
+package main.java.com.gradebook.gradebookproject;
 
 public class Assignment {
 	private String name;
 	private double pointsEarned;
 	private double pointsTotal;
-	
+
 	public Assignment(String name, double pointsEarned, double pointsTotal) {
 		this.name = name;
 		this.pointsEarned = pointsEarned;
@@ -52,6 +52,5 @@ public class Assignment {
 	public void setPointsTotal(double pointsTotal) {
 		this.pointsTotal = pointsTotal;
 	}
-	
-	
+
 }

@@ -1,4 +1,4 @@
-package main.java.project.UI;
+package project.UI;
 
 /**
  *
@@ -11,7 +11,7 @@ public class AutoComplete extends javax.swing.JPanel {
          */
         public AutoComplete() {
                 initComponents();
-                // AutoCompleteDecorator.decorate(jComboBox1);
+                AutoCompleteDecorator.decorate(jComboBox1);
         }
 
         /**

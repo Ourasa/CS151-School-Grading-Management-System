@@ -1,4 +1,4 @@
-package project.UI;
+package main.java.project.UI;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -56,7 +56,7 @@ public class StudentOptionScroll extends JScrollPane implements ActionListener {
 			frame.loginScroll = new LoginScrollPane(frame);
 			frame.pageTransition(frame.loginScroll);
 			frame.control.logoutUser();
-		} 
+		}
 	}
 
 }

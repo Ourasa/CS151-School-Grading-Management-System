@@ -1,4 +1,4 @@
-package project.UI;
+package main.java.project.UI;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -9,8 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import com.gradebook.gradebookproject.*;
-
+import main.java.com.gradebook.gradebookproject.*;
 
 public class AdminViewUser extends JScrollPane implements ActionListener {
 

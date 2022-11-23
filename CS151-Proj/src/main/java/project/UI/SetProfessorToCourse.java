@@ -1,10 +1,9 @@
-package project.UI;
+package main.java.project.UI;
 
 import javax.swing.*;
 import javax.swing.JScrollPane;
 
-import com.gradebook.gradebookproject.*;
-
+import main.java.com.gradebook.gradebookproject.*;
 
 import java.awt.Dimension;
 import java.awt.Font;

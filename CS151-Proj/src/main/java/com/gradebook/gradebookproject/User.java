@@ -1,12 +1,12 @@
-package com.gradebook.gradebookproject;
+package main.java.com.gradebook.gradebookproject;
 
 public abstract class User implements Comparable<User> {
-	private String firstName;		
+	private String firstName;
 	private String lastName;
-	private String id;				//Id should follow the format of first character of first name, first character of second name, dash, and 4 numbers. EX:  AB-0000
+	private String id; // Id should follow the format of first character of first name, first character
+						// of second name, dash, and 4 numbers. EX: AB-0000
 	private String password;
-	
-	
+
 	public User(String firstName, String lastName, String id, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -17,7 +17,7 @@ public abstract class User implements Comparable<User> {
 	public void printInfo() {
 		System.out.println("Placeholder for now");
 	}
-	
+
 	/**
 	 * @return the firstName
 	 */
@@ -73,7 +73,7 @@ public abstract class User implements Comparable<User> {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public int compareTo(User other) {
 		return this.getId().compareTo(other.getId());
 	}

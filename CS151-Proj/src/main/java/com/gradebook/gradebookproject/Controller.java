@@ -1,9 +1,10 @@
-package com.gradebook.gradebookproject;
+package main.java.com.gradebook.gradebookproject;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import main.java.project.UI.UserInterface;
 import project.UI.*;
 
 public class Controller {

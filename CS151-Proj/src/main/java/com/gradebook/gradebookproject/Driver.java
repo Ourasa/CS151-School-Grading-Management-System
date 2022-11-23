@@ -1,4 +1,4 @@
-package com.gradebook.gradebookproject;
+package main.java.com.gradebook.gradebookproject;
 
 public class Driver {
 
