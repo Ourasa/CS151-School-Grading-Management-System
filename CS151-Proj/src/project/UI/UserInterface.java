@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import project.*;
 
-public class UserInterface{
+public class UserInterface {
 	Controller control;
 
 	/*
@@ -58,6 +58,7 @@ public class UserInterface{
 	AdminAddCourse adminAddCourse;
 	AdminRemoveCourse adminRemoveCourse;
 	AdminViewUser adminViewUsers;
+	SetProfessorToCourse setProfessorToCourse;
 	// Admin - View all Users in the system
 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,19 +100,20 @@ public class UserInterface{
 		contentPane.validate();
 		frame.setVisible(true);
 		frame.pack();
-		
+
 		// Setup "Home" menu for Users
 		adminOptionScroll = new AdminOptionScroll(this);
 		professorOptionScroll = new ProfessorOptionScroll(this);
 		studentOptionScroll = new StudentOptionScroll(this);
-		
+
 		// Setup Admin specific GUI
 		adminAddUser = new AdminAddUser(this);
 		adminRemoveUser = new AdminRemoveUser(this);
 		adminAddCourse = new AdminAddCourse(this);
 		adminRemoveCourse = new AdminRemoveCourse(this);
 		adminViewUsers = new AdminViewUser(this);
-		
+		setProfessorToCourse = new SetProfessorToCourse(this);
+
 		// Setup Professor specific GUI
 		professorAddStudent = new ProfessorAddStudent(this);
 
@@ -126,19 +128,19 @@ public class UserInterface{
 		contentPane.revalidate();
 		frame.pack();
 	}
-	
+
 	public static String getPwd(JPasswordField field) {
 		char[] pwd = field.getPassword();
 		String completePwd = "";
-		
+
 		for (int i = 0; i < pwd.length; i++) {
 			completePwd += pwd[i];
 		}
-		
+
 		pwd = null;
-		
+
 		return completePwd;
-		
+
 	}
 
 }
