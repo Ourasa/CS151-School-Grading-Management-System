@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import com.gradebook.gradebookproject.*;
 
-
 class AddStudentToCourse extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
