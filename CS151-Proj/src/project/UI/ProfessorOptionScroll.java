@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class ProfessorOptionScroll extends JScrollPane implements ActionListener {
+	JComboBox<String> courseBox;
 	JComboBox<String> profOptionsBox;
+
 	JButton profOptionConfirmBtn;
 	JButton profLogoutBtn;
 	JLabel profWelcomeLabel;
@@ -26,7 +28,7 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 		String[] profOptions = { "Add Student to Course", "Remove Student from Course", "Add an Assignment",
 				"Edit an Assignment", "Remove an Assignment", "View Students + Grades" };
 		profOptionsBox = new JComboBox<String>(profOptions);
-		profOptionsBox.setBounds(100, 120, 200, 25);
+		profOptionsBox.setBounds(150, 150, 200, 25);
 		this.add(profOptionsBox);
 
 		profOptionConfirmBtn = new JButton();
