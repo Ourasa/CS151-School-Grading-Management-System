@@ -374,6 +374,14 @@ public class GradeSystem {
 		return ((Professor) currentUser).getCourses();
 	}
 
+	public Course getCourse(String in) {
+		return courses.get(in);
+	}
+
+	public User getUser(String in) {
+		return users.get(in);
+	}
+
 	public ArrayList<Admin> getAdminList() {
 		ArrayList<User> userList = new ArrayList<User>(users.values());
 		ArrayList<Admin> admins = new ArrayList<Admin>();
