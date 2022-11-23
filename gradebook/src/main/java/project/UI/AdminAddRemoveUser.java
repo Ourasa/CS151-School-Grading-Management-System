@@ -16,6 +16,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
 import com.gradebook.gradebook.*;
 
 class AdminAddUser extends JScrollPane implements ActionListener {

@@ -28,7 +28,6 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 				"Remove Professor from Course", "Add Student to Course", "Remove Student from Course",
 				"View All Users" };
 		autoComplete = new AutoComplete(adminOptions);
-		autoComplete.setBounds(100, 120, 200, 25);
 		this.add(autoComplete);
 
 		adminOptionConfirmBtn = new JButton();
