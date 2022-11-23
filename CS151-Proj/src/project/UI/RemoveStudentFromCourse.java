@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -23,7 +24,7 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 	ArrayList<Course> courses;
 	JComboBox<String> courseComboBox;
 	JComboBox<String> studentListComboBox;
-	JButton adminOptionConfirmBtn;
+	JButton confirmButton;
 	JButton addStudentToCourseButton;
 	JButton cancelButton;
 	JTextField addCourseNameField;
@@ -54,11 +55,11 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		selectCourseNameLabel.setBounds(100, 110, 100, 25);
 		this.add(selectCourseNameLabel);
 
-		adminOptionConfirmBtn = new JButton();
-		adminOptionConfirmBtn.addActionListener(this);
-		adminOptionConfirmBtn.setBounds(210, 200, 90, 25);
-		adminOptionConfirmBtn.setText("Confirm");
-		this.add(adminOptionConfirmBtn);
+		confirmButton = new JButton();
+		confirmButton.addActionListener(this);
+		confirmButton.setBounds(210, 200, 90, 25);
+		confirmButton.setText("Confirm");
+		this.add(confirmButton);
 
 		selectStudentLabel = new JLabel("Student:");
 		selectStudentLabel.setBounds(100, 70, 100, 25);
@@ -101,6 +102,19 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == confirmButton) {
+			Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());
+			User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());
+			if (!course.removeStudent((Student) student)) {
+				JOptionPane.showMessageDialog(this,
+						"Student not in course, unable to remove.");
+			} else {
+				JOptionPane.showMessageDialog(this,
+						"Successfully removed student: " + student.getId().toString() + ", from course "
+								+ course.getName());
+			}
+
+		}
 		if (e.getSource() == cancelButton) {
 			frame.pageTransition(frame.adminOptionScroll);
 		}

@@ -74,16 +74,26 @@ public class Course implements Comparable<Course> {
 		asgnNameList.remove(asgnName);
 	}
 
-	public void addNewStudent(Student student) {
-		studentBase.put(student, new ArrayList<Assignment>());
+	public boolean addNewStudent(Student student) {
+		if (!studentBase.containsKey(student)) {
+			return false;
+		} else {
+			studentBase.put(student, new ArrayList<Assignment>());
+			return true;
+		}
 	}
 
 	public void addOldStudent(Student student, ArrayList<Assignment> asgn) {
 		studentBase.put(student, asgn);
 	}
 
-	public void removeStudent(Student student) {
-		studentBase.remove(student);
+	public boolean removeStudent(Student student) {
+		if (!studentBase.containsKey(student)) {
+			return false;
+		} else {
+			studentBase.remove(student);
+			return true;
+		}
 	}
 
 	public void setProfessor(Professor professor) {

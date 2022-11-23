@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -24,7 +25,7 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 	JComboBox<String> courseComboBox;
 	JComboBox<String> studentListComboBox;
 
-	JButton adminOptionConfirmBtn;
+	JButton confirmButton;
 
 	JButton addStudentToCourseButton;
 	JButton cancelButton;
@@ -41,7 +42,7 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 
 		courseComboBox = new JComboBox<>();
 
-		cancelButton = new JButton("Cancel");
+		cancelButton = new JButton("Back");
 		cancelButton.setBounds(100, 200, 90, 25);
 		cancelButton.addActionListener(this);
 		this.add(cancelButton);
@@ -52,11 +53,11 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 		addCourseTitleLabel.setBounds(100, 30, 200, 25);
 		this.add(addCourseTitleLabel);
 
-		adminOptionConfirmBtn = new JButton();
-		adminOptionConfirmBtn.addActionListener(this);
-		adminOptionConfirmBtn.setBounds(210, 200, 90, 25);
-		adminOptionConfirmBtn.setText("Confirm");
-		this.add(adminOptionConfirmBtn);
+		confirmButton = new JButton();
+		confirmButton.addActionListener(this);
+		confirmButton.setBounds(210, 200, 90, 25);
+		confirmButton.setText("Confirm");
+		this.add(confirmButton);
 
 		selectCourseNameLabel = new JLabel("Course:");
 		selectCourseNameLabel.setBounds(100, 110, 100, 25);
@@ -103,6 +104,19 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == confirmButton) {
+			Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());
+			User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());
+			course.addNewStudent((Student) student);
+			if (!course.addNewStudent((Student) student)) {
+				JOptionPane.showMessageDialog(this,
+						"Student is already enrolled in the course.");
+			} else {
+				JOptionPane.showMessageDialog(this,
+						"Successfully added student: " + student.getId().toString() + ", to course "
+								+ course.getName());
+			}
+		}
 		if (e.getSource() == cancelButton) {
 			frame.pageTransition(frame.adminOptionScroll);
 		}
