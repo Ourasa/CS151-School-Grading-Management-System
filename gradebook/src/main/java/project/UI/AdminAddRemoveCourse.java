@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import com.gradebook.gradebookproject.*;
+import com.gradebook.gradebook.*;
 
 
 class AdminAddCourse extends JScrollPane implements ActionListener {

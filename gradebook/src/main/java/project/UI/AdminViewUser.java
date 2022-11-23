@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import com.gradebook.gradebookproject.*;
+import com.gradebook.gradebook.*;
 
 
 public class AdminViewUser extends JScrollPane implements ActionListener {

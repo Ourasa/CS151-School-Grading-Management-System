@@ -1,4 +1,4 @@
-package com.gradebook.gradebookproject;
+package com.gradebook.gradebook;
 
 public abstract class User implements Comparable<User> {
 	private String firstName;		

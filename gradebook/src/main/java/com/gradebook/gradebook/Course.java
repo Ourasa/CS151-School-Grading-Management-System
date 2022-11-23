@@ -1,4 +1,4 @@
-package com.gradebook.gradebookproject;
+package com.gradebook.gradebook;
 
 import java.util.ArrayList;
 //import java.util.HashSet;

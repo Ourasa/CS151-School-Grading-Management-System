@@ -12,7 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import com.gradebook.gradebookproject.*;
+
+import com.gradebook.gradebook.*;
+
 
 class AddStudentToCourse extends JScrollPane implements ActionListener {
 

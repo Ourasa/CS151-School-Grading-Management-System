@@ -1,4 +1,4 @@
-package com.gradebook;
+package com.gradebook.gradebook;
 
 import static org.junit.Assert.assertTrue;
 

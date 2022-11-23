@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import com.gradebook.gradebookproject.*;
+import com.gradebook.gradebook.*;
 
 
 public class LoginScrollPane extends JScrollPane implements ActionListener {

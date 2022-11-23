@@ -1,4 +1,4 @@
-package com.gradebook.gradebookproject;
+package com.gradebook.gradebook;
 
 import java.io.File;
 import java.io.IOException;

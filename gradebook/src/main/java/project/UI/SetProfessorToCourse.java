@@ -3,7 +3,7 @@ package project.UI;
 import javax.swing.*;
 import javax.swing.JScrollPane;
 
-import com.gradebook.gradebookproject.*;
+import com.gradebook.gradebook.*;
 
 
 import java.awt.Dimension;

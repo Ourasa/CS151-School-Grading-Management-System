@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-import com.gradebook.gradebookproject.*;
+import com.gradebook.gradebook.*;
 
 import project.*;
 

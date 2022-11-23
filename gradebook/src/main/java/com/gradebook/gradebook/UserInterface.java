@@ -1,4 +1,4 @@
-package com.gradebook.gradebookproject;
+package com.gradebook.gradebook;
 //package project;
 //
 ////import java.awt.BorderLayout;
