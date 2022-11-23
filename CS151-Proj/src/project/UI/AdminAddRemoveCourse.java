@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -67,11 +68,15 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == addCourseCancelBtn) {
-			addCourseNameField.setText("");
-			addCourseProfessorBox.setSelectedIndex(0);
-			frame.pageTransition(frame.adminOptionScroll);
+		if (e.getSource() == addCourseConfirmBtn) {
+			frame.control.addCourse((String) addCourseNameField.getText(),
+					(String) addCourseProfessorBox.getSelectedItem());
+			JOptionPane.showMessageDialog(this, "Successfully added course.");
 		}
+		addCourseNameField.setText("");
+		addCourseProfessorBox.setSelectedIndex(0);
+		frame.pageTransition(frame.adminOptionScroll);
+
 	}
 
 	public void updateAdminAddCourseScreen() {
@@ -137,7 +142,7 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 		ArrayList<Course> courses = frame.control.getAllCourses();
 		ArrayList<String> coursesNames = new ArrayList<String>();
 
-		coursesNames.add("Select a Course");
+		// coursesNames.add("Select a Course");
 
 		for (int i = 0; i < courses.size(); i++) {
 			coursesNames.add(courses.get(i).getName());
@@ -153,12 +158,12 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == removeCourseCancelBtn) {
-			removeCourseBox.setSelectedIndex(0);
-			frame.pageTransition(frame.adminOptionScroll);
-
-			// Admin exits viewing all users
+		if (e.getSource() == removeCourseConfirmBtn) {
+			frame.control.removeCourse((String) removeCourseBox.getSelectedItem());
+			JOptionPane.showMessageDialog(this, "Successfully removed course.");
 		}
+		removeCourseBox.setSelectedIndex(0);
+		frame.pageTransition(frame.adminOptionScroll);
 	}
 
 }

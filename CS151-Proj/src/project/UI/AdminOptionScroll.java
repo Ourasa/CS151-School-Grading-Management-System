@@ -1,6 +1,5 @@
 package project.UI;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class AdminOptionScroll extends JScrollPane implements ActionListener {
@@ -57,39 +55,49 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 		if (e.getSource() == adminOptionConfirmBtn) {
 
 			if (((String) adminOptionsBox.getSelectedItem()).equals("Add User")) {
+				frame.adminAddUser = new AdminAddUser(frame);
 				frame.pageTransition(frame.adminAddUser);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove User")) {
+				frame.adminRemoveUser = new AdminRemoveUser(frame);
 				frame.adminRemoveUser.updateAdminRemoveUserScreen();
 				frame.pageTransition(frame.adminRemoveUser);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Course")) {
+				frame.adminAddCourse = new AdminAddCourse(frame);
 				frame.adminAddCourse.updateAdminAddCourseScreen();
 				frame.pageTransition(frame.adminAddCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Course")) {
+				frame.adminRemoveCourse = new AdminRemoveCourse(frame);
 				frame.adminRemoveCourse.updateAdminRemoveCourseScreen();
 				frame.pageTransition(frame.adminRemoveCourse);
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Set Professor for Course")) {
-				
-				
+				frame.setProfessorToCourse = new SetProfessorToCourse(frame);
+				frame.setProfessorToCourse.courseListBox();
+				frame.pageTransition(frame.setProfessorToCourse);
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Professor from Course")) {
 
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
-
+				frame.addStudentToCourse = new AddStudentToCourse(frame);
+				frame.addStudentToCourse.courseListBox();
+				frame.pageTransition(frame.addStudentToCourse);
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
-
+				frame.removeStudentFromCourse = new RemoveStudentFromCourse(frame);
+				frame.removeStudentFromCourse.courseListBox();
+				frame.pageTransition(frame.removeStudentFromCourse);
 			} else if (((String) adminOptionsBox.getSelectedItem()).equals("View All Users")) {
+				frame.adminViewUsers = new AdminViewUser(frame);
 				frame.adminViewUsers.updateViewUsersScreen();
 				frame.pageTransition(frame.adminViewUsers);
 			}
 		} else {
 			frame.adminOptionScroll.adminOptionsBox.setSelectedIndex(0);
-			frame.loginScroll= new LoginScrollPane(frame);
+			frame.loginScroll = new LoginScrollPane(frame);
 			frame.pageTransition(frame.loginScroll);
 			frame.control.logoutUser();
-			//System.out.println("here");
+			// System.out.println("here");
 		}
 	}
 }
