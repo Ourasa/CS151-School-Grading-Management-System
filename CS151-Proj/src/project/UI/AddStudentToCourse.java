@@ -111,16 +111,13 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirmButton) {
-			Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());
+			String course = (String) courseComboBox.getSelectedItem();
 			User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());
-			System.out.println(course.addNewStudent((Student) student));
-			System.out.println(course.studentBase.get((Student) student));
-
-			if (!course.addNewStudent((Student) student)) {
+			if (frame.control.addStudentToCourse((String) courseComboBox.getSelectedItem(),
+					(String) studentListComboBox.getSelectedItem())) {
 				JOptionPane.showMessageDialog(this,
 						"Successfully added student: " + student.getId().toString() + ", to course "
-								+ course.getName());
-
+								+ course);
 			} else {
 				JOptionPane.showMessageDialog(this,
 						"Student is already enrolled in the course.");
