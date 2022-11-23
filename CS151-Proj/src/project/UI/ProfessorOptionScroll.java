@@ -55,9 +55,14 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 		if (e.getSource() == profOptionConfirmBtn) {
 
 			if (((String) profOptionsBox.getSelectedItem()).equals("Add Student to Course")) {
-				frame.pageTransition(frame.professorAddStudent);
+				frame.addStudentToCourse = new AddStudentToCourse(frame);
+				frame.addStudentToCourse.courseListBox();
+				frame.pageTransition(frame.addStudentToCourse);
 
 			} else if (((String) profOptionsBox.getSelectedItem()).equals("Remove Student from Course")) {
+				frame.removeStudentFromCourse = new RemoveStudentFromCourse(frame);
+				frame.removeStudentFromCourse.courseListBox();
+				frame.pageTransition(frame.removeStudentFromCourse);
 
 			} else if (((String) profOptionsBox.getSelectedItem()).equals("Add an Assignment")) {
 

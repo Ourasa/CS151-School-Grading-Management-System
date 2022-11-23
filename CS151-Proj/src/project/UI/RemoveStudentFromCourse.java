@@ -68,7 +68,12 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 	}
 
 	public void courseListBox() {
-		ArrayList<Course> courses = frame.control.getAllCourses();
+		if (frame.control.getCurrentUser() instanceof Professor) {
+			Professor prof = (Professor) frame.control.getCurrentUser();
+			courses = prof.getCourses();
+		} else {
+			courses = frame.control.getAllCourses();
+		}
 		ArrayList<String> coursesNames = new ArrayList<String>();
 
 		ArrayList<User> students = frame.control.getUserList();
@@ -105,18 +110,25 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		if (e.getSource() == confirmButton) {
 			Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());
 			User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());
-			if (!course.removeStudent((Student) student)) {
-				JOptionPane.showMessageDialog(this,
-						"Student not in course, unable to remove.");
-			} else {
+			System.out.println(course.removeStudent((Student) student));
+			System.out.println(course.studentBase.get((Student) student));
+
+			if (course.removeStudent((Student) student)) {
 				JOptionPane.showMessageDialog(this,
 						"Successfully removed student: " + student.getId().toString() + ", from course "
 								+ course.getName());
+			} else {
+				JOptionPane.showMessageDialog(this,
+						"Student not in course, unable to remove.");
 			}
 
 		}
 		if (e.getSource() == cancelButton) {
-			frame.pageTransition(frame.adminOptionScroll);
+			if (frame.control.getCurrentUser() instanceof Professor) {
+				frame.pageTransition(frame.professorOptionScroll);
+			} else {
+				frame.pageTransition(frame.adminOptionScroll);
+			}
 		}
 
 	}

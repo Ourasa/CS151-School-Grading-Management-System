@@ -70,13 +70,19 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 	}
 
 	public void courseListBox() {
-		ArrayList<Course> courses = frame.control.getAllCourses();
+		ArrayList<Course> courses;
+
+		if (frame.control.getCurrentUser() instanceof Professor) {
+			Professor prof = (Professor) frame.control.getCurrentUser();
+			courses = prof.getCourses();
+		} else {
+			courses = frame.control.getAllCourses();
+		}
+
 		ArrayList<String> coursesNames = new ArrayList<String>();
 
 		ArrayList<User> students = frame.control.getUserList();
 		ArrayList<String> studentNames = new ArrayList<String>();
-
-		coursesNames.add("Select a Course");
 
 		for (int i = 0; i < courses.size(); i++) {
 			coursesNames.add(courses.get(i).getName());
@@ -107,18 +113,25 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 		if (e.getSource() == confirmButton) {
 			Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());
 			User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());
-			course.addNewStudent((Student) student);
+			System.out.println(course.addNewStudent((Student) student));
+			System.out.println(course.studentBase.get((Student) student));
+
 			if (!course.addNewStudent((Student) student)) {
-				JOptionPane.showMessageDialog(this,
-						"Student is already enrolled in the course.");
-			} else {
 				JOptionPane.showMessageDialog(this,
 						"Successfully added student: " + student.getId().toString() + ", to course "
 								+ course.getName());
+
+			} else {
+				JOptionPane.showMessageDialog(this,
+						"Student is already enrolled in the course.");
 			}
 		}
 		if (e.getSource() == cancelButton) {
-			frame.pageTransition(frame.adminOptionScroll);
+			if (frame.control.getCurrentUser() instanceof Professor) {
+				frame.pageTransition(frame.professorOptionScroll);
+			} else {
+				frame.pageTransition(frame.adminOptionScroll);
+			}
 		}
 
 	}

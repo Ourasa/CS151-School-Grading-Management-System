@@ -118,7 +118,6 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 
 		// Student Logout
 
-		
 	}
 
 	private void pageTransition(JScrollPane before, JScrollPane after) {

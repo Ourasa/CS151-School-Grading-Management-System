@@ -8,7 +8,7 @@ import java.util.TreeSet;
 public class Course implements Comparable<Course> {
 	private String name; // Course name should be similar to our system, like "CS 151-06"
 	private Professor professor;
-	private TreeMap<Student, ArrayList<Assignment>> studentBase;
+	public TreeMap<Student, ArrayList<Assignment>> studentBase;
 	private TreeSet<String> asgnNameList; // This is needed because students may have different assignments.
 
 	public Course(String name, Professor professor, TreeMap<Student, ArrayList<Assignment>> studentBase) {
@@ -76,9 +76,9 @@ public class Course implements Comparable<Course> {
 
 	public boolean addNewStudent(Student student) {
 		if (!studentBase.containsKey(student)) {
+			studentBase.put(student, new ArrayList<Assignment>());
 			return false;
 		} else {
-			studentBase.put(student, new ArrayList<Assignment>());
 			return true;
 		}
 	}
