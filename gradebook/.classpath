@@ -41,6 +41,5 @@
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/nirguberman/Downloads/swingx-all-1.6.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
