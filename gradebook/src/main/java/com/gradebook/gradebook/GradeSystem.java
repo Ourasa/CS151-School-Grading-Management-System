@@ -349,6 +349,87 @@ public class GradeSystem {
 		courses.remove(course.getName());
 	}
 	
+	// Prints the entire roster of the classes the Professor has into a txt
+	public void generateClassRosterTxt() {
+		try {
+			String fileName = currentUser.getId() + "ClassRoster.txt";
+			File file = new File(fileName);
+			
+			//File generation and naming process
+			int counter = 1;
+			while (!file.createNewFile()) {	//If a file is already generated, then it makes another one. 
+				fileName = currentUser.getId() + "ClassRoster {" + counter + ").txt";
+				file = new File(fileName);
+				counter++;
+			}		
+			FileWriter writer = new FileWriter(file);
+			
+			Professor prof = (Professor) currentUser;
+			ArrayList<Course> coursesOwned = prof.getCourses();			
+	
+			for (int i = 0; i < coursesOwned.size(); i++) {
+				
+				Course course = coursesOwned.get(i);
+				ArrayList<Student> roster = course.getStudents();
+				writer.write("=========| Start " + course.getName() + " Roster |=========\n");
+				
+				for (int j = 0; j < roster.size(); j++) {
+					Student student = roster.get(i);
+					writer.write(student.getFirstName() + " " + student.getLastName() + ", "  + String.format("%-14s", student.getGrade(course)) + "\n");
+				}
+				writer.write("=========| End " + course.getName() + " Roster |=========\n\n");
+			}
+			
+			writer.close();
+			
+		} catch (Exception e) {
+			System.out.println("Error during class roster txt generation");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//Overloaded print class roster method for testing purposes... and maybe for another occasion
+	public void generateClassRosterTxt(String profId) {
+		try {
+			String fileName = profId + "ClassRoster.txt";
+			File file = new File(fileName);
+			
+			//File generation and naming process
+			int counter = 1;
+			while (!file.createNewFile()) {	//If a file is already generated, then it makes another one. 
+				fileName = profId + "ClassRoster (" + counter + ").txt";
+				file = new File(fileName);
+				counter++;
+			}		
+			FileWriter writer = new FileWriter(file);
+			
+			Professor prof = (Professor) users.get(profId);
+			ArrayList<Course> coursesOwned = prof.getCourses();			
+	
+			for (int i = 0; i < coursesOwned.size(); i++) {
+				
+				Course course = coursesOwned.get(i);
+				ArrayList<Student> roster = course.getStudents();
+				writer.write("=========| Start " + course.getName() + " Roster |=========\n");
+				
+				for (int j = 0; j < roster.size(); j++) {
+					Student student = roster.get(j);
+					writer.write(student.getFirstName() + " " + student.getLastName() + ", "  + String.format("%-20s", student.getGrade(course)) + "\n");
+				}
+				writer.write("=========| End " + course.getName() + " Roster |=========\n\n");
+			}
+			
+			writer.close();
+			
+		} catch (Exception e) {
+			System.out.println("Error during class roster txt generation");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	
 	// ------------------------------------------------------ Student-related
 	// Options ------------------------------------------------------
@@ -642,6 +723,7 @@ public class GradeSystem {
 					Professor prof = (Professor)users.get(lineComp[1]);
 					course = new Course(lineComp[0], prof);
 					addCourse(course);
+					prof.addCourse(course);
 				}
 				
 				curLine = scan.nextLine();		
