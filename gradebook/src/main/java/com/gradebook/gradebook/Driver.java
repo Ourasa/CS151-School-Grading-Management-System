@@ -24,6 +24,8 @@ public class Driver {
 //		
 ////		Testing the file writer. 
 //		con.setProfessorForCourse("ENGL-01", "DP-0000");
+//		con.setProfessorForCourse("CS 151-06", "DP-0000");
+//		con.setProfessorForCourse("MUSC10A-90", "DP-0000");
 //		
 //		con.addStudentToCourse("ENGL-01", "DS-0000");
 //		con.addStudentToCourse("MUSC10A-90", "DS-0000");
@@ -38,6 +40,8 @@ public class Driver {
 //		con.generateTxtSaveFile();
 //		
 		con.loadTxtFile("gradeSystemSaveFile.txt");
+		
+		con.system.generateClassRosterTxt(defaultProfessor.getId());
 
 	}
 

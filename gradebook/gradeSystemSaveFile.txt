@@ -4,14 +4,14 @@ Professor,Default,Professor,DP-0000,Password2
 Student,Default,Student,DS-0000,Password3
 EndUsers
 StartCourse
-CS 151-06,null
+CS 151-06,DP-0000
 StartCourseStudent
 DS-0000
 CS HW,3.0,5.0
 EndCourseStudent
 EndCourse
 StartCourse
-MUSC10A-90,null
+MUSC10A-90,DP-0000
 StartCourseStudent
 DS-0000
 EndCourseStudent

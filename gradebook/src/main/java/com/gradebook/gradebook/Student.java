@@ -99,8 +99,12 @@ public class Student extends User {
 		return curCourses;
 	}
 	
+	
 	public TreeMap<String, Character> getPastCourses() {
 		return pastCourses;
 	}
 	
+	public Character getGrade(Course course) {
+		return curCourses.get(course);
+	}
 }
