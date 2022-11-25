@@ -110,12 +110,12 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirmButton) {
 			String course = (String) courseComboBox.getSelectedItem();
-			User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());
-			if (frame.control.addStudentToCourse((String) courseComboBox.getSelectedItem(),
-					(String) studentListComboBox.getSelectedItem())) {
+			String studentId = (String) studentListComboBox.getSelectedItem();
+			//User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());	
+			if (frame.control.addStudentToCourse(course, studentId)) {
 				JOptionPane.showMessageDialog(this,
-						"Successfully added student: " + student.getId().toString() + ", to course "
-								+ course);
+						"Successfully added student: " + studentId  + ", to course " 
+                + course);
 			} else {
 				JOptionPane.showMessageDialog(this,
 						"Student is already enrolled in the course.");
@@ -128,7 +128,6 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 				frame.pageTransition(frame.adminOptionScroll);
 			}
 		}
-
 	}
 
 }

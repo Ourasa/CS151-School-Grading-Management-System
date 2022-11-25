@@ -6,19 +6,19 @@ import java.util.Map;
 public class Student extends User {
 	
 	private double gpa;
-	private TreeMap<Course, Character> curCourses;
-	private TreeMap<Course, Character> pastCourses;
+	private TreeMap<Course, Character> curCourses;		// Key: Course object		Value: Grade for course
+	private TreeMap<String, Character> pastCourses;		// Key: Course name			Value: Grade for course
+
 	
 	public Student(String firstName, String lastName, String id, String password) {
 		super(firstName, lastName, id, password);
 		curCourses = new TreeMap<Course, Character>();
-		pastCourses = new TreeMap<Course, Character>();
+		pastCourses = new TreeMap<String, Character>();
 		updateGPA();
 	}
 	
-	public Student(String firstName, String lastName, String id, String password, TreeMap<Course, Character> curCourses, TreeMap<Course, Character> pastCourses) {
+	public Student(String firstName, String lastName, String id, String password, TreeMap<Course, Character> curCourses, TreeMap<String, Character> pastCourses) {
 		super(firstName, lastName, id, password);
-
 		this.curCourses  = curCourses;
 		this.pastCourses = pastCourses;
 		updateGPA();
@@ -36,8 +36,7 @@ public class Student extends User {
 		double coursesCount = 0;
 		
 		//Iterates through past courses
-		for (Map.Entry<Course, Character> set : pastCourses.entrySet()) {
-			
+		for (Map.Entry<String, Character> set : pastCourses.entrySet()) {		
 			if (set.getValue() == 'A') {
 				sum += 4;
 			} else if (set.getValue() == 'B') {
@@ -81,25 +80,27 @@ public class Student extends User {
 		}
 	}
 	
-	
 	public double getGPA() {
 		return this.gpa;
 	}
 	
-	
 	public void addCurCourse(Course course) {
 		curCourses.put(course, 'N');
+		updateGrade(course);
+		updateGPA();
 	}
 	
+	public void addPastCourse(String courseName, Character grade) {
+		pastCourses.put(courseName, grade);
+
+	}
 	
 	public TreeMap<Course, Character> getCurCourses() {
 		return curCourses;
 	}
 	
-	
-	public TreeMap<Course, Character> getPastCourses() {
+	public TreeMap<String, Character> getPastCourses() {
 		return pastCourses;
 	}
-
 	
 }

@@ -97,11 +97,16 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmBtn) {
-            User prof = frame.control.system.getUser((String) professorListComboBox.getSelectedItem());
-            Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());
-            course.setProfessor((Professor) prof);
+        	String course = (String) courseComboBox.getSelectedItem();
+        	String profId = (String) professorListComboBox.getSelectedItem();
+        	
+//            User prof = frame.control.system.getUser((String) professorListComboBox.getSelectedItem());
+//            Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());            
+//            course.setProfessor((Professor) prof);
+          frame.control.setProfessorForCourse(course, profId);
+  	
             JOptionPane.showMessageDialog(this,
-                    "Successfully set professor: " + prof.getId().toString() + ", to course " + course.getName());
+                    "Successfully set professor: " + profId + ", to course " + course);
         }
         frame.pageTransition(frame.adminOptionScroll);
     }
