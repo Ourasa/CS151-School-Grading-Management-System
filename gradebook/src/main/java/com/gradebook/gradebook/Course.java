@@ -6,6 +6,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Course implements Comparable<Course> {
+
 	private String name;											//Course name should be similar to our system, like "CS 151-06"
 	private Professor professor;
 	private TreeMap<Student, ArrayList<Assignment>> studentBase;
@@ -24,17 +25,17 @@ public class Course implements Comparable<Course> {
 		this.studentBase = new TreeMap<Student, ArrayList<Assignment>>();
 		this.asgnNameList = new TreeSet<String>();
 	}
-	
+
 	public Course(String name) {
 		this.name = name;
 		this.professor = null;
 		this.studentBase = new TreeMap<Student, ArrayList<Assignment>>();
 		this.asgnNameList = new TreeSet<String>();
 	}
-	
-	
+
 	/**
-	 * This method is called multiple times by GradeSystem. This is so each student gets the Assignment.
+	 * This method is called multiple times by GradeSystem. This is so each student
+	 * gets the Assignment.
 	 */
 	public void addAssignment(Student student, Assignment asgn) {
 		studentBase.get(student).add(asgn);
@@ -59,7 +60,7 @@ public class Course implements Comparable<Course> {
 				return true;
 			}
 		}
-		
+    
 		verifyAsgnExistence(asgnName);
 		return false;
 	}
@@ -75,6 +76,7 @@ public class Course implements Comparable<Course> {
 		}
 		asgnNameList.remove(asgnName);
 	}
+
 
 	/**
 	 * Checks if a given assignment name exists anymore. If it doesn't, remove it from the 
@@ -94,10 +96,13 @@ public class Course implements Comparable<Course> {
 		asgnNameList.remove(asgnName);
 	}
 	
-	
-	
-	public void addNewStudent(Student student) {
-		studentBase.put(student, new ArrayList<Assignment>());
+	public boolean addNewStudent(Student student) {
+		if (!studentBase.containsKey(student)) {
+			studentBase.put(student, new ArrayList<Assignment>());
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public void addOldStudent(Student student, ArrayList<Assignment> asgn) {
@@ -105,8 +110,13 @@ public class Course implements Comparable<Course> {
 	}
 	
 	
-	public void removeStudent(Student student) {
-		studentBase.remove(student);
+	public boolean removeStudent(Student student) {
+		if (!studentBase.containsKey(student)) {
+			return false;
+		} else {
+			studentBase.remove(student);
+			return true;
+		}
 	}
 	
 	
@@ -125,29 +135,28 @@ public class Course implements Comparable<Course> {
 	
 	public char getGrade(Student student) {
 		double pointsEarned = 0;
-		double pointsTotal = 0;
-		
+		double pointsTotal = 0;		
 		for (int i = 0; i < studentBase.get(student).size(); i++) {
 			pointsEarned += studentBase.get(student).get(i).getPointsEarned();
 			pointsTotal += studentBase.get(student).get(i).getPointsTotal();
 		}
+
 		
-		
-		if (pointsTotal == 0) { // 'N' is a "grade" that specifies no assignments were done. Course does not count towards gpa.
+		if (pointsTotal == 0) { // 'N' is a "grade" that specifies no assignments were done. Course does not
+								// count towards gpa.
 			return 'N';
-		} else if (pointsEarned/pointsTotal < 0.6) {
+		} else if (pointsEarned / pointsTotal < 0.6) {
 			return 'F';
-		} else if (pointsEarned/pointsTotal < 0.7) {
+		} else if (pointsEarned / pointsTotal < 0.7) {
 			return 'D';
-		} else if (pointsEarned/pointsTotal < 0.8) {
+		} else if (pointsEarned / pointsTotal < 0.8) {
 			return 'C';
-		} else if (pointsEarned/pointsTotal < 0.9) {
+		} else if (pointsEarned / pointsTotal < 0.9) {
 			return 'B';
-		} else {  //Anything above 90%
+		} else { // Anything above 90%
 			return 'A';
 		}
 	}
-	
 	
 	public ArrayList<Student> getStudents() {
 		return new ArrayList<Student>(studentBase.keySet());
@@ -165,5 +174,5 @@ public class Course implements Comparable<Course> {
 	public int compareTo(Course other) {
 		return this.name.compareTo(other.name);
 	}
-	
+  
 }
