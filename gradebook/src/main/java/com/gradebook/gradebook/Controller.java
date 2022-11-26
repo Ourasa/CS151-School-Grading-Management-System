@@ -8,7 +8,7 @@ import project.UI.*;
 
 public class Controller {
 	private UserInterface ui;
-	public GradeSystem system;
+	private GradeSystem system;
 
 	/*
 	 * Inspired by MVC.
@@ -93,7 +93,17 @@ public class Controller {
 	// Special: VIEW ALL USERS - Handled by GUI.
 
 	// Special: VIEW ALL COURSES - Likely to be handled by GUI.
-
+	
+	//GENERATES A TXT DETAILING ALL STUDENTS IN THEIR COURSES + GRADES
+	public void generateClassRosterTxt() {
+		system.generateClassRosterTxt();
+	}
+	
+	//GENERATES A TXT DETAILING ALL STUDENTS IN THEIR COURSES + GRADES (specific prof)
+	public void generateClassRosterTxt(String profId) {
+		system.generateClassRosterTxt(profId);
+	}
+	
 	// ----------------------------- PROFESSOR OPTIONS -----------------------------
 
 	// ADD STUDENT TO COURSE - Use addStudentToCourse from Admin.
