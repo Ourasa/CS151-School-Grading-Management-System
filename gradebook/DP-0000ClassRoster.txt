@@ -1,8 +1,8 @@
 =========| Start CS 151-06 Roster |=========
-Default Student, D                   
+Default Student, DS-0000	D
 =========| End CS 151-06 Roster |=========
 
 =========| Start MUSC10A-90 Roster |=========
-Default Student, N                   
+Default Student, DS-0000	N
 =========| End MUSC10A-90 Roster |=========
 

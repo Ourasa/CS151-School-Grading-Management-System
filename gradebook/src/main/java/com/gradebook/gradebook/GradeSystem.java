@@ -402,6 +402,7 @@ public class GradeSystem {
 				file = new File(fileName);
 				counter++;
 			}		
+			
 			FileWriter writer = new FileWriter(file);
 			
 			Professor prof = (Professor) users.get(profId);
@@ -415,7 +416,7 @@ public class GradeSystem {
 				
 				for (int j = 0; j < roster.size(); j++) {
 					Student student = roster.get(j);
-					writer.write(student.getFirstName() + " " + student.getLastName() + ", "  + String.format("%-20s", student.getGrade(course)) + "\n");
+					writer.write(String.format("%-10s",student.getFirstName() + " " + student.getLastName() + ", " + student.getId() + "\t" +  student.getGrade(course)) + "\n");
 				}
 				writer.write("=========| End " + course.getName() + " Roster |=========\n\n");
 			}
