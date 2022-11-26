@@ -72,7 +72,6 @@ public class UserInterface {
 	ProfessorOptionScroll professorOptionScroll;
 
 	// Professor - Add student screen from course
-	ProfessorAddStudent professorAddStudent;
 
 	// Professor - Remove student screen from course
 
@@ -121,7 +120,6 @@ public class UserInterface {
 		addStudentToCourse = new AddStudentToCourse(this);
 		removeStudentFromCourse = new RemoveStudentFromCourse(this);
 		// Setup Professor specific GUI
-		professorAddStudent = new ProfessorAddStudent(this);
 
 		// Setup Student specific GUI
 

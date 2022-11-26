@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 
 import com.gradebook.gradebook.*;
 
-
 public class LoginScrollPane extends JScrollPane implements ActionListener {
 	JPanel loginPanel;
 	JTextField loginIdField;

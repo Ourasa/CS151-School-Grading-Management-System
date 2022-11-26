@@ -28,7 +28,7 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 		String[] profOptions = { "Add Student to Course", "Remove Student from Course", "Add an Assignment",
 				"Edit an Assignment", "Remove an Assignment", "View Students + Grades" };
 		profOptionsBox = new JComboBox<String>(profOptions);
-		profOptionsBox.setBounds(150, 150, 200, 25);
+		profOptionsBox.setBounds(100, 110, 200, 25);
 		this.add(profOptionsBox);
 
 		profOptionConfirmBtn = new JButton();
