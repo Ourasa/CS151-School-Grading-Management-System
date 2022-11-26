@@ -279,6 +279,7 @@ public class GradeSystem {
 		course.addNewStudent(student);
 		student.addCurCourse(course);
 		student.updateGPA();
+		
 		return true;
 	}
 
@@ -301,7 +302,7 @@ public class GradeSystem {
 		Course course = courses.get(courseName);
 		Student student = (Student) users.get(studentId);
 		Assignment assignment = new Assignment(name, pointsEarned, pointsTotal);
-
+		
 		course.addAssignment(student, assignment);
 		student.updateGrade(course);
 		student.updateGPA();
@@ -404,12 +405,10 @@ public class GradeSystem {
 			}		
 			
 			FileWriter writer = new FileWriter(file);
-			
 			Professor prof = (Professor) users.get(profId);
 			ArrayList<Course> coursesOwned = prof.getCourses();			
 	
 			for (int i = 0; i < coursesOwned.size(); i++) {
-				
 				Course course = coursesOwned.get(i);
 				ArrayList<Student> roster = course.getStudents();
 				writer.write("=========| Start " + course.getName() + " Roster |=========\n");
@@ -431,7 +430,6 @@ public class GradeSystem {
 	}
 	
 	
-	
 	// ------------------------------------------------------ Student-related
 	// Options ------------------------------------------------------
   
@@ -441,7 +439,6 @@ public class GradeSystem {
 		try {
 			String fileName = currentUser.getId() + "Transcript.txt";
 			File file = new File(fileName);
-
 
 			int counter = 1;
 			while (!file.createNewFile()) { // If a file is already generated, then it makes another one.
@@ -559,7 +556,6 @@ public class GradeSystem {
 		for (Map.Entry<String, Character> set : pastCourses.entrySet()) {
 			writer.write("\n" + String.format("%-14s", set.getKey()) + "\t\t" + set.getValue());
 		}
-		
 	}
 	
 	public String idNumGenerator() {
@@ -579,8 +575,8 @@ public class GradeSystem {
 		
 	}
 
-	// ------------------------------------------------------ LOADING FILE INTO THE
-	// SYSTEM ------------------------------------------------------
+	// ------------------------------------------------------ MAKE/LOAD FILE 
+	// INTO SYSTEM ------------------------------------------------------
   
 	public void generateTxtSaveFile() {
 		try {
@@ -596,14 +592,27 @@ public class GradeSystem {
 			}
 		
 			FileWriter writer = new FileWriter(file);
+			writeUsers(writer);			
+			writeActiveCourses(writer);
+			writePastCourses(writer);
 			
-			//Writing in the base User information
+			writer.write("EndFile");
+			writer.close();		
+		} catch (IOException e) {
+			System.out.println("Error during Txt file generation.");
+			e.printStackTrace();
+		}
+	}
+	
+	private void writeUsers(FileWriter writer) {
+		//Writing in the base User information
+		try {
 			ArrayList<User> users = getUserList();
 			
 			writer.write("StartUsers\n");
 			for (int i = 0; i < users.size(); i++) {
 				User curUser = users.get(i);
-				
+	
 				//Write the role of the User
 				if (curUser instanceof Admin) {
 					writer.write("Admin,");
@@ -616,8 +625,14 @@ public class GradeSystem {
 				writer.write(curUser.getFirstName() + "," + curUser.getLastName() + "," + curUser.getId() + "," + curUser.getPassword() + "\n");
 			}
 			writer.write("EndUsers\n");
-			
-			
+		} catch (IOException e) {
+			System.out.println("Error during Txt file generation: User");
+			e.printStackTrace();
+		}
+	}
+	
+	private void writeActiveCourses(FileWriter writer) {
+		try {
 			//Writing ALL of Courses information, including students, professors, assignments. 
 			ArrayList<Course> allCourses = getAllCourses();
 			for (int i = 0; i < allCourses.size(); i++) {
@@ -630,14 +645,6 @@ public class GradeSystem {
 					writer.write("StartCourse\n" 
 							+ course.getName() + ",null\n");
 				}
-				
-				
-//				ArrayList<String> asgnNames = course.getAsgnNameList();
-//				
-//				for (int j = 0; j < asgnNames.size(); j++) {
-//					writer.write(asgnNames.get(j) + ",");
-//				}
-//				writer.write("\n");
 				
 				ArrayList<Student> students = course.getStudents();	//Get students of that course
 				
@@ -656,11 +663,15 @@ public class GradeSystem {
 				}
 				writer.write("EndCourse\n");
 			}
-			
 			writer.write("EndCourseAdditions\n");
-			
-			//Writing info for each Professor's Courses
-			
+		} catch (IOException e) {
+			System.out.println("Error during Txt file generation: Courses");
+			e.printStackTrace();
+		}
+	}
+	
+	private void writePastCourses(FileWriter writer) {
+		try {
 			//Writing info for each Student's past Courses
 			ArrayList<Student> students = getStudentList();
 			for (int i = 0; i < students.size(); i++) {
@@ -674,27 +685,39 @@ public class GradeSystem {
 					
 				writer.write("EndPastCourseStudent\n");
 			}
-			
-			writer.write("EndFile");
-			writer.close();		
 		} catch (IOException e) {
-			System.out.println("Error during Txt file generation.");
+			System.out.println("Error during Txt file generation: Courses");
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public void loadTxtFile(File file) {
 		try {
 			Scanner scan = new Scanner(file);
 			
+			loadUsers(scan);
+			loadActiveCourses(scan);
+			loadPastCourses(scan);
+			
+			scan.close(); //End of the file reached! 
+			
+		} catch (Exception e) {
+			System.out.println("Unable to process file. Likely incorrect file format.");
+			e.printStackTrace();
+			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+		}
+	}
+	
+	private void loadUsers(Scanner scan) {
+		try {
 			if (!scan.nextLine().equals("StartUsers")) {	//First check to ensure format is remotely proper
 				scan.close();
 				throw new IOException();
 			}
 			
 			String curLine = scan.nextLine();
-			String[] lineComp = curLine.split(",");
-			
+			String[] lineComp = curLine.split(",");	
 			
 			//Adding Users into this system...
 			while (!lineComp[0].equals("EndUsers")) {
@@ -702,19 +725,21 @@ public class GradeSystem {
 				curLine = scan.nextLine();
 				lineComp = curLine.split(",");
 			}
+		} catch (Exception e) {
+			System.out.println("Unable to process file. Likely incorrect file format for Users.");
+			e.printStackTrace();
+			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+		}
+	}
+	
+	private void loadActiveCourses(Scanner scan) {
+		try {
+			String curLine = scan.nextLine();		//Should have startCourse. If not, loop below not entered.
+			String[] lineComp = curLine.split(",");
 			
-			//At this point, lineComp[0] = "EndUsers"
-			//System.out.println(lineComp[0]);
-			
-			curLine = scan.nextLine();		//Should have startCourse. If not, loop below not entered.
-			lineComp = curLine.split(",");
-			
-			while (!(lineComp[0].equals("EndCourseAdditions"))) {
-				
-				
+			while (!(lineComp[0].equals("EndCourseAdditions"))) {				
 				curLine = scan.nextLine();		
 				lineComp = curLine.split(",");	//Obtains the course name and professor
-
 				Course course;
 				
 				if (lineComp[1].equals("null")) {	//Adds the course w/ prof into database
@@ -750,30 +775,31 @@ public class GradeSystem {
 					//System.out.println(curLine);
 					
 					student.updateGrade(course);
-					student.updateGPA();
-					
+					student.updateGPA();	
 					curLine = scan.nextLine();		
 					lineComp = curLine.split(",");
-				}
-				
+				}	
 				//At this point, lineComp[0].equals("EndCourse")
 				//System.out.println(curLine);
 				curLine = scan.nextLine();		
 				lineComp = curLine.split(",");
 			}
-			
-			
-			
-			//At this point, lineComp[0].equals("EndCourseAdditions")
-			
-			curLine = scan.nextLine();		
-			lineComp = curLine.split(",");	//If it contains StartPastCourseStudent, load the stuff in. 			
+		} catch (Exception e) {
+			System.out.println("Unable to process file. Likely incorrect file format for active Courses.");
+			e.printStackTrace();
+			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+		}
+	}
+	
+	private void loadPastCourses(Scanner scan) {
+		try {
+			String curLine = scan.nextLine();		
+			String[] lineComp = curLine.split(",");	//If it contains StartPastCourseStudent, load the stuff in. 			
 			
 			while (!lineComp[0].equals("EndFile")) {
 				curLine = scan.nextLine();		
 				lineComp = curLine.split(",");
 				Student student = (Student)users.get(lineComp[0]);		
-
 				curLine = scan.nextLine();		
 				lineComp = curLine.split(",");	//Get First assignment
 				
@@ -782,25 +808,19 @@ public class GradeSystem {
 					curLine = scan.nextLine();		
 					lineComp = curLine.split(",");	//Get past course name and grade
 				}
-				
 				//At this point, lineComp[0].equals("EndPastCourseStudent")
 				//System.out.println(curLine);
 
 				student.updateGPA();
-				
 				curLine = scan.nextLine();		
 				lineComp = curLine.split(",");	//Either contains StartPastCourseStudent or EndFile
 			}
 			
-			scan.close(); //End of the file reached! 
-			
 		} catch (Exception e) {
-			System.out.println("Unable to process file. Likely incorrect file format.");
+			System.out.println("Unable to process file. Likely incorrect file format for past Courses.");
 			e.printStackTrace();
 			control.setSystem(new GradeSystem(control)); //Clear out this system. 
 		}
-		
-		
 	}
 	
 }
