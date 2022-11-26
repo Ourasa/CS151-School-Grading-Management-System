@@ -8,7 +8,7 @@ import project.UI.*;
 
 public class Controller {
 	private UserInterface ui;
-	public GradeSystem system;
+	private GradeSystem system;
 
 	/*
 	 * Inspired by MVC.
@@ -30,10 +30,12 @@ public class Controller {
 		return system.loginAttempt(id, password);
 	}
 
-	// LOGGING OUT USER
+	
+	//LOGGING OUT USER
 	public void logoutUser() {
 		system.logoutAttempt();
 	}
+	
 
 	// ADDING A USER - MAINLY FOR DRIVER USE
 	public void addUser(User user) {
@@ -91,7 +93,17 @@ public class Controller {
 	// Special: VIEW ALL USERS - Handled by GUI.
 
 	// Special: VIEW ALL COURSES - Likely to be handled by GUI.
-
+	
+	//GENERATES A TXT DETAILING ALL STUDENTS IN THEIR COURSES + GRADES
+	public void generateClassRosterTxt() {
+		system.generateClassRosterTxt();
+	}
+	
+	//GENERATES A TXT DETAILING ALL STUDENTS IN THEIR COURSES + GRADES (specific prof)
+	public void generateClassRosterTxt(String profId) {
+		system.generateClassRosterTxt(profId);
+	}
+	
 	// ----------------------------- PROFESSOR OPTIONS -----------------------------
 
 	// ADD STUDENT TO COURSE - Use addStudentToCourse from Admin.
@@ -113,6 +125,11 @@ public class Controller {
 	// REMOVE ASSIGNMENT
 	public void removeAssignment(String courseName, String asgnName) {
 		system.removeAssignment(courseName, asgnName);
+	}
+
+  //COMPLETE COURSE
+	public void completeCourse(String courseName) {
+		system.completeCourse(courseName);
 	}
 
 	// VIEW STUDENTS + GRADES - Handled by the GUI after using getters from the
@@ -141,18 +158,21 @@ public class Controller {
 	public ArrayList<Course> getAllCourses() {
 		return system.getAllCourses();
 	}
-
-	// Saves the information of the gradebook into a txt file.
-	public void saveAsTxtFile() {
-
+	
+	// Saves the information of the gradebook into a txt file. 
+	public void generateTxtSaveFile() {
+		system.generateTxtSaveFile();
 	}
-
-	// Reads and loads a gradebook. To be completed
-	public void loadTxtFile(File file) {
-		// try {
-		//
-		// } catch () {
-		//
-		// }
+	
+	//Reads and loads a gradebook. To be completed
+	public void loadTxtFile(String fileName) {
+		this.system = new GradeSystem(this);
+		File file = new File(fileName);
+		system.loadTxtFile(file);
 	}
+	
+	public void setSystem(GradeSystem system) {
+		this.system = system;
+	}
+  
 }
