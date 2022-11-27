@@ -712,7 +712,6 @@ public class GradeSystem {
 		try {
 			if (!scan.nextLine().equals("StartUsers")) {	//First check to ensure format is remotely proper
 				scan.close();
-				throw new IOException();
 			}
 			
 			String curLine = scan.nextLine();
