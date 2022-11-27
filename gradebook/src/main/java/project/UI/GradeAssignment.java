@@ -77,13 +77,13 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 		studentListBox.setBounds(120, 120, 100, 25);
 		this.add(studentListBox);
 
-		next = new JButton("Next");
-		next.setBounds(230, 120, 100, 25);
+		next = new JButton(">");
+		next.setBounds(260, 120, 20, 25);
 		next.addActionListener(this);
 		this.add(next);
 
-		back = new JButton("Back");
-		back.setBounds(310, 120, 100, 25);
+		back = new JButton("<");
+		back.setBounds(230, 120, 20, 25);
 		back.addActionListener(this);
 		back.setVisible(false);
 		this.add(back);

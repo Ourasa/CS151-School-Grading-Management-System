@@ -104,7 +104,9 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 		addUserFNameField.setText("");
 		addUserLNameField.setText("");
 		addUserPwdField.setText("");
-		frame.pageTransition(frame.adminOptionScroll);
+		if(e.getSource() == addUserCancelBtn) {
+			frame.pageTransition(frame.adminOptionScroll);
+		}
 	}
 }
 
@@ -185,7 +187,6 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Success. User removed: " + removeUserListBox.getSelectedItem());
 				removeUserDeniedLabel.setVisible(false);
 				removeUserListBox.setSelectedIndex(0);
-				frame.pageTransition(frame.adminOptionScroll);
 			}
 
 		}
