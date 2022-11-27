@@ -82,6 +82,7 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 			} else if (((String) profOptionsBox.getSelectedItem()).equals("View Students + Grades")) {
 				frame.viewGrades = new ViewStudentsGrades(frame);
 				frame.viewGrades.updateCourseList();
+				frame.viewGrades.updateViewUsersScreen();
 				frame.pageTransition(frame.viewGrades);
 			}
 			// Professor cancels adding a student
