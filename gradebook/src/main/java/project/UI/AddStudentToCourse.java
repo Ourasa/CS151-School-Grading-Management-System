@@ -15,13 +15,12 @@ import javax.swing.JTextField;
 
 import com.gradebook.gradebook.*;
 
-
 class AddStudentToCourse extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
 	ArrayList<Course> courses;
-	JComboBox<String> courseComboBox;
-	JComboBox<String> studentListComboBox;
+	AutoComplete courseComboBox;
+	AutoComplete studentListComboBox;
 
 	JButton confirmButton;
 
@@ -37,8 +36,6 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 		courses = frame.control.getAllCourses();
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400, 275));
-
-		courseComboBox = new JComboBox<>();
 
 		cancelButton = new JButton("Back");
 		cancelButton.setBounds(100, 200, 90, 25);
@@ -97,11 +94,11 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 		String[] coursesBox = new String[coursesNames.size()];
 		coursesBox = coursesNames.toArray(coursesBox);
 
-		studentListComboBox = new JComboBox<>(studentBox);
+		studentListComboBox = new AutoComplete(studentBox);
 		studentListComboBox.setBounds(150, 70, 150, 25);
 		this.add(studentListComboBox);
 
-		courseComboBox = new JComboBox<>(coursesBox);
+		courseComboBox = new AutoComplete(coursesBox);
 		courseComboBox.setBounds(150, 110, 150, 25);
 		this.add(courseComboBox);
 	}
@@ -111,14 +108,13 @@ class AddStudentToCourse extends JScrollPane implements ActionListener {
 		if (e.getSource() == confirmButton) {
 			String course = (String) courseComboBox.getSelectedItem();
 			String studentId = (String) studentListComboBox.getSelectedItem();
-			//User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());	
+			// User student = frame.control.system.getUser((String)
+			// studentListComboBox.getSelectedItem());
 			if (frame.control.addStudentToCourse(course, studentId)) {
 				JOptionPane.showMessageDialog(this,
-						"Successfully added student: " + studentId  + ", to course " 
-                + course);
+						"Successfully added student: " + studentId + ", to course " + course);
 			} else {
-				JOptionPane.showMessageDialog(this,
-						"Student is already enrolled in the course.");
+				JOptionPane.showMessageDialog(this, "Student is already enrolled in the course.");
 			}
 		}
 		if (e.getSource() == cancelButton) {

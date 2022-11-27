@@ -1,6 +1,8 @@
 package com.gradebook.gradebook;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 //import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -9,14 +11,16 @@ public class Course implements Comparable<Course> {
 
 	private String name;											//Course name should be similar to our system, like "CS 151-06"
 	private Professor professor;
-	private TreeMap<Student, ArrayList<Assignment>> studentBase;
-	private TreeSet<String> asgnNameList;							//This is needed because students may have different assignments. 
+	public TreeMap<Student, ArrayList<Assignment>> studentBase;
+	public TreeSet<String> asgnNameList;	
+	public HashMap<String, Assignment> assignments;//This is needed because students may have different assignments. 
 	
 	public Course(String name, Professor professor, TreeMap<Student, ArrayList<Assignment>> studentBase) {
 		this.name = name;
 		this.professor = professor;
 		this.studentBase = studentBase;
 		this.asgnNameList = new TreeSet<String>();
+		assignments = new HashMap<String, Assignment>();
 	}
 	
 	public Course(String name, Professor professor) {
@@ -24,6 +28,8 @@ public class Course implements Comparable<Course> {
 		this.professor = professor;
 		this.studentBase = new TreeMap<Student, ArrayList<Assignment>>();
 		this.asgnNameList = new TreeSet<String>();
+		assignments = new HashMap<String, Assignment>();
+
 	}
 
 	public Course(String name) {
@@ -31,6 +37,8 @@ public class Course implements Comparable<Course> {
 		this.professor = null;
 		this.studentBase = new TreeMap<Student, ArrayList<Assignment>>();
 		this.asgnNameList = new TreeSet<String>();
+		assignments = new HashMap<String, Assignment>();
+
 	}
 
 	/**
@@ -40,6 +48,10 @@ public class Course implements Comparable<Course> {
 	public void addAssignment(Student student, Assignment asgn) {
 		studentBase.get(student).add(asgn);
 		asgnNameList.add(asgn.getName());
+	}
+	
+	public void addAssignment(String in, Assignment assignment) {
+		this.assignments.put(in, assignment);
 	}
 	
 	/**
@@ -131,6 +143,20 @@ public class Course implements Comparable<Course> {
 	public Professor getProfessor() {
 		return this.professor;
 	}
+	
+	public double getAsgnPtsTotal(String asgnName) {
+        ArrayList<Student> students = getStudents();
+        for (int i = 0; i < students.size(); i++) {
+            Student student = students.get(i);
+            ArrayList<Assignment> asgn = studentBase.get(student);
+            for (int j = 0; j < asgn.size(); j++) {
+                if (asgn.get(j).getName().equals(asgnName)) {
+                    return asgn.get(j).getPointsTotal();
+                }
+            }
+        }
+        return -1; //Happens when not found.
+    }
 	
 	
 	public char getGrade(Student student) {

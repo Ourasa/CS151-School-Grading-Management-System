@@ -14,6 +14,10 @@ public abstract class User implements Comparable<User> {
 		this.password = password;
 	}
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void printInfo() {
 		System.out.println("Placeholder for now");
 	}

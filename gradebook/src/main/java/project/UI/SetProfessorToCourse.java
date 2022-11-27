@@ -16,8 +16,8 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
 
     UserInterface frame;
     ArrayList<Course> courses;
-    JComboBox<String> courseComboBox;
-    JComboBox<String> professorListComboBox;
+    AutoComplete courseComboBox;
+    AutoComplete professorListComboBox;
 
     JButton confirmBtn;
 
@@ -34,7 +34,6 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
         this.setLayout(null);
         this.setPreferredSize(new Dimension(400, 275));
 
-        courseComboBox = new JComboBox<>();
 
         cancelButton = new JButton("Cancel");
         cancelButton.setBounds(100, 200, 90, 25);
@@ -85,11 +84,11 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
         String[] coursesBox = new String[coursesNames.size()];
         coursesBox = coursesNames.toArray(coursesBox);
 
-        professorListComboBox = new JComboBox<>(professorBox);
+        professorListComboBox = new AutoComplete(professorBox);
         professorListComboBox.setBounds(180, 70, 150, 25);
         this.add(professorListComboBox);
 
-        courseComboBox = new JComboBox<>(coursesBox);
+        courseComboBox = new AutoComplete(coursesBox);
         courseComboBox.setBounds(180, 110, 150, 25);
         this.add(courseComboBox);
     }
