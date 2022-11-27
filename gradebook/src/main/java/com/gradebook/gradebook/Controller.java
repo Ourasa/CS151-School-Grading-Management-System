@@ -111,9 +111,8 @@ public class Controller {
 	// REMOVE STUDENT FROM COURSE - Use removeStudentFromCourse from Admin.
 
 	// ADD ASSIGNEMNT
-	public void addAssignment(String courseName, String studentId, String name, double pointsEarned,
-			double pointsTotal) {
-		system.addAssignment(courseName, studentId, name, pointsEarned, pointsTotal);
+	public void addAssignment(String courseName, String studentID, Assignment in) {
+		system.addAssignment(courseName, studentID, in);
 	}
 
 	// EDIT ASSIGNMENT - For now, only edits the points earned. Not sure just

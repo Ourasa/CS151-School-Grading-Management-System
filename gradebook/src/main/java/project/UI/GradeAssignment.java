@@ -23,18 +23,20 @@ import com.gradebook.gradebook.Professor;
 import com.gradebook.gradebook.Student;
 
 @SuppressWarnings("serial")
-public class EditAssignment extends JScrollPane implements ActionListener {
+public class GradeAssignment extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
 	JComboBox courseListBox;
 	AutoComplete assignmentListBox;
+	AutoComplete studentListBox;
+
 	JButton confirmButton;
-	JButton confirmCourseButton;
+	JButton next;
+	JButton back;
 
 	JButton cancelButton;
 	JTextField assignmentName;
 	JTextField points;
-	JTextField newName;
 	JPasswordField addUserPwdField;
 	JLabel pageTitle;
 	JLabel selectCourseLabel;
@@ -42,14 +44,14 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 	JLabel assignmentNameLabel;
 	JLabel pointsWorthLabel;
 	JLabel statusLabel;
-	JLabel instruction;
+	JLabel totalPoints;
 
-	public EditAssignment(UserInterface in) {
+	public GradeAssignment(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400, 275));
 
-		pageTitle = new JLabel("Edit Assignment");
+		pageTitle = new JLabel("Grade Assignment");
 		pageTitle.setHorizontalAlignment(JLabel.CENTER);
 		pageTitle.setFont(new Font("Serif", Font.PLAIN, 18));
 		pageTitle.setBounds(110, 30, 200, 25);
@@ -67,15 +69,26 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 		assignmentListBox.setBounds(120, 90, 100, 25);
 		this.add(assignmentListBox);
 
-		changeAssignmentNameLabel = new JLabel("Edit name:");
+		changeAssignmentNameLabel = new JLabel("Student:");
 		changeAssignmentNameLabel.setBounds(30, 120, 70, 25);
 		this.add(changeAssignmentNameLabel);
 
-		newName = new JTextField("");
-		newName.setBounds(120, 120, 100, 25);
-		this.add(newName);
+		studentListBox = new AutoComplete(new String[0]);
+		studentListBox.setBounds(120, 120, 100, 25);
+		this.add(studentListBox);
 
-		pointsWorthLabel = new JLabel("Edit points:");
+		next = new JButton("Next");
+		next.setBounds(230, 120, 100, 25);
+		next.addActionListener(this);
+		this.add(next);
+
+		back = new JButton("Back");
+		back.setBounds(310, 120, 100, 25);
+		back.addActionListener(this);
+		back.setVisible(false);
+		this.add(back);
+
+		pointsWorthLabel = new JLabel("Grade:");
 		pointsWorthLabel.setBounds(30, 150, 90, 25);
 		this.add(pointsWorthLabel);
 
@@ -83,11 +96,11 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 		points.setBounds(120, 150, 30, 25);
 		this.add(points);
 
-		instruction = new JLabel("**If no changes needed, leave blank**");
-		instruction.setBounds(30, 180, 250, 25);
-		this.add(instruction);
+		totalPoints = new JLabel("/");
+		totalPoints.setBounds(150, 150, 100, 25);
+		this.add(totalPoints);
 
-		confirmButton = new JButton("Confirm");
+		confirmButton = new JButton("Save");
 		confirmButton.setBounds(200, 220, 100, 25);
 		confirmButton.addActionListener(this);
 		this.add(confirmButton);
@@ -124,68 +137,115 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 
 		courseListBox = new JComboBox<>(coursesBox);
 		courseListBox.setBounds(120, 60, 120, 25);
-		updateAssignmentList((String)courseListBox.getSelectedItem());
+		updatetList((String) courseListBox.getSelectedItem());
 		courseListBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				updateAssignmentList(e.getItem().toString());
+				points.setText("");
+
+				checkSelectedIndex();
+				updatetList(e.getItem().toString());
 			}
 		});
 		this.add(courseListBox);
 
 	}
 
-	public void updateAssignmentList(String cours) {
-		Course course = frame.control.getCourse(cours);
+	public void updatetList(String cours) {
+		final Course course = frame.control.getCourse(cours);
 		ArrayList<String> assignmentNames = new ArrayList<String>(course.getAsgnNameList());
+		ArrayList<String> studentNames = new ArrayList<String>();
+
+		for (Student student : course.studentBase.keySet()) {
+			studentNames.add(student.getId());
+		}
 
 		String[] assignmentBox = new String[assignmentNames.size()];
 		assignmentBox = assignmentNames.toArray(assignmentBox);
 
+		String[] studentBox = new String[studentNames.size()];
+		studentBox = studentNames.toArray(studentBox);
+
+		this.remove(studentListBox);
+		studentListBox = new AutoComplete(studentBox);
+		studentListBox.setBounds(120, 120, 100, 25);
+		studentListBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				points.setText("");
+
+				checkSelectedIndex();
+			}
+		});
+		this.add(studentListBox);
+
 		this.remove(assignmentListBox);
 		assignmentListBox = new AutoComplete(assignmentBox);
 		assignmentListBox.setBounds(120, 90, 100, 25);
+		assignmentListBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				points.setText("");
+
+				totalPoints.setText("/" + course.getAsgnPtsTotal((String) assignmentListBox.getSelectedItem()));
+			}
+		});
 		this.add(assignmentListBox);
+
+		totalPoints.setText("/" + course.getAsgnPtsTotal((String) assignmentListBox.getSelectedItem()));
+		points.setText("");
+
 		this.validate();
 		this.repaint();
 
 	}
 
+	public void checkSelectedIndex() {
+		if (studentListBox.getSelectedIndex() + 1 == studentListBox.options.length) {
+			next.setVisible(false);
+		}
+		if (studentListBox.getSelectedIndex() > 0) {
+			back.setVisible(true);
+		}
+		if (studentListBox.getSelectedIndex() == 0) {
+			back.setVisible(false);
+		}
+		if (studentListBox.getSelectedIndex() + 1 < studentListBox.options.length) {
+			next.setVisible(true);
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == next) {
+			points.setText("");
 
-		
+			studentListBox.setSelectedIndex(studentListBox.getSelectedIndex() + 1);
+			checkSelectedIndex();
+		}
+		if (e.getSource() == back) {
+			points.setText("");
+
+			studentListBox.setSelectedIndex(studentListBox.getSelectedIndex() - 1);
+			checkSelectedIndex();
+		}
 		if (e.getSource() == confirmButton) {
+			String studentID = studentListBox.getSelectedItem().toString();
 
-			if (points.getText().isEmpty() || points.getText().matches("[0-9]+")) {
-				String course = (String) courseListBox.getSelectedItem();
-				Course c = frame.control.getCourse(course);
-
-				if (newName.getText() != "") {
-					c.asgnNameList.remove(assignmentListBox.getSelectedItem());
-					c.asgnNameList.add(newName.getText());
+			Course course = frame.control.getCourse((String) courseListBox.getSelectedItem());
+			Student stud = new Student();
+			for (Student student : course.studentBase.keySet()) {
+				if (student.getId() == studentID) {
+					stud = student;
 				}
-
-				for (Student student : c.getStudents()) {
-					for (Assignment assignment : c.studentBase.get(student)) {
-						if (assignment.getName() == assignmentListBox.getSelectedItem()) {
-							if (newName.getText() != "") {
-								assignment.setName(newName.getText());
-							}
-							if (!points.getText().isEmpty()) {
-								assignment.setPointsTotal(Integer.parseInt(points.getText()));
-							}
-						}
-					}
-				}
-				JOptionPane.showMessageDialog(this, "Assignment was successfully edited");
-
-				frame.editAssignment = new EditAssignment(frame);
-				frame.editAssignment.updateCourseList();
-				frame.pageTransition(frame.editAssignment);
-			} else {
-				statusLabel.setVisible(true);
 			}
+			for (Assignment assignment : course.studentBase.get(stud)) {
+
+				if (assignment.getName().equals((String) assignmentListBox.getSelectedItem())) {
+					assignment.setPointsEarned(Double.parseDouble(points.getText()));
+				}
+			}
+			points.setText("");
 
 		}
 		if (e.getSource() == cancelButton) {

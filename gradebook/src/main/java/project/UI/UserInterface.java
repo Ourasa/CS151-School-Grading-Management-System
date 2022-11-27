@@ -79,6 +79,7 @@ public class UserInterface {
 	// Professor - Add an assignment for all students in a course.
 	AddAssignment addAssignment;
 	EditAssignment editAssignment;
+	GradeAssignment gradeAssignment;
 	// Professor - Edit an assignment for all students in a course.
 
 	// Professor - Remove an assignment for all students in a course.
@@ -124,8 +125,9 @@ public class UserInterface {
 		// Setup Professor specific GUI
 		professorAddStudent = new ProfessorAddStudent(this);
 		addAssignment = new AddAssignment(this);
-		
+
 		editAssignment = new EditAssignment(this);
+		gradeAssignment = new GradeAssignment(this);
 		// Setup Student specific GUI
 
 	}

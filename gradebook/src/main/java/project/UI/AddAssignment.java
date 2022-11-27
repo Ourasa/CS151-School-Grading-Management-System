@@ -15,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import com.gradebook.gradebook.Assignment;
 import com.gradebook.gradebook.Course;
 import com.gradebook.gradebook.Professor;
 import com.gradebook.gradebook.Student;
@@ -74,7 +75,7 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 		pointsWorthLabel = new JLabel("Total Points:");
 		pointsWorthLabel.setBounds(30, 140, 100, 25);
 		this.add(pointsWorthLabel);
-		
+
 		statusLabel = new JLabel();
 		statusLabel.setBounds(100, 175, 200, 25);
 		statusLabel.setForeground(Color.RED);
@@ -104,27 +105,28 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 		addUserTypeBox.setBounds(160, 80, 150, 25);
 		this.add(addUserTypeBox);
 
-	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == confirmButton) {
-				if(points.getText().matches("[0-9]+")) {
-					String course = (String) addUserTypeBox.getSelectedItem();
-					Course c = frame.control.getCourse(course);
-					for (Student student : c.getStudents()) {
-						frame.control.addAssignment(course, student.getId(), assignmentName.getText(), 0, Integer.parseInt(points.getText()));
-					}
-					JOptionPane.showMessageDialog(this, "Assignment: " + assignmentName.getText() + ", was successfully added to " + course);
-					points.setText("");
-					assignmentName.setText("");
+		if (e.getSource() == confirmButton) {
+			if (points.getText().matches("[0-9]+")) {
+				String course = (String) addUserTypeBox.getSelectedItem();
+				Course c = frame.control.getCourse(course);
+				Assignment newAssignment = new Assignment(assignmentName.getText(), 0,
+						Integer.parseInt(points.getText()));
+				for (Student student : c.getStudents()) {
+					frame.control.addAssignment(course, student.getId(), newAssignment);
 				}
-				else {
-					statusLabel.setVisible(true);
-				}
+				JOptionPane.showMessageDialog(this,
+						"Assignment: " + assignmentName.getText() + ", was successfully added to " + course);
+				points.setText("");
+				assignmentName.setText("");
+			} else {
+				statusLabel.setVisible(true);
 			}
-			frame.pageTransition(frame.professorOptionScroll); 
+		}
+		frame.pageTransition(frame.professorOptionScroll);
 	}
 
 }
