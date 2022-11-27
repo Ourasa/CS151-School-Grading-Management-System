@@ -61,6 +61,7 @@ public class UserInterface {
 	AdminAddCourse adminAddCourse;
 	AdminRemoveCourse adminRemoveCourse;
 	AdminViewUser adminViewUsers;
+	AdminLoadFile adminLoadFile;
 	SetProfessorToCourse setProfessorToCourse;
 	AddStudentToCourse addStudentToCourse;
 	RemoveStudentFromCourse removeStudentFromCourse;

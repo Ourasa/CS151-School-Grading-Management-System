@@ -163,12 +163,12 @@ public class Controller {
 	}
 	
 	// Saves the information of the gradebook into a txt file. 
-	public void generateTxtSaveFile() {
-		system.generateTxtSaveFile();
+	public String generateTxtSaveFile() {
+		return system.generateTxtSaveFile();
 	}
 	
 	//Reads and loads a gradebook. To be completed
-	public void loadTxtFile(String fileName) {
+	public void loadTxtFile(String fileName) throws Exception {
 		this.system = new GradeSystem(this);
 		File file = new File(fileName);
 		system.loadTxtFile(file);
