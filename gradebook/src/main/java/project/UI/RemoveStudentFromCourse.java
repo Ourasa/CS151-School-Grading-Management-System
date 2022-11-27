@@ -15,13 +15,12 @@ import javax.swing.JTextField;
 
 import com.gradebook.gradebook.*;
 
-
 class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
 	ArrayList<Course> courses;
-	JComboBox<String> courseComboBox;
-	JComboBox<String> studentListComboBox;
+	AutoComplete courseComboBox;
+	AutoComplete studentListComboBox;
 	JButton confirmButton;
 	JButton addStudentToCourseButton;
 	JButton cancelButton;
@@ -35,8 +34,6 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		courses = frame.control.getAllCourses();
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400, 275));
-
-		courseComboBox = new JComboBox<>();
 
 		cancelButton = new JButton("Cancel");
 		cancelButton.setBounds(100, 200, 90, 25);
@@ -94,11 +91,11 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		String[] coursesBox = new String[coursesNames.size()];
 		coursesBox = coursesNames.toArray(coursesBox);
 
-		studentListComboBox = new JComboBox<>(studentBox);
+		studentListComboBox = new AutoComplete(studentBox);
 		studentListComboBox.setBounds(150, 70, 150, 25);
 		this.add(studentListComboBox);
 
-		courseComboBox = new JComboBox<>(coursesBox);
+		courseComboBox = new AutoComplete(coursesBox);
 		courseComboBox.setBounds(150, 110, 150, 25);
 		this.add(courseComboBox);
 	}
@@ -109,12 +106,11 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 			String course = (String) courseComboBox.getSelectedItem();
 
 			String studentId = (String) studentListComboBox.getSelectedItem();
-			//User student = frame.control.system.getUser((String) studentListComboBox.getSelectedItem());
+			// User student = frame.control.system.getUser((String)
+			// studentListComboBox.getSelectedItem());
 
 			frame.control.removeStudentFromCourse(course, (String) studentListComboBox.getSelectedItem());
-			JOptionPane.showMessageDialog(this,
-					"Removed student: " + studentId + ", from course " 
-            + course);
+			JOptionPane.showMessageDialog(this, "Removed student: " + studentId + ", from course " + course);
 		}
 		if (e.getSource() == cancelButton) {
 			if (frame.control.getCurrentUser() instanceof Professor) {

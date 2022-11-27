@@ -25,7 +25,7 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 	UserInterface frame;
 	JScrollPane addUserScroll;
 	JPanel addUserPanel;
-	JComboBox<String> addUserTypeBox;
+	AutoComplete addUserTypeBox;
 	JButton addUserConfirmBtn;
 	JButton addUserCancelBtn;
 	JTextField addUserFNameField;
@@ -43,7 +43,7 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 		this.setPreferredSize(new Dimension(400, 275));
 
 		String[] types = { "Admin", "Professor", "Student" };
-		addUserTypeBox = new JComboBox<String>(types);
+		addUserTypeBox = new AutoComplete(types);
 		addUserTypeBox.setBounds(100, 80, 100, 25);
 		this.add(addUserTypeBox);
 
