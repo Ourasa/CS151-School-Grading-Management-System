@@ -24,6 +24,10 @@ public class Student extends User {
 		updateGPA();
 	}
 	
+	public Student() {
+		super();
+	}
+
 	//Updates the student's grade for the specified Course
 	public void updateGrade(Course course) {
 		char grade = course.getGrade(this);

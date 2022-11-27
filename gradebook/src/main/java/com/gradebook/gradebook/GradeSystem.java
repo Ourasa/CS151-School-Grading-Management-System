@@ -297,13 +297,12 @@ public class GradeSystem {
 	// ------------------------------------------------------
 
 	// Adds an assignment. Called multiple times by the GUI.
-	public void addAssignment(String courseName, String studentId, String name, double pointsEarned,
-			double pointsTotal) {
+	public void addAssignment(String courseName, String studentId, Assignment in) {
 		Course course = courses.get(courseName);
 		Student student = (Student) users.get(studentId);
-		Assignment assignment = new Assignment(name, pointsEarned, pointsTotal);
 		
-		course.addAssignment(student, assignment);
+		course.addAssignment(student, in);
+		course.addAssignment(in.getName(), in);
 		student.updateGrade(course);
 		student.updateGPA();
 	}
