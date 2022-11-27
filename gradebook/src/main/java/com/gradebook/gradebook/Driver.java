@@ -13,6 +13,7 @@ public class Driver {
 		
 //		con.addUser(defaultAdmin);
 //		con.addUser(defaultProfessor);
+		con.system.users.put(defaultProfessor.getId(),defaultProfessor);
 //		con.addUser(defaultStudent1);
 //		con.addUser(defaultStudent2);
 //		
