@@ -23,8 +23,6 @@ import com.gradebook.gradebook.*;
 class AdminAddUser extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
-	JScrollPane addUserScroll;
-	JPanel addUserPanel;
 	AutoComplete addUserTypeBox;
 	JButton addUserConfirmBtn;
 	JButton addUserCancelBtn;
@@ -91,7 +89,6 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 		addPwdLabel.setBounds(30, 170, 100, 25);
 		this.add(addPwdLabel);
 
-		addUserScroll = new JScrollPane();
 
 	}
 

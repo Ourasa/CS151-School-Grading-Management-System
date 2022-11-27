@@ -9,8 +9,8 @@ public class Course implements Comparable<Course> {
 
 	private String name;											//Course name should be similar to our system, like "CS 151-06"
 	private Professor professor;
-	private TreeMap<Student, ArrayList<Assignment>> studentBase;
-	private TreeSet<String> asgnNameList;							//This is needed because students may have different assignments. 
+	public TreeMap<Student, ArrayList<Assignment>> studentBase;
+	public TreeSet<String> asgnNameList;							//This is needed because students may have different assignments. 
 	
 	public Course(String name, Professor professor, TreeMap<Student, ArrayList<Assignment>> studentBase) {
 		this.name = name;

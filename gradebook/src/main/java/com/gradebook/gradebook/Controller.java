@@ -8,7 +8,7 @@ import project.UI.*;
 
 public class Controller {
 	private UserInterface ui;
-	private GradeSystem system;
+	public GradeSystem system;
 
 	/*
 	 * Inspired by MVC.
@@ -157,6 +157,10 @@ public class Controller {
 	// GET ALL COURSES
 	public ArrayList<Course> getAllCourses() {
 		return system.getAllCourses();
+	}
+	
+	public Course getCourse(String in) {
+		return system.getCourse(in);
 	}
 	
 	// Saves the information of the gradebook into a txt file. 

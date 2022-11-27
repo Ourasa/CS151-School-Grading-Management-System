@@ -73,11 +73,12 @@ public class UserInterface {
 
 	// Professor - Add student screen from course
 	ProfessorAddStudent professorAddStudent;
-
+	
 	// Professor - Remove student screen from course
 
 	// Professor - Add an assignment for all students in a course.
-
+	AddAssignment addAssignment;
+	EditAssignment editAssignment;
 	// Professor - Edit an assignment for all students in a course.
 
 	// Professor - Remove an assignment for all students in a course.
@@ -122,7 +123,9 @@ public class UserInterface {
 		removeStudentFromCourse = new RemoveStudentFromCourse(this);
 		// Setup Professor specific GUI
 		professorAddStudent = new ProfessorAddStudent(this);
-
+		addAssignment = new AddAssignment(this);
+		
+		editAssignment = new EditAssignment(this);
 		// Setup Student specific GUI
 
 	}
