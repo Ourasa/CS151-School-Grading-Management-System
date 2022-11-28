@@ -1,7 +1,7 @@
 package project.UI;
 
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +39,7 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 	public ViewStudentsGrades(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(1000, 500));
+		this.setPreferredSize(new Dimension(400, 200));
 		tempComponents = new ArrayList<>();
 		addComponents();
 
@@ -121,6 +121,7 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 		}
 		this.validate();
 		this.repaint();
+		
 		ImageIcon image3 = new ImageIcon("images/Professor2.png");
 
 		JLabel image = new JLabel(image3);
@@ -141,8 +142,9 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.pageTransition(frame.professorOptionScroll);
-
+		if (e.getSource() == backButton) {
+			frame.pageTransition(frame.professorOptionScroll);
+		}
 	}
 
 }
