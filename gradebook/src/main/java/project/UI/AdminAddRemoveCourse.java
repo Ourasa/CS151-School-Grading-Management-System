@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 
 import com.gradebook.gradebook.*;
 
-
 class AdminAddCourse extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
@@ -72,6 +71,8 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 					(String) addCourseProfessorBox.getSelectedItem());
 			JOptionPane.showMessageDialog(this, "Successfully added course.");
 		}
+		Professor prof = (Professor) frame.control.system.getUser((String) addCourseProfessorBox.getSelectedItem());
+		prof.addCourse(frame.control.getCourse((String) addCourseNameField.getText()));
 		addCourseNameField.setText("");
 		addCourseProfessorBox.setSelectedIndex(0);
 		frame.pageTransition(frame.adminOptionScroll);

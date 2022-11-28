@@ -137,7 +137,7 @@ public class UserInterface {
 		printTranscript = new PrintTranscript(this);
 	}
 
-	public void pageTransition(JScrollPane after) {
+	public void pageTransition(JComponent after) {
 		contentPane.removeAll();
 		contentPane.add(after);
 		contentPane.repaint();

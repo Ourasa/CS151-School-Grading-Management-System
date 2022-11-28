@@ -113,7 +113,7 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 class AdminRemoveUser extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
-	JComboBox<String> removeUserListBox;
+	AutoComplete removeUserListBox;
 	JButton removeUserConfirmBtn;
 	JButton removeUserCancelBtn;
 	JLabel removeUserLabel;
@@ -157,7 +157,7 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 			userIds[i + 1] = users.get(i).getId();
 		}
 
-		removeUserListBox = new JComboBox<String>(userIds);
+		removeUserListBox = new AutoComplete(userIds);
 		removeUserListBox.setBounds(100, 100, 200, 25);
 		add(removeUserListBox);
 	}
@@ -187,6 +187,10 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Success. User removed: " + removeUserListBox.getSelectedItem());
 				removeUserDeniedLabel.setVisible(false);
 				removeUserListBox.setSelectedIndex(0);
+				
+				frame.adminRemoveUser = new AdminRemoveUser(frame);
+				frame.adminRemoveUser.updateAdminRemoveUserScreen();
+				frame.pageTransition(frame.adminRemoveUser);
 			}
 
 		}

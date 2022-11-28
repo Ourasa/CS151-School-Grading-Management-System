@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import com.gradebook.gradebook.*;
@@ -15,6 +16,8 @@ import com.gradebook.gradebook.*;
 public class AdminViewUser extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
+	JPanel panel;
+	
 	JLabel viewUsersFNameLabel;
 	JLabel viewUsersLNameLabel;
 	JLabel viewUsersIdLabel;
@@ -24,33 +27,39 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 
 	public AdminViewUser(UserInterface in) {
 		frame = in;
-		this.setLayout(null);
-		this.setPreferredSize(new Dimension(600, 500));
+		//this.setLayout(null);
+		//this.setPreferredSize(new Dimension(600, 500));
 
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(400, 275));
+		
 		viewUsersTypeLabel = new JLabel("Type");
 		viewUsersTypeLabel.setBounds(50, 30, 100, 25);
-		this.add(viewUsersTypeLabel);
+		panel.add(viewUsersTypeLabel);
 
 		viewUsersFNameLabel = new JLabel("First name");
 		viewUsersFNameLabel.setBounds(150, 30, 100, 25);
-		this.add(viewUsersFNameLabel);
+		panel.add(viewUsersFNameLabel);
 
 		viewUsersLNameLabel = new JLabel("Last name");
 		viewUsersLNameLabel.setBounds(250, 30, 100, 25);
-		this.add(viewUsersLNameLabel);
+		panel.add(viewUsersLNameLabel);
 
 		viewUsersIdLabel = new JLabel("ID");
 		viewUsersIdLabel.setBounds(350, 30, 100, 25);
-		this.add(viewUsersIdLabel);
+		panel.add(viewUsersIdLabel);
 
 		viewUsersPwdLabel = new JLabel("Password");
 		viewUsersPwdLabel.setBounds(450, 30, 100, 25);
-		this.add(viewUsersPwdLabel);
+		panel.add(viewUsersPwdLabel);
 
 		viewUsersExitBtn = new JButton("Exit");
 		viewUsersExitBtn.setBounds(40, 200, 100, 25);
 		viewUsersExitBtn.addActionListener(this);
-		this.add(viewUsersExitBtn);
+		panel.add(viewUsersExitBtn);
+		
+		this.setViewportView(panel);
 
 	}
 
@@ -58,15 +67,15 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 		ArrayList<User> arr = frame.control.getUserList();
 
 		// Gets rid old data
-		this.removeAll();
-		this.setLayout(null);
-		this.setPreferredSize(new Dimension(600, 500));
+		panel.removeAll();
+		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(600, 500));
 
-		this.add(viewUsersTypeLabel);
-		this.add(viewUsersFNameLabel);
-		this.add(viewUsersLNameLabel);
-		this.add(viewUsersIdLabel);
-		this.add(viewUsersPwdLabel);
+		panel.add(viewUsersTypeLabel);
+		panel.add(viewUsersFNameLabel);
+		panel.add(viewUsersLNameLabel);
+		panel.add(viewUsersIdLabel);
+		panel.add(viewUsersPwdLabel);
 
 		// For each User, we give them a NEW row.
 		for (int i = 0; i < arr.size(); i++) {
@@ -92,21 +101,22 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 			JLabel pwd = new JLabel(currentUser.getPassword());
 			pwd.setBounds(450, 50 + 20 * i, 100, 25);
 
-			this.add(type);
-			this.add(fName);
-			this.add(lName);
-			this.add(id);
-			this.add(pwd);
+			panel.add(type);
+			panel.add(fName);
+			panel.add(lName);
+			panel.add(id);
+			panel.add(pwd);
 			viewUsersExitBtn.setBounds(40, 80 + 20 * i, 100, 25); // Adjusts location of exit button depending on # of
 																	// users
 		}
-		this.add(viewUsersExitBtn);
+		panel.add(viewUsersExitBtn);
 
-		if (arr.size() < 25) {
-			this.setPreferredSize(new Dimension(600, arr.size() * 20 + 100));
-		} else {
-			this.setPreferredSize(new Dimension(600, 600)); // Ensures we don't have an oversized window.
-		}
+//		if (arr.size() < 25) {
+			panel.setPreferredSize(new Dimension(600, arr.size() * 20 + 100));
+//		} else {
+//			panel.setPreferredSize(new Dimension(600, 600)); // Ensures we don't have an oversized window.
+//		}
+		this.setPreferredSize(new Dimension(600, 500));
 	}
 
 	@Override

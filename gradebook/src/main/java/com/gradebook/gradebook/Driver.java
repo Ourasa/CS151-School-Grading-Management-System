@@ -1,65 +1,91 @@
 package com.gradebook.gradebook;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 public class Driver {
 
 	public static void main(String[] args) {
-		User defaultAdmin = new Admin("Default", "Admin", "DA-0000", "Password1");
-		User defaultProfessor = new Professor("Default", "Professor", "DP-0000", "Password2");
-		User defaultStudent1 = new Student("Default", "Student1", "DS-0000", "Password3");
-		User defaultStudent2 = new Student("Default", "Student2", "DS-0001", "Password4");
-
 		Controller con = new Controller();
+		Random random = new Random();
+		String[] firstName = new String[] { "Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred",
+				"Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark",
+				"Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor",
+				"Walter" };
 
-		// con.addUser(defaultAdmin);
-		// con.addUser(defaultProfessor);
-		// con.addUser(defaultStudent1);
-		// con.addUser(defaultStudent2);
-		//
-		// Course course1 = new Course("ENGL-01");
-		// Course course2 = new Course("CS 151-06");
-		// Course course3 = new Course("MUSC10A-90");
-		//
-		// con.addCourse(course1);
-		// con.addCourse(course2);
-		// con.addCourse(course3);
-		//
-		//// Testing the file writer.
-		// con.setProfessorForCourse("ENGL-01", "DP-0000");
-		// con.setProfessorForCourse("CS 151-06", "DP-0000");
-		// con.setProfessorForCourse("MUSC10A-90", "DP-0000");
-		//
-		// con.addStudentToCourse("ENGL-01", "DS-0000");
-		// con.addStudentToCourse("MUSC10A-90", "DS-0000");
-		// con.addStudentToCourse("CS 151-06", "DS-0000");
-		//
-		// con.addStudentToCourse("MUSC10A-90", "DS-0001");
-		// con.addStudentToCourse("CS 151-06", "DS-0001");
-		//
-		// con.addAssignment("ENGL-01", "DS-0000", "English HW", 1, 1);
-		//
-		// con.addAssignment("CS 151-06", "DS-0000", "CS HW", 3, 5);
-		// con.addAssignment("CS 151-06", "DS-0001", "CS HW", 4, 5);
-		//
-		// con.loginUser("DS-0000", "Password3");
-		// con.completeCourse("ENGL-01");
-		// con.printTranscript();
-		//
-		// con.loginUser("DS-0001", "Password4");
-		// con.printTranscript();
+		String[] lastName = new String[] { "Anderson", "Ashwoon", "Aikin", "Bateman", "Bongard", "Bowers", "Boyd",
+				"Cannon", "Cast", "Deitz", "Dewalt", "Ebner", "Frick", "Hancock", "Haworth", "Hesch", "Hoffman",
+				"Kassing", "Knutson", "Lawless", "Lawicki", "Mccord", "McCormack", "Miller", "Myers", "Nugent", "Ortiz",
+				"Orwig", "Ory", "Paiser", "Pak", "Pettigrew", "Quinn", "Quizoz", "Ramachandran", "Resnick", "Sagar",
+				"Schickowski", "Schiebel", "Sellon", "Severson", "Shaffer", "Solberg", "Soloman", "Sonderling",
+				"Soukup", "Soulis", "Stahl", "Sweeney", "Tandy", "Trebil", "Trusela", "Trussel", "Turco", "Uddin",
+				"Uflan", "Ulrich", "Upson", "Vader", "Vail", "Valente", "Van Zandt", "Vanderpoel", "Ventotla", "Vogal",
+				"Wagle", "Wagner", "Wakefield", "Weinstein", "Weiss", "Woo", "Yang", "Yates", "Yocum", "Zeaser",
+				"Zeller", "Ziegler", "Bauer", "Baxster", "Casal", "Cataldi", "Caswell", "Celedon", "Chambers",
+				"Chapman", "Christensen", "Darnell", "Davidson", "Davis", "DeLorenzo", "Dinkins", "Doran", "Dugelman",
+				"Dugan", "Duffman", "Eastman", "Ferro", "Ferry", "Fletcher", "Fietzer", "Hylan", "Hydinger",
+				"Illingsworth", "Ingram", "Irwin", "Jagtap", "Jenson", "Johnson", "Johnsen", "Jones", "Jurgenson",
+				"Kalleg", "Kaskel", "Keller", "Leisinger", "LePage", "Lewis", "Linde", "Lulloff", "Maki", "Martin",
+				"McGinnis", "Mills", "Moody", "Moore", "Napier", "Nelson", "Norquist", "Nuttle", "Olson", "Ostrander",
+				"Reamer", "Reardon", "Reyes", "Rice", "Ripka", "Roberts", "Rogers", "Root", "Sandstrom", "Sawyer",
+				"Schlicht", "Schmitt", "Schwager", "Schutz", "Schuster", "Tapia", "Thompson", "Tiernan", "Tisler" };
 
-		//
-		try {
-			con.loadTxtFile("gradeSystemSaveFile.txt");
-		} catch (Exception e) {
-			System.out.println("Failure to load txt file.");
+		User defaultAdmin = new Admin("Sammy", "Spartan", "DA-0000", "Password1");
+		Professor defaultProfessor = new Professor("Abishek", "Gaikwad", "DP-0000", "Password2");
+		con.addUser(defaultAdmin);
+		con.addUser(defaultProfessor);
+		Course cs151 = new Course("CS-151", defaultProfessor);
+		defaultProfessor.addCourse(cs151);
+		con.addCourse(cs151);
+		User[] usersToAdd = new User[] { defaultAdmin, defaultProfessor,
+				new Professor("Michael", "Smith", "MS-3131", "mSmith"),
+				new Professor("Jennifer", "Johnson", "JJ-3333", "jJohnson"),
+				new Professor("Christopher", "Williams", "CW-5161", "cWill"),
+				new Professor("Amanda", "Jones", "AJ-9152", "aJones"),
+				new Student("Albert", "Einstein", "DS-0000", "Password3"),
+				new Student("Albert", "Einstein", "DS-0000", "Password3"),
+				new Student("Albert", "Einstein", "DS-0000", "Password3"),
+				new Student("Albert", "Einstein", "DS-0000", "Password3"),
+				new Student("Albert", "Einstein", "DS-0000", "Password3"),
+				new Student("Albert", "Einstein", "DS-0000", "Password3"),
+				new Student("Albert", "Einstein", "DS-0000", "Password3"),
+
+		};
+		
+		for (int i = 0; i < 4; i++) {
+			String fn = firstName[random.nextInt(firstName.length)];
+			String ln = lastName[random.nextInt(lastName.length)];
+			String id = con.system.idGenerator(fn.charAt(0), ln.charAt(0));
+			String letter = fn.charAt(0) + "";
+			String pass = letter.toLowerCase() + ln;
+			con.addUser(new Professor(fn, ln, id, pass));
+			for (int b = 0; b < random.nextInt(2) + 1; b++) {
+				String randName = "CS-" + random.nextInt(150);
+				con.addCourse(new Course(randName));
+				Course tempCourse = con.system.getCourse(randName);
+				tempCourse.setProfessor((Professor)con.system.getUser(id));
+				Professor temp = (Professor)con.system.getUser(id);
+				temp.addCourse(tempCourse);
+			}
 		}
-
-		// con.generateTxtSaveFile();
-		// System.out.println(con.get);
-
-		// con.generateClassRosterTxt(defaultProfessor.getId());
+		
+		for (int i = 0; i < 100; i++) {
+			String fn = firstName[random.nextInt(firstName.length)];
+			String ln = lastName[random.nextInt(lastName.length)];
+			String id = con.system.idGenerator(fn.charAt(0), ln.charAt(0));
+			String letter = fn.charAt(0) + "";
+			String pass = letter.toLowerCase() + ln;
+			con.addUser((User) new Student(fn, ln, id, pass));
+		}
 
 	}
 

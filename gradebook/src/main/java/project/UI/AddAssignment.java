@@ -115,10 +115,11 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 
 				Course c = frame.control.getCourse(course);
 				c.asgnNameList.add(assignmentName.getText());
-	
+				c.assignments.put(assignmentName.getText(),
+						new Assignment(assignmentName.getText(), 0, Integer.parseInt(points.getText())));
 				for (Student student : c.getStudents()) {
-					c.studentBase.get(student).add(new Assignment(assignmentName.getText(), 0,
-						Integer.parseInt(points.getText())));
+					c.studentBase.get(student)
+							.add(new Assignment(assignmentName.getText(), 0, Integer.parseInt(points.getText())));
 				}
 				JOptionPane.showMessageDialog(this,
 						"Assignment: " + assignmentName.getText() + ", was successfully added to " + course);

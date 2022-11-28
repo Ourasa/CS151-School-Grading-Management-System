@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -153,7 +154,7 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 
 	public void updatetList(String cours) {
 		final Course course = frame.control.getCourse(cours);
-		ArrayList<String> assignmentNames = new ArrayList<String>(course.getAsgnNameList());
+		ArrayList<String> assignmentNames = new ArrayList<String>(course.assignments.keySet());
 		ArrayList<String> studentNames = new ArrayList<String>();
 
 		for (Student student : course.studentBase.keySet()) {
@@ -192,7 +193,7 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 		});
 		this.add(assignmentListBox);
 
-		totalPoints.setText("/" + course.getAsgnPtsTotal((String) assignmentListBox.getSelectedItem()));
+		totalPoints.setText("/" + course.assignments.get(assignmentListBox.getSelectedItem()).getPointsTotal());
 		points.setText("");
 
 		this.validate();
@@ -234,12 +235,14 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 			Course course = frame.control.getCourse((String) courseListBox.getSelectedItem());
 			Student stud = new Student();
 			for (Student student : course.studentBase.keySet()) {
-				if (student.getId() == studentID) {
+				if (Objects.equals(student.getId(), studentID)) {
 					stud = student;
+					System.out.println(stud.getId());
 				}
 			}
+			System.out.println(assignmentListBox.getSelectedItem());
 			for (Assignment assignment : course.studentBase.get(stud)) {
-
+				System.out.println(assignment.getName());
 				if (assignment.getName().equals(assignmentListBox.getSelectedItem())) {
 					assignment.setPointsEarned(Double.parseDouble(points.getText()));
 				}

@@ -23,7 +23,6 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 	JLabel overallGPA;
 	JLabel gpa;
 
-
 	JLabel courseName;
 	JLabel professor;
 	JLabel grade;
@@ -41,13 +40,13 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 		addComponents();
 
 	}
-	
+
 	public void addComponents() {
 		backButton = new JButton("Back");
 		backButton.setBounds(30, 30, 80, 25);
 		backButton.addActionListener(this);
 		this.add(backButton);
-		
+
 		gpa = new JLabel();
 		gpa.setBounds(200, 30, 140, 25);
 		this.add(gpa);
@@ -71,13 +70,14 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 
 	public void updateViewUsersScreen() {
 		// For each User, we give them a NEW row.
-		Student currentStudent =(Student) frame.control.getCurrentUser();
+		Student currentStudent = (Student) frame.control.getCurrentUser();
 		int i = 0;
-		for (Course course: currentStudent.getCurCourses().keySet()) {
+		for (Course course : currentStudent.getCurCourses().keySet()) {
 			JLabel name = new JLabel(course.getName());
 			name.setBounds(30, 80 + 20 * i, 140, 25);
-			JLabel prof = new JLabel(course.getProfessor().getFirstName() + " "+ course.getProfessor().getLastName());
+			JLabel prof = new JLabel(course.getProfessor().getFirstName() + " " + course.getProfessor().getLastName());
 			prof.setBounds(160, 80 + 20 * i, 140, 25);
+			currentStudent.updateGrade(course);
 			String gr = "";
 			gr += currentStudent.getCurCourses().get(course);
 			JLabel pwd = new JLabel(gr);
@@ -89,7 +89,7 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 
 			i++;
 		}
-		for (String course: currentStudent.getPastCourses().keySet()) {
+		for (String course : currentStudent.getPastCourses().keySet()) {
 			JLabel name = new JLabel(course);
 			name.setBounds(30, 80 + 20 * i, 140, 25);
 			String gr = "";
