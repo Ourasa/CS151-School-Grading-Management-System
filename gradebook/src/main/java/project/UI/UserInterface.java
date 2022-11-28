@@ -73,7 +73,7 @@ public class UserInterface {
 
 	// Professor - Add student screen from course
 	ProfessorAddStudent professorAddStudent;
-	
+
 	// Professor - Remove student screen from course
 
 	// Professor - Add an assignment for all students in a course.
@@ -93,7 +93,8 @@ public class UserInterface {
 	StudentOptionScroll studentOptionScroll;
 	AdminLoadFile adminLoadFile;
 	// Student - View all Courses + Grades
-
+	ViewGPA viewGPA;
+	PrintTranscript printTranscript;
 	// Student - View all Assignments (of a current course)
 
 	// Student - Print transcript
@@ -132,7 +133,8 @@ public class UserInterface {
 		viewGrades = new ViewStudentsGrades(this);
 		adminLoadFile = new AdminLoadFile(this);
 		// Setup Student specific GUI
-
+		viewGPA = new ViewGPA(this);
+		printTranscript = new PrintTranscript(this);
 	}
 
 	public void pageTransition(JScrollPane after) {
