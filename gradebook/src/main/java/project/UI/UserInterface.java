@@ -80,6 +80,7 @@ public class UserInterface {
 	AddAssignment addAssignment;
 	EditAssignment editAssignment;
 	GradeAssignment gradeAssignment;
+	RemoveAssignment removeAssignment;
 	ViewStudentsGrades viewGrades;
 	// Professor - Edit an assignment for all students in a course.
 
@@ -104,6 +105,7 @@ public class UserInterface {
 		frame.setSize(400, 275);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setTitle("In Pain and Agony :D");
+		frame.setResizable(false);
 		loginScroll = new LoginScrollPane(this);
 		contentPane.add(loginScroll);
 		contentPane.validate();
@@ -130,6 +132,8 @@ public class UserInterface {
 
 		editAssignment = new EditAssignment(this);
 		gradeAssignment = new GradeAssignment(this);
+		removeAssignment = new RemoveAssignment(this);
+		
 		viewGrades = new ViewStudentsGrades(this);
 		adminLoadFile = new AdminLoadFile(this);
 		// Setup Student specific GUI
