@@ -123,8 +123,9 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		frame.pageTransition(frame.professorOptionScroll);
-
+		if (e.getSource() == backButton) {
+			frame.pageTransition(frame.professorOptionScroll);
+		}
 	}
 
 }
