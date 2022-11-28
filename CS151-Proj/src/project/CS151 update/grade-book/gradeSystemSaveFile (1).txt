@@ -1,0 +1,35 @@
+StartUsers
+Admin,Default,Admin,DA-0000,Password1
+Professor,Default,Professor,DP-0000,Password2
+Student,Default,Student1,DS-0000,Password3
+Student,Default,Student2,DS-0001,Password4
+EndUsers
+StartCourse
+CS 151-06,DP-0000
+StartCourseStudent
+DS-0000
+CS HW,3.0,5.0
+EndCourseStudent
+StartCourseStudent
+DS-0001
+CS HW,4.0,5.0
+EndCourseStudent
+EndCourse
+StartCourse
+MUSC10A-90,DP-0000
+StartCourseStudent
+DS-0000
+EndCourseStudent
+StartCourseStudent
+DS-0001
+EndCourseStudent
+EndCourse
+EndCourseAdditions
+StartPastCourseStudent
+DS-0000
+ENGL-01,A
+EndPastCourseStudent
+StartPastCourseStudent
+DS-0001
+EndPastCourseStudent
+EndFile
