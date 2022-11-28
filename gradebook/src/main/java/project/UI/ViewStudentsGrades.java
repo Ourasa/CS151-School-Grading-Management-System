@@ -39,7 +39,7 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 	public ViewStudentsGrades(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(500, 1000));
+		this.setPreferredSize(new Dimension(1000, 500));
 		tempComponents = new ArrayList<>();
 		addComponents();
 
