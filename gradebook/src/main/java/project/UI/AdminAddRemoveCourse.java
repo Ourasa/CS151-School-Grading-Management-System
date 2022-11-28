@@ -194,10 +194,15 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == removeCourseConfirmBtn) {
-			frame.control.removeCourse((String) removeCourseBox.getSelectedItem());
-			JOptionPane.showMessageDialog(this, "Successfully removed course.");
+			if (removeCourseBox.getItemCount() == 0) {
+				JOptionPane.showMessageDialog(this, "Failed: There are no course to remove");
+			} else {
+				frame.control.removeCourse((String) removeCourseBox.getSelectedItem());
+				JOptionPane.showMessageDialog(this, "Successfully removed course.");
+			}
+			
 		}
-		removeCourseBox.setSelectedIndex(0);
+		//removeCourseBox.setSelectedIndex(0);
 		frame.pageTransition(frame.adminOptionScroll);
 	}
 
