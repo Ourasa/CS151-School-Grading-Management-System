@@ -53,20 +53,7 @@ public class Driver {
 		defaultProfessor.addCourse(cs151);
 		con.addCourse(cs151);
 		courses.add(cs151);
-		User[] usersToAdd = new User[] { defaultAdmin, defaultProfessor,
-				new Professor("Michael", "Smith", "MS-3131", "mSmith"),
-				new Professor("Jennifer", "Johnson", "JJ-3333", "jJohnson"),
-				new Professor("Christopher", "Williams", "CW-5161", "cWill"),
-				new Professor("Amanda", "Jones", "AJ-9152", "aJones"),
-				new Student("Albert", "Einstein", "DS-0000", "Password3"),
-				new Student("Albert", "Einstein", "DS-0000", "Password3"),
-				new Student("Albert", "Einstein", "DS-0000", "Password3"),
-				new Student("Albert", "Einstein", "DS-0000", "Password3"),
-				new Student("Albert", "Einstein", "DS-0000", "Password3"),
-				new Student("Albert", "Einstein", "DS-0000", "Password3"),
-				new Student("Albert", "Einstein", "DS-0000", "Password3"),
-
-		};
+		con.addStudentToCourse(cs151.getName(),defaultStudent.getId());
 
 		for (int i = 0; i < 4; i++) {
 			String fn = firstName[random.nextInt(firstName.length)];
@@ -86,7 +73,7 @@ public class Driver {
 			}
 		}
 
-		for (int i = 0; i < 400; i++) {
+		for (int i = 0; i < 100; i++) {
 			String fn = firstName[random.nextInt(firstName.length)];
 			String ln = lastName[random.nextInt(lastName.length)];
 			String id = con.system.idGenerator(fn.charAt(0), ln.charAt(0));

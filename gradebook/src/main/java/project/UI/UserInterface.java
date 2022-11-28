@@ -104,7 +104,7 @@ public class UserInterface {
 		this.control = control;
 		frame.setSize(400, 275);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setTitle("In Pain and Agony :D");
+		frame.setTitle("Gradebook");
 		frame.setResizable(false);
 		loginScroll = new LoginScrollPane(this);
 		contentPane.add(loginScroll);
