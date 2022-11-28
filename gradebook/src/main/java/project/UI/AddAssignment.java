@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,10 +37,11 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 	JLabel pointsWorthLabel;
 	JLabel statusLabel;
 
+
 	public AddAssignment(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		assignmentName = new JTextField();
 		assignmentName.setBounds(160, 110, 200, 25);
@@ -83,7 +86,26 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 		statusLabel.setText("Points can only be an integer");
 		statusLabel.setVisible(false);
 		this.add(statusLabel);
-
+		
+		ImageIcon image3 = new ImageIcon("images/Professor2.png");
+		
+		JLabel image = new JLabel(image3);
+		image.setBounds(500,20,500,500);
+		this.add(image);
+		
+		JLabel banner = new JLabel();
+		banner.setText("Welcome Professor");
+		banner.setBackground(Color.GRAY);
+		banner.setFont(new Font("Serif", Font.BOLD, 30));
+		banner.setForeground(Color.WHITE);
+		banner.setOpaque(true); // to display background of label
+		//banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates border for label
+		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+		//home.setLayout(null); // need a layout manager to adjust sizes
+		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
+		this.add(banner);	
+		
 	}
 
 	public void updateCourseList() {
@@ -112,13 +134,11 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 		if (e.getSource() == confirmButton) {
 			if (points.getText().matches("[0-9]+")) {
 				String course = (String) addUserTypeBox.getSelectedItem();
-
 				Course c = frame.control.getCourse(course);
-				c.asgnNameList.add(assignmentName.getText());
-	
+				Assignment newAssignment = new Assignment(assignmentName.getText(), 0,
+						Integer.parseInt(points.getText()));
 				for (Student student : c.getStudents()) {
-					c.studentBase.get(student).add(new Assignment(assignmentName.getText(), 0,
-						Integer.parseInt(points.getText())));
+					frame.control.addAssignment(course, student.getId(), newAssignment);
 				}
 				JOptionPane.showMessageDialog(this,
 						"Assignment: " + assignmentName.getText() + ", was successfully added to " + course);

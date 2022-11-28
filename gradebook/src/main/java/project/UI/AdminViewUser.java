@@ -1,10 +1,13 @@
 package project.UI;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -25,7 +28,7 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 	public AdminViewUser(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(600, 500));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		viewUsersTypeLabel = new JLabel("Type");
 		viewUsersTypeLabel.setBounds(50, 30, 100, 25);
@@ -52,6 +55,12 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 		viewUsersExitBtn.addActionListener(this);
 		this.add(viewUsersExitBtn);
 
+	
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+		
+		JLabel image = new JLabel(image3);
+		image.setBounds(0,0,1000,500);
+		this.add(image);
 	}
 
 	public void updateViewUsersScreen() {

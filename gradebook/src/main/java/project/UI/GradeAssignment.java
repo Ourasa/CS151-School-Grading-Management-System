@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -49,7 +50,7 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 	public GradeAssignment(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		pageTitle = new JLabel("Grade Assignment");
 		pageTitle.setHorizontalAlignment(JLabel.CENTER);
@@ -77,13 +78,13 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 		studentListBox.setBounds(120, 120, 100, 25);
 		this.add(studentListBox);
 
-		next = new JButton(">");
-		next.setBounds(260, 120, 20, 25);
+		next = new JButton("Next");
+		next.setBounds(230, 120, 100, 25);
 		next.addActionListener(this);
 		this.add(next);
 
-		back = new JButton("<");
-		back.setBounds(230, 120, 20, 25);
+		back = new JButton("Back");
+		back.setBounds(310, 120, 100, 25);
 		back.addActionListener(this);
 		back.setVisible(false);
 		this.add(back);
@@ -117,6 +118,26 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 		statusLabel.setText("Please use an integer");
 		statusLabel.setVisible(false);
 		this.add(statusLabel);
+		
+	ImageIcon image3 = new ImageIcon("images/Professor2.png");
+		
+		JLabel image = new JLabel(image3);
+		image.setBounds(500,20,500,500);
+		this.add(image);
+		
+		JLabel banner = new JLabel();
+		banner.setText("Welcome Professor");
+		banner.setBackground(Color.GRAY);
+		banner.setFont(new Font("Serif", Font.BOLD, 30));
+		banner.setForeground(Color.WHITE);
+		banner.setOpaque(true); // to display background of label
+		//banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates border for label
+		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+		//home.setLayout(null); // need a layout manager to adjust sizes
+		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
+		this.add(banner);	
+		
 
 	}
 
@@ -231,6 +252,7 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 		}
 		if (e.getSource() == confirmButton) {
 			String studentID = studentListBox.getSelectedItem().toString();
+
 			Course course = frame.control.getCourse((String) courseListBox.getSelectedItem());
 			Student stud = new Student();
 			for (Student student : course.studentBase.keySet()) {
@@ -240,7 +262,7 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 			}
 			for (Assignment assignment : course.studentBase.get(stud)) {
 
-				if (assignment.getName().equals(assignmentListBox.getSelectedItem())) {
+				if (assignment.getName().equals((String) assignmentListBox.getSelectedItem())) {
 					assignment.setPointsEarned(Double.parseDouble(points.getText()));
 				}
 			}

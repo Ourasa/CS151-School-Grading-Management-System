@@ -1,11 +1,13 @@
 package project.UI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -33,7 +35,7 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		frame = in;
 		courses = frame.control.getAllCourses();
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		cancelButton = new JButton("Cancel");
 		cancelButton.setBounds(100, 200, 90, 25);
@@ -59,6 +61,14 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		selectStudentLabel = new JLabel("Student:");
 		selectStudentLabel.setBounds(100, 70, 100, 25);
 		this.add(selectStudentLabel);
+		
+	ImageIcon image3 = new ImageIcon("images/Professor2.png");
+		
+		JLabel image = new JLabel(image3);
+		image.setBounds(500,20,500,500);
+		this.add(image);
+		
+
 
 	}
 
@@ -103,20 +113,14 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirmButton) {
-			if ( ((String) courseComboBox.getSelectedItem()).equals("Select a Course")) {
-				JOptionPane.showMessageDialog(this, "Please select a Course");
-			} else {
-				String course = (String) courseComboBox.getSelectedItem();
-				String studentId = (String) studentListComboBox.getSelectedItem();
-				// User student = frame.control.system.getUser((String)
-				// studentListComboBox.getSelectedItem());
+			String course = (String) courseComboBox.getSelectedItem();
 
-				if (frame.control.removeStudentFromCourse(course, (String) studentListComboBox.getSelectedItem())) {
-					JOptionPane.showMessageDialog(this, "Removed student: " + studentId + ", from course " + course);
-				} else {
-					JOptionPane.showMessageDialog(this, "Failed: " + studentId + " is not enrolled in course " + course);
-				}
-			}
+			String studentId = (String) studentListComboBox.getSelectedItem();
+			// User student = frame.control.system.getUser((String)
+			// studentListComboBox.getSelectedItem());
+
+			frame.control.removeStudentFromCourse(course, (String) studentListComboBox.getSelectedItem());
+			JOptionPane.showMessageDialog(this, "Removed student: " + studentId + ", from course " + course);
 		}
 		if (e.getSource() == cancelButton) {
 			if (frame.control.getCurrentUser() instanceof Professor) {
