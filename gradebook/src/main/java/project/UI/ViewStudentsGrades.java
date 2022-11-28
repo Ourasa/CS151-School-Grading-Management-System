@@ -22,6 +22,7 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 
 	JLabel courseLabel;
 	JComboBox<String> courseListBox;
+	ArrayList<JComponent> tempComponents;
 
 	JLabel studentName;
 	JLabel studentID;
@@ -36,8 +37,13 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 	public ViewStudentsGrades(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(600, 500));
+		this.setPreferredSize(new Dimension(400, 200));
+		tempComponents = new ArrayList<>();
+		addComponents();
 
+	}
+	
+	public void addComponents() {
 		backButton = new JButton("Back");
 		backButton.setBounds(30, 30, 80, 25);
 		backButton.addActionListener(this);
@@ -58,10 +64,9 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 		grade = new JLabel("Grade");
 		grade.setBounds(310, 60, 100, 25);
 		this.add(grade);
-
 	}
 
-	public void updateCourseList() {
+	public void updateCourseList(int index) {
 		ArrayList<Course> courses;
 
 		Professor prof = (Professor) frame.control.getCurrentUser();
@@ -81,14 +86,16 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 		courseListBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {//
-				updateViewUsersScreen();
+				updateViewUsersScreen(courseListBox.getSelectedIndex());
 			}
 		});
 		this.add(courseListBox);
 	}
 
-	public void updateViewUsersScreen() {
-
+	public void updateViewUsersScreen(int selectedIndex) {
+		for(JComponent component: this.tempComponents) {
+			this.remove(component);
+		}
 		Course course = frame.control.getCourse((String) courseListBox.getSelectedItem());
 		// For each User, we give them a NEW row.
 		int i = 0;
@@ -105,8 +112,10 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 			this.add(name);
 			this.add(id);
 			this.add(pwd);
+			this.tempComponents.add(name);
+			this.tempComponents.add(id);
+			this.tempComponents.add(pwd);
 			i++;
-			// users
 		}
 		this.validate();
 		this.repaint();
@@ -114,7 +123,7 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		frame.pageTransition(frame.professorOptionScroll);
 
 	}
 

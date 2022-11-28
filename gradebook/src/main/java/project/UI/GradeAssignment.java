@@ -231,7 +231,6 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 		}
 		if (e.getSource() == confirmButton) {
 			String studentID = studentListBox.getSelectedItem().toString();
-
 			Course course = frame.control.getCourse((String) courseListBox.getSelectedItem());
 			Student stud = new Student();
 			for (Student student : course.studentBase.keySet()) {
@@ -241,7 +240,7 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 			}
 			for (Assignment assignment : course.studentBase.get(stud)) {
 
-				if (assignment.getName().equals((String) assignmentListBox.getSelectedItem())) {
+				if (assignment.getName().equals(assignmentListBox.getSelectedItem())) {
 					assignment.setPointsEarned(Double.parseDouble(points.getText()));
 				}
 			}

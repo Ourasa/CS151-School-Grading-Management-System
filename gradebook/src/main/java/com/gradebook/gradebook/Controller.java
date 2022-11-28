@@ -171,7 +171,12 @@ public class Controller {
 	public void loadTxtFile(String fileName) throws Exception {
 		this.system = new GradeSystem(this);
 		File file = new File(fileName);
-		system.loadTxtFile(file);
+		try {
+			system.loadTxtFile(file);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void setSystem(GradeSystem system) {

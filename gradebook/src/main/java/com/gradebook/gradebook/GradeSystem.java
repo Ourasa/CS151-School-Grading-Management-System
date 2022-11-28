@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class GradeSystem {
 	private Controller control;
-	TreeMap<String, User> users; // Key: UserID Value: User
+	private TreeMap<String, User> users; // Key: UserID Value: User
 	private TreeMap<String, Course> courses; // Key: course's name Value: Course
 	private User currentUser;
 
@@ -391,7 +391,6 @@ public class GradeSystem {
 	
 	//Overloaded print class roster method for testing purposes... and maybe for another occasion
 	public void generateClassRosterTxt(String profId) {
-		System.out.println(users.size());
 		try {
 			String fileName = profId + "ClassRoster.txt";
 			File file = new File(fileName);
@@ -717,6 +716,7 @@ public class GradeSystem {
 		try {
 			if (!scan.nextLine().equals("StartUsers")) {	//First check to ensure format is remotely proper
 				scan.close();
+				throw new IOException();
 			}
 			
 			String curLine = scan.nextLine();
