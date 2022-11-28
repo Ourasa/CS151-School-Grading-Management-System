@@ -117,12 +117,11 @@ public class AdminLoadFile extends JScrollPane implements ActionListener {
 			}
 		} else if (e.getSource() == confirmBtn) {
 			try {
-				JOptionPane.showMessageDialog(this, "Success: File loaded. Logging you out.");
+				frame.control.loadTxtFile(filePath);
 				frame.loginScroll = new LoginScrollPane(frame);
 				frame.pageTransition(frame.loginScroll);
-				frame.control.loadTxtFile(filePath);
 				frame.control.logoutUser();
-
+				JOptionPane.showMessageDialog(this, "Success: File loaded. Logging you out.");
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(this, "Failure: The selected file has an invalid formatting.");
 			}
