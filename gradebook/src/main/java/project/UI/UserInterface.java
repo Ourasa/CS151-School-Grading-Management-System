@@ -61,7 +61,6 @@ public class UserInterface {
 	AdminAddCourse adminAddCourse;
 	AdminRemoveCourse adminRemoveCourse;
 	AdminViewUser adminViewUsers;
-	AdminLoadFile adminLoadFile;
 	SetProfessorToCourse setProfessorToCourse;
 	AddStudentToCourse addStudentToCourse;
 	RemoveStudentFromCourse removeStudentFromCourse;
@@ -81,6 +80,7 @@ public class UserInterface {
 	AddAssignment addAssignment;
 	EditAssignment editAssignment;
 	GradeAssignment gradeAssignment;
+	ViewStudentsGrades viewGrades;
 	// Professor - Edit an assignment for all students in a course.
 
 	// Professor - Remove an assignment for all students in a course.
@@ -129,6 +129,8 @@ public class UserInterface {
 
 		editAssignment = new EditAssignment(this);
 		gradeAssignment = new GradeAssignment(this);
+		viewGrades = new ViewStudentsGrades(this);
+		 
 		// Setup Student specific GUI
 
 	}
