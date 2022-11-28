@@ -1,0 +1,9 @@
+Student Name: Albert Einstein
+
+ID: DS-0000
+
+GPA: 0.0
+
+=======| CURRENT COURSES |==========
+
+=======|  PAST COURSES  |==========

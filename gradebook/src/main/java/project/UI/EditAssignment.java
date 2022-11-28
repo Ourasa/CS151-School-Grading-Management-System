@@ -215,7 +215,7 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 
 			for (Student student : c.getStudents()) {
 				for (Assignment assignment : c.studentBase.get(student)) {
-					if (assignment.getName() .equals(assignmentListBox.getSelectedItem())) {
+					if (assignment.getName() == assignmentListBox.getSelectedItem()) {
 						assignment.setPointsTotal(Integer.parseInt(points.getText()));
 					}
 				}
