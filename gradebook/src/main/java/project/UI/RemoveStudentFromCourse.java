@@ -1,6 +1,5 @@
 package project.UI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -67,8 +66,6 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		JLabel image = new JLabel(image3);
 		image.setBounds(500,20,500,500);
 		this.add(image);
-		
-
 
 	}
 
@@ -108,19 +105,32 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		courseComboBox = new AutoComplete(coursesBox);
 		courseComboBox.setBounds(150, 110, 150, 25);
 		this.add(courseComboBox);
+
+		ImageIcon image3 = new ImageIcon("images/Professor2.png");
+
+		JLabel image = new JLabel(image3);
+		image.setBounds(500, 20, 500, 500);
+		this.add(image);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirmButton) {
-			String course = (String) courseComboBox.getSelectedItem();
+			if (((String) courseComboBox.getSelectedItem()).equals("Select a Course")) {
+				JOptionPane.showMessageDialog(this, "Please select a Course");
+			} else {
+				String course = (String) courseComboBox.getSelectedItem();
+				String studentId = (String) studentListComboBox.getSelectedItem();
+				// User student = frame.control.system.getUser((String)
+				// studentListComboBox.getSelectedItem());
 
-			String studentId = (String) studentListComboBox.getSelectedItem();
-			// User student = frame.control.system.getUser((String)
-			// studentListComboBox.getSelectedItem());
-
-			frame.control.removeStudentFromCourse(course, (String) studentListComboBox.getSelectedItem());
-			JOptionPane.showMessageDialog(this, "Removed student: " + studentId + ", from course " + course);
+				if (frame.control.removeStudentFromCourse(course, (String) studentListComboBox.getSelectedItem())) {
+					JOptionPane.showMessageDialog(this, "Removed student: " + studentId + ", from course " + course);
+				} else {
+					JOptionPane.showMessageDialog(this,
+							"Failed: " + studentId + " is not enrolled in course " + course);
+				}
+			}
 		}
 		if (e.getSource() == cancelButton) {
 			if (frame.control.getCurrentUser() instanceof Professor) {

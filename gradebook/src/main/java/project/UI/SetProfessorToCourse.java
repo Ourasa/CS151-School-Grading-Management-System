@@ -1,6 +1,7 @@
 package project.UI;
 
 import javax.swing.*;
+import javax.swing.JScrollPane;
 
 import com.gradebook.gradebook.*;
 
@@ -13,22 +14,22 @@ import java.util.ArrayList;
 
 public class SetProfessorToCourse extends JScrollPane implements ActionListener {
 
-    UserInterface frame;
-    ArrayList<Course> courses;
-    AutoComplete courseComboBox;
-    AutoComplete professorListComboBox;
+	UserInterface frame;
+	ArrayList<Course> courses;
+	AutoComplete courseComboBox;
+	AutoComplete professorListComboBox;
 
-    JButton confirmBtn;
+	JButton confirmBtn;
 
-    JButton addStudentToCourseButton;
-    JButton cancelButton;
-    JTextField addCourseNameField;
-    JLabel addCourseTitleLabel;
-    JLabel selectCourseNameLabel;
-    JLabel selectStudentLabel;
+	JButton addStudentToCourseButton;
+	JButton cancelButton;
+	JTextField addCourseNameField;
+	JLabel addCourseTitleLabel;
+	JLabel selectCourseNameLabel;
+	JLabel selectStudentLabel;
 
-    public SetProfessorToCourse(UserInterface in) {
-        frame = in;
+	public SetProfessorToCourse(UserInterface in) {
+		frame = in;
         courses = frame.control.getAllCourses();
         this.setLayout(null);
         this.setPreferredSize(new Dimension(1000, 500));
@@ -61,61 +62,77 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
         selectStudentLabel.setBounds(100, 70, 100, 25);
         this.add(selectStudentLabel);
 
-    }
+	}
 
-    public void courseListBox() {
-        ArrayList<Course> courses = frame.control.getAllCourses();
-        ArrayList<String> coursesNames = new ArrayList<String>();
+	public void courseListBox() {
+		ArrayList<Course> courses = frame.control.getAllCourses();
+		ArrayList<String> coursesNames = new ArrayList<String>();
 
-        ArrayList<User> professors = frame.control.getUserList();
-        ArrayList<String> professorNames = new ArrayList<String>();
+		ArrayList<User> professors = frame.control.getUserList();
+		ArrayList<String> professorNames = new ArrayList<String>();
 
-        for (int i = 0; i < courses.size(); i++) {
-            coursesNames.add(courses.get(i).getName());
-        }
-        for (int i = 0; i < professors.size(); i++) {
-            if (professors.get(i) instanceof Professor) {
-                professorNames.add(professors.get(i).getId());
-            }
-        }
+		professorNames.add("Choose a Professor");
+		professorNames.add("None");
+		coursesNames.add("Choose a Course");
 
-        String[] professorBox = new String[professorNames.size()];
-        professorBox = professorNames.toArray(professorBox);
+		for (int i = 0; i < courses.size(); i++) {
+			coursesNames.add(courses.get(i).getName());
+		}
+		for (int i = 0; i < professors.size(); i++) {
+			if (professors.get(i) instanceof Professor) {
+				professorNames.add(professors.get(i).getId());
+			}
+		}
 
-        String[] coursesBox = new String[coursesNames.size()];
-        coursesBox = coursesNames.toArray(coursesBox);
+		String[] professorBox = new String[professorNames.size()];
+		professorBox = professorNames.toArray(professorBox);
 
-        professorListComboBox = new AutoComplete(professorBox);
-        professorListComboBox.setBounds(180, 70, 150, 25);
-        this.add(professorListComboBox);
+		String[] coursesBox = new String[coursesNames.size()];
+		coursesBox = coursesNames.toArray(coursesBox);
 
-        courseComboBox = new AutoComplete(coursesBox);
-        courseComboBox.setBounds(180, 110, 150, 25);
-        this.add(courseComboBox);
-        
+		professorListComboBox = new AutoComplete(professorBox);
+		professorListComboBox.setBounds(180, 70, 150, 25);
+		this.add(professorListComboBox);
+
+		courseComboBox = new AutoComplete(coursesBox);
+		courseComboBox.setBounds(180, 110, 150, 25);
+		this.add(courseComboBox);
 
 		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
-		
-		JLabel image = new JLabel(image3);
-		image.setBounds(0,0,1000,500);
-		this.add(image);
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == confirmBtn) {
-        	String course = (String) courseComboBox.getSelectedItem();
-        	String profId = (String) professorListComboBox.getSelectedItem();
-        	
-//            User prof = frame.control.system.getUser((String) professorListComboBox.getSelectedItem());
-//            Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());            
-//            course.setProfessor((Professor) prof);
-          frame.control.setProfessorForCourse(course, profId);
-  	
-            JOptionPane.showMessageDialog(this,
-                    "Successfully set professor: " + profId + ", to course " + course);
-        }
-        frame.pageTransition(frame.adminOptionScroll);
-    }
+		JLabel image = new JLabel(image3);
+		image.setBounds(0, 0, 1000, 500);
+		this.add(image);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == confirmBtn) {
+
+			if (((String) professorListComboBox.getSelectedItem()).equals("Choose a Professor")) {
+				JOptionPane.showMessageDialog(this, "Please select a Professor");
+			} else if (((String) courseComboBox.getSelectedItem()).equals("Choose a Course")) {
+				JOptionPane.showMessageDialog(this, "Please select a Course");
+			} else {
+
+				String c = (String) courseComboBox.getSelectedItem();
+				if (((String) professorListComboBox.getSelectedItem()).equals("None")) {
+					frame.control.removeProfessorFromCourse(c);
+					JOptionPane.showMessageDialog(this, "Successfully removed professor for course " + c);
+				} else {
+					String profId = (String) professorListComboBox.getSelectedItem();
+					Professor prof = (Professor) frame.control.system.getUser(profId);
+					Course course = frame.control.getCourse(c);
+					course.setProfessor(prof);
+					prof.addCourse(course);
+					JOptionPane.showMessageDialog(this, "Successfully set professor: " + profId + ", to course " + c);
+				}
+				frame.pageTransition(frame.adminOptionScroll);
+			}
+
+		} else {
+			frame.pageTransition(frame.adminOptionScroll);
+		}
+	}
 
 }

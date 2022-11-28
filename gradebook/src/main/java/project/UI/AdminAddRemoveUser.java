@@ -103,9 +103,9 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 //		welcome.setBounds(0, 0, 1000, 65); // sets x,y position of label w/ dimensions
 //		this.add(welcome);	
 		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
-		
+
 		JLabel image = new JLabel(image3);
-		image.setBounds(0,0,1000,500);
+		image.setBounds(0, 0, 1000, 500);
 		this.add(image);
 
 	}
@@ -122,14 +122,16 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 		addUserFNameField.setText("");
 		addUserLNameField.setText("");
 		addUserPwdField.setText("");
-		frame.pageTransition(frame.adminOptionScroll);
+		if (e.getSource() == addUserCancelBtn) {
+			frame.pageTransition(frame.adminOptionScroll);
+		}
 	}
 }
 
 class AdminRemoveUser extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
-	JComboBox<String> removeUserListBox;
+	AutoComplete removeUserListBox;
 	JButton removeUserConfirmBtn;
 	JButton removeUserCancelBtn;
 	JLabel removeUserLabel;
@@ -138,7 +140,7 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 	public AdminRemoveUser(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		removeUserConfirmBtn = new JButton("Confirm");
 		removeUserConfirmBtn.setBounds(210, 200, 90, 25);
@@ -154,8 +156,6 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 		removeUserLabel.setHorizontalAlignment(JLabel.CENTER);
 		removeUserLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		removeUserLabel.setBounds(100, 30, 200, 25);
-		removeUserLabel.setBackground(Color.WHITE);
-		removeUserLabel.setOpaque(true);
 		this.add(removeUserLabel);
 
 		removeUserDeniedLabel = new JLabel("Denied: Must have minimum 1 Admin in System.");
@@ -175,11 +175,11 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 			userIds[i + 1] = users.get(i).getId();
 		}
 
-		removeUserListBox = new JComboBox<String>(userIds);
+		removeUserListBox = new AutoComplete(userIds);
 		removeUserListBox.setBounds(100, 100, 200, 25);
 		add(removeUserListBox);
 		
-		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
 		
 		JLabel image = new JLabel(image3);
 		image.setBounds(0,0,1000,500);
@@ -211,7 +211,10 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Success. User removed: " + removeUserListBox.getSelectedItem());
 				removeUserDeniedLabel.setVisible(false);
 				removeUserListBox.setSelectedIndex(0);
-				frame.pageTransition(frame.adminOptionScroll);
+
+				frame.adminRemoveUser = new AdminRemoveUser(frame);
+				frame.adminRemoveUser.updateAdminRemoveUserScreen();
+				frame.pageTransition(frame.adminRemoveUser);
 			}
 
 		}

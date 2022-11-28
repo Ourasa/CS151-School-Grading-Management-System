@@ -29,8 +29,9 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 	UserInterface frame;
 	JComboBox courseListBox;
 	AutoComplete assignmentListBox;
-	JButton confirmButton;
-	JButton confirmCourseButton;
+
+	JButton save1;
+	JButton save2;
 
 	JButton cancelButton;
 	JTextField assignmentName;
@@ -81,17 +82,18 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 		this.add(pointsWorthLabel);
 
 		points = new JTextField("");
-		points.setBounds(120, 150, 30, 25);
+		points.setBounds(120, 150, 50, 25);
 		this.add(points);
 
-		instruction = new JLabel("**If no changes needed, leave blank**");
-		instruction.setBounds(30, 180, 250, 25);
-		this.add(instruction);
+		save1 = new JButton("Save");
+		save1.setBounds(230, 120, 100, 25);
+		save1.addActionListener(this);
+		this.add(save1);
 
-		confirmButton = new JButton("Confirm");
-		confirmButton.setBounds(200, 220, 100, 25);
-		confirmButton.addActionListener(this);
-		this.add(confirmButton);
+		save2 = new JButton("Save");
+		save2.setBounds(180, 150, 100, 25);
+		save2.addActionListener(this);
+		this.add(save2);
 
 		cancelButton = new JButton("Cancel");
 		cancelButton.setBounds(80, 220, 100, 25);
@@ -125,7 +127,7 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 
 		courseListBox = new JComboBox<>(coursesBox);
 		courseListBox.setBounds(120, 60, 120, 25);
-		updateAssignmentList((String)courseListBox.getSelectedItem());
+		updateAssignmentList((String) courseListBox.getSelectedItem());
 		courseListBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -147,67 +149,81 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 		assignmentListBox = new AutoComplete(assignmentBox);
 		assignmentListBox.setBounds(120, 90, 100, 25);
 		this.add(assignmentListBox);
-		this.validate();
-		this.repaint();
-		
-	ImageIcon image3 = new ImageIcon("images/Professor2.png");
-		
+
+		ImageIcon image3 = new ImageIcon("images/Professor2.png");
+
 		JLabel image = new JLabel(image3);
-		image.setBounds(500,20,500,500);
+		image.setBounds(500, 20, 500, 500);
 		this.add(image);
-		
+
 		JLabel banner = new JLabel();
 		banner.setText("Welcome Professor");
 		banner.setBackground(Color.GRAY);
 		banner.setFont(new Font("Serif", Font.BOLD, 30));
 		banner.setForeground(Color.WHITE);
 		banner.setOpaque(true); // to display background of label
-		//banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates border for label
+		// banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates
+		// border for label
 		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
 		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
-		//home.setLayout(null); // need a layout manager to adjust sizes
+		// home.setLayout(null); // need a layout manager to adjust sizes
 		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
-		this.add(banner);	
-		
+		this.add(banner);
+
+		this.validate();
+		this.repaint();
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		
-		if (e.getSource() == confirmButton) {
+		String course = (String) courseListBox.getSelectedItem();
+		Course c = frame.control.getCourse(course);
 
-			if (points.getText().isEmpty() || points.getText().matches("[0-9]+")) {
-				String course = (String) courseListBox.getSelectedItem();
-				Course c = frame.control.getCourse(course);
+		if (e.getSource() == save1 && !newName.getText().isEmpty()) {
+			String newAssignmentName = newName.getText();
+			String oldAssignmentName = (String) assignmentListBox.getSelectedItem();
 
-				if (newName.getText() != "") {
-					c.asgnNameList.remove(assignmentListBox.getSelectedItem());
-					c.asgnNameList.add(newName.getText());
-				}
-
-				for (Student student : c.getStudents()) {
-					for (Assignment assignment : c.studentBase.get(student)) {
-						if (assignment.getName() == assignmentListBox.getSelectedItem()) {
-							if (newName.getText() != "") {
-								assignment.setName(newName.getText());
-							}
-							if (!points.getText().isEmpty()) {
-								assignment.setPointsTotal(Integer.parseInt(points.getText()));
-							}
-						}
+			for (Student student : c.getStudents()) {
+				for (Assignment assignment : c.studentBase.get(student)) {
+					if (assignment.getName().equals(oldAssignmentName)) {
+						assignment.setName(newAssignmentName);
 					}
 				}
-				JOptionPane.showMessageDialog(this, "Assignment was successfully edited");
-
-				frame.editAssignment = new EditAssignment(frame);
-				frame.editAssignment.updateCourseList();
-				frame.pageTransition(frame.editAssignment);
-			} else {
-				statusLabel.setVisible(true);
 			}
 
+			c.asgnNameList.remove(oldAssignmentName);
+			c.asgnNameList.add(newAssignmentName);
+
+			Assignment temp = c.assignments.get(oldAssignmentName);
+			temp.setName(newAssignmentName);
+			c.assignments.remove(oldAssignmentName);
+			c.assignments.put(newAssignmentName, temp);
+
+			newName.setText("");
+			points.setText("");
+
+			frame.editAssignment = new EditAssignment(frame);
+			frame.editAssignment.updateCourseList();
+			frame.pageTransition(frame.editAssignment);
+
+		}
+		if (e.getSource() == save2 && !points.getText().isEmpty()) {
+			c.assignments.get((String) assignmentListBox.getSelectedItem())
+					.setPointsTotal(Integer.parseInt(points.getText()));
+
+			for (Student student : c.getStudents()) {
+				for (Assignment assignment : c.studentBase.get(student)) {
+					if (assignment.getName() == assignmentListBox.getSelectedItem()) {
+						assignment.setPointsTotal(Integer.parseInt(points.getText()));
+					}
+				}
+			}
+			points.setText("");
+			frame.editAssignment = new EditAssignment(frame);
+			frame.editAssignment.updateCourseList();
+			frame.pageTransition(frame.editAssignment);
 		}
 		if (e.getSource() == cancelButton) {
 			frame.pageTransition(frame.professorOptionScroll);

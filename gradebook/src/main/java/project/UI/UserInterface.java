@@ -61,7 +61,6 @@ public class UserInterface {
 	AdminAddCourse adminAddCourse;
 	AdminRemoveCourse adminRemoveCourse;
 	AdminViewUser adminViewUsers;
-	AdminLoadFile adminLoadFile;
 	SetProfessorToCourse setProfessorToCourse;
 	AddStudentToCourse addStudentToCourse;
 	RemoveStudentFromCourse removeStudentFromCourse;
@@ -74,13 +73,14 @@ public class UserInterface {
 
 	// Professor - Add student screen from course
 	ProfessorAddStudent professorAddStudent;
-	
+
 	// Professor - Remove student screen from course
 
 	// Professor - Add an assignment for all students in a course.
 	AddAssignment addAssignment;
 	EditAssignment editAssignment;
 	GradeAssignment gradeAssignment;
+	ViewStudentsGrades viewGrades;
 	// Professor - Edit an assignment for all students in a course.
 
 	// Professor - Remove an assignment for all students in a course.
@@ -91,25 +91,24 @@ public class UserInterface {
 
 	// Student - Pick an option page
 	StudentOptionScroll studentOptionScroll;
-
+	AdminLoadFile adminLoadFile;
 	// Student - View all Courses + Grades
-
+	ViewGPA viewGPA;
+	PrintTranscript printTranscript;
 	// Student - View all Assignments (of a current course)
 
 	// Student - Print transcript
 
 	public UserInterface(Controller control) {
 		this.control = control;
-		frame.pack();
-		frame.setSize(1000, 500);
-		//frame.pack();
+		frame.setSize(400, 275);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setTitle("In Pain and Agony :D");
 		loginScroll = new LoginScrollPane(this);
 		contentPane.add(loginScroll);
 		contentPane.validate();
 		frame.setVisible(true);
-		//frame.pack();
+		frame.pack();
 
 		// Setup "Home" menu for Users
 		adminOptionScroll = new AdminOptionScroll(this);
@@ -131,18 +130,22 @@ public class UserInterface {
 
 		editAssignment = new EditAssignment(this);
 		gradeAssignment = new GradeAssignment(this);
+		viewGrades = new ViewStudentsGrades(this);
+		adminLoadFile = new AdminLoadFile(this);
 		// Setup Student specific GUI
-
+		viewGPA = new ViewGPA(this);
+		printTranscript = new PrintTranscript(this);
 	}
 
-	public void pageTransition(JScrollPane after) {
+	public void pageTransition(JComponent after) {
 		contentPane.removeAll();
 		contentPane.add(after);
 		contentPane.repaint();
 		contentPane.revalidate();
-		//frame.pack();
+
 		frame.setSize(1000, 500);
-		//frame.pack();
+
+		frame.pack();
 	}
 
 	public static String getPwd(JPasswordField field) {

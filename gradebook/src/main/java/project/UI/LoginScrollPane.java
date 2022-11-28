@@ -1,15 +1,14 @@
 package project.UI;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -33,7 +32,7 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 	 JLabel rebel = new JLabel();
 	UserInterface frame;
 
-	public LoginScrollPane(UserInterface in)  {
+	public LoginScrollPane(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(1000, 500));
@@ -97,18 +96,8 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 		rebel.setBounds(0,50,500,500);
 		this.add(rebel);
 		this.add(rebel);
-		
-	
-		
-		
-		
-		
-		
-		
 
-    }
-
-	
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

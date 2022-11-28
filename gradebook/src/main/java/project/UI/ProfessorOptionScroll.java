@@ -51,27 +51,26 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 		profWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		profWelcomeLabel.setBounds(90, 50, 225, 25);
 		this.add(profWelcomeLabel);
-		
-	ImageIcon image3 = new ImageIcon("images/Professor2.png");
-		
+
+		ImageIcon image3 = new ImageIcon("images/Professor2.png");
+
 		JLabel image = new JLabel(image3);
-		image.setBounds(500,20,500,500);
+		image.setBounds(500, 20, 500, 500);
 		this.add(image);
-		
+
 		JLabel banner = new JLabel();
 		banner.setText("Welcome Professor");
 		banner.setBackground(Color.GRAY);
 		banner.setFont(new Font("Serif", Font.BOLD, 30));
 		banner.setForeground(Color.WHITE);
 		banner.setOpaque(true); // to display background of label
-		//banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates border for label
+		// banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates
+		// border for label
 		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
 		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
-		//home.setLayout(null); // need a layout manager to adjust sizes
+		// home.setLayout(null); // need a layout manager to adjust sizes
 		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
-		this.add(banner);	
-		
-
+		this.add(banner);
 	}
 
 	@Override
@@ -102,7 +101,10 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 				frame.gradeAssignment.updateCourseList();
 				frame.pageTransition(frame.gradeAssignment);
 			} else if (((String) profOptionsBox.getSelectedItem()).equals("View Students + Grades")) {
-
+				frame.viewGrades = new ViewStudentsGrades(frame);
+				frame.viewGrades.updateCourseList(0);
+				frame.viewGrades.updateViewUsersScreen(0);
+				frame.pageTransition(frame.viewGrades);
 			}
 			// Professor cancels adding a student
 		} else if (e.getSource() == frame.professorOptionScroll.profLogoutBtn) {

@@ -86,8 +86,8 @@ public class Controller {
 	}
 
 	// REMOVE STUDENT FROM COURSE
-	public void removeStudentFromCourse(String courseName, String studentId) {
-		system.removeStudentFromCourse(courseName, studentId);
+	public boolean removeStudentFromCourse(String courseName, String studentId) {
+		return system.removeStudentFromCourse(courseName, studentId);
 	}
 
 	// Special: VIEW ALL USERS - Handled by GUI.
@@ -171,7 +171,12 @@ public class Controller {
 	public void loadTxtFile(String fileName) throws Exception {
 		this.system = new GradeSystem(this);
 		File file = new File(fileName);
-		system.loadTxtFile(file);
+		try {
+			system.loadTxtFile(file);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void setSystem(GradeSystem system) {

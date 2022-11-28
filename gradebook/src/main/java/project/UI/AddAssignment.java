@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,7 +35,6 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 	JLabel assignmentNameLabel;
 	JLabel pointsWorthLabel;
 	JLabel statusLabel;
-
 
 	public AddAssignment(UserInterface in) {
 		frame = in;
@@ -105,7 +103,6 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 		//home.setLayout(null); // need a layout manager to adjust sizes
 		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
 		this.add(banner);	
-		
 	}
 
 	public void updateCourseList() {
@@ -134,11 +131,14 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 		if (e.getSource() == confirmButton) {
 			if (points.getText().matches("[0-9]+")) {
 				String course = (String) addUserTypeBox.getSelectedItem();
+
 				Course c = frame.control.getCourse(course);
-				Assignment newAssignment = new Assignment(assignmentName.getText(), 0,
-						Integer.parseInt(points.getText()));
+				c.asgnNameList.add(assignmentName.getText());
+				c.assignments.put(assignmentName.getText(),
+						new Assignment(assignmentName.getText(), 0, Integer.parseInt(points.getText())));
 				for (Student student : c.getStudents()) {
-					frame.control.addAssignment(course, student.getId(), newAssignment);
+					c.studentBase.get(student)
+							.add(new Assignment(assignmentName.getText(), 0, Integer.parseInt(points.getText())));
 				}
 				JOptionPane.showMessageDialog(this,
 						"Assignment: " + assignmentName.getText() + ", was successfully added to " + course);

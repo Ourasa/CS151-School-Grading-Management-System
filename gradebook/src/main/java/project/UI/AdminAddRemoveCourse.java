@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 
 import com.gradebook.gradebook.*;
 
-
 class AdminAddCourse extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
@@ -34,11 +33,10 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 		frame = in;
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(1000, 500));
-	
 
 		addCourseProfessorBox = new JComboBox<String>();
 		addCourseProfessorBox.setVisible(true);
-		
+
 		this.add(addCourseProfessorBox);
 
 		addCourseConfirmBtn = new JButton("Confirm");
@@ -70,9 +68,7 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 		addCourseProfLabel = new JLabel("Assign Professor:");
 		addCourseProfLabel.setBounds(50, 130, 200, 25);
 		this.add(addCourseProfLabel);
-		
 
-	
 	}
 
 	@Override
@@ -82,6 +78,8 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 					(String) addCourseProfessorBox.getSelectedItem());
 			JOptionPane.showMessageDialog(this, "Successfully added course.");
 		}
+		Professor prof = (Professor) frame.control.system.getUser((String) addCourseProfessorBox.getSelectedItem());
+		prof.addCourse(frame.control.getCourse((String) addCourseNameField.getText()));
 		addCourseNameField.setText("");
 		addCourseProfessorBox.setSelectedIndex(0);
 		frame.pageTransition(frame.adminOptionScroll);
@@ -106,10 +104,11 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 		addCourseProfessorBox = new JComboBox<String>(profsBox);
 		addCourseProfessorBox.setBounds(170, 130, 130, 25);
 		this.add(addCourseProfessorBox);
-	ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
-		
+
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+
 		JLabel image = new JLabel(image3);
-		image.setBounds(0,0,1000,500);
+		image.setBounds(0, 0, 1000, 500);
 		this.add(image);
 	}
 
@@ -145,15 +144,11 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 		removeCourseTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 		removeCourseTitleLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		removeCourseTitleLabel.setBounds(100, 30, 200, 25);
-		removeCourseTitleLabel.setBackground(Color.WHITE);
-		removeCourseTitleLabel.setOpaque(true);
 		this.add(removeCourseTitleLabel);
 
 		removeCourseNameLabel = new JLabel("Course:");
 		removeCourseNameLabel.setBounds(100, 110, 100, 25);
 		this.add(removeCourseNameLabel);
-		
-		
 	}
 
 	public void updateAdminRemoveCourseScreen() {
@@ -172,11 +167,11 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 		removeCourseBox = new JComboBox<String>(coursesBox);
 		removeCourseBox.setBounds(150, 110, 150, 25);
 		this.add(removeCourseBox);
-		
+
 		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
-		
+
 		JLabel image = new JLabel(image3);
-		image.setBounds(0,0,1000,500);
+		image.setBounds(0, 0, 1000, 500);
 		this.add(image);
 	}
 
