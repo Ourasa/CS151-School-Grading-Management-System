@@ -68,7 +68,11 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
 
         ArrayList<User> professors = frame.control.getUserList();
         ArrayList<String> professorNames = new ArrayList<String>();
-
+        
+        professorNames.add("Choose a Professor");
+        professorNames.add("None");
+        coursesNames.add("Choose a Course");
+        
         for (int i = 0; i < courses.size(); i++) {
             coursesNames.add(courses.get(i).getName());
         }
@@ -77,10 +81,10 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
                 professorNames.add(professors.get(i).getId());
             }
         }
-
+        
         String[] professorBox = new String[professorNames.size()];
         professorBox = professorNames.toArray(professorBox);
-
+        
         String[] coursesBox = new String[coursesNames.size()];
         coursesBox = coursesNames.toArray(coursesBox);
 
@@ -96,18 +100,30 @@ public class SetProfessorToCourse extends JScrollPane implements ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmBtn) {
-        	String course = (String) courseComboBox.getSelectedItem();
-        	String profId = (String) professorListComboBox.getSelectedItem();
         	
-//            User prof = frame.control.system.getUser((String) professorListComboBox.getSelectedItem());
-//            Course course = frame.control.system.getCourse((String) courseComboBox.getSelectedItem());            
-//            course.setProfessor((Professor) prof);
-          frame.control.setProfessorForCourse(course, profId);
-  	
-            JOptionPane.showMessageDialog(this,
-                    "Successfully set professor: " + profId + ", to course " + course);
+        	if ( ((String) professorListComboBox.getSelectedItem()).equals("Choose a Professor")) {
+        		JOptionPane.showMessageDialog(this, "Please select a Professor");
+        	} else if (((String) courseComboBox.getSelectedItem()).equals("Choose a Course")) {
+        		JOptionPane.showMessageDialog(this, "Please select a Course");
+        	} else {
+        		
+        		String course = (String) courseComboBox.getSelectedItem();
+        		if (((String) professorListComboBox.getSelectedItem()).equals("None")) {
+        			frame.control.removeProfessorFromCourse(course);
+        			JOptionPane.showMessageDialog(this,
+                            "Successfully removed professor for course " + course);
+        		} else {
+        			String profId = (String) professorListComboBox.getSelectedItem();
+        			frame.control.setProfessorForCourse(course, profId);
+        			JOptionPane.showMessageDialog(this,
+                          "Successfully set professor: " + profId + ", to course " + course);
+        		}
+                frame.pageTransition(frame.adminOptionScroll);
+        	}
+        	
+        } else {
+        	frame.pageTransition(frame.adminOptionScroll);
         }
-        frame.pageTransition(frame.adminOptionScroll);
     }
 
 }

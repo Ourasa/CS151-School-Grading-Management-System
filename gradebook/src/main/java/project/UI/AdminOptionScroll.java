@@ -26,7 +26,7 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 		this.setPreferredSize(new Dimension(400, 275));
 
 		String[] adminOptions = { "Add User", "Remove User", "Add Course", "Remove Course", "Set Professor for Course",
-				"Remove Professor from Course", "Add Student to Course", "Remove Student from Course",
+				"Add Student to Course", "Remove Student from Course",
 				"View All Users" , "Generate Save File" , "Load Save File"};
 		autoComplete = new AutoComplete(adminOptions);
 		this.add(autoComplete);
@@ -78,8 +78,8 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 				frame.setProfessorToCourse = new SetProfessorToCourse(frame);
 				frame.setProfessorToCourse.courseListBox();
 				frame.pageTransition(frame.setProfessorToCourse);
-			} else if (((String) autoComplete.getSelectedItem()).equals("Remove Professor from Course")) {
-
+//			} else if (((String) autoComplete.getSelectedItem()).equals("Remove Professor from Course")) {
+				
 			} else if (((String) autoComplete.getSelectedItem()).equals("Add Student to Course")) {
 				frame.addStudentToCourse = new AddStudentToCourse(frame);
 				frame.addStudentToCourse.courseListBox();

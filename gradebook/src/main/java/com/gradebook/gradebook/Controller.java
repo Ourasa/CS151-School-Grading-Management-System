@@ -86,8 +86,8 @@ public class Controller {
 	}
 
 	// REMOVE STUDENT FROM COURSE
-	public void removeStudentFromCourse(String courseName, String studentId) {
-		system.removeStudentFromCourse(courseName, studentId);
+	public boolean removeStudentFromCourse(String courseName, String studentId) {
+		return system.removeStudentFromCourse(courseName, studentId);
 	}
 
 	// Special: VIEW ALL USERS - Handled by GUI.
