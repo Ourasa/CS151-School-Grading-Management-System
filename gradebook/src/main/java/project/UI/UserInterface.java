@@ -91,7 +91,7 @@ public class UserInterface {
 
 	// Student - Pick an option page
 	StudentOptionScroll studentOptionScroll;
-
+	AdminLoadFile adminLoadFile;
 	// Student - View all Courses + Grades
 
 	// Student - View all Assignments (of a current course)
@@ -130,7 +130,7 @@ public class UserInterface {
 		editAssignment = new EditAssignment(this);
 		gradeAssignment = new GradeAssignment(this);
 		viewGrades = new ViewStudentsGrades(this);
-		 
+		adminLoadFile = new AdminLoadFile(this);
 		// Setup Student specific GUI
 
 	}
