@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -47,7 +48,7 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 	public EditAssignment(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		pageTitle = new JLabel("Edit Assignment");
 		pageTitle.setHorizontalAlignment(JLabel.CENTER);
@@ -148,6 +149,26 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 		this.add(assignmentListBox);
 		this.validate();
 		this.repaint();
+		
+	ImageIcon image3 = new ImageIcon("images/Professor2.png");
+		
+		JLabel image = new JLabel(image3);
+		image.setBounds(500,20,500,500);
+		this.add(image);
+		
+		JLabel banner = new JLabel();
+		banner.setText("Welcome Professor");
+		banner.setBackground(Color.GRAY);
+		banner.setFont(new Font("Serif", Font.BOLD, 30));
+		banner.setForeground(Color.WHITE);
+		banner.setOpaque(true); // to display background of label
+		//banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates border for label
+		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+		//home.setLayout(null); // need a layout manager to adjust sizes
+		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
+		this.add(banner);	
+		
 
 	}
 
@@ -161,7 +182,7 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 				String course = (String) courseListBox.getSelectedItem();
 				Course c = frame.control.getCourse(course);
 
-				if (!newName.getText().isEmpty()) {
+				if (newName.getText() != "") {
 					c.asgnNameList.remove(assignmentListBox.getSelectedItem());
 					c.asgnNameList.add(newName.getText());
 				}
@@ -169,7 +190,7 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 				for (Student student : c.getStudents()) {
 					for (Assignment assignment : c.studentBase.get(student)) {
 						if (assignment.getName() == assignmentListBox.getSelectedItem()) {
-							if (!newName.getText().isEmpty()) {
+							if (newName.getText() != "") {
 								assignment.setName(newName.getText());
 							}
 							if (!points.getText().isEmpty()) {
@@ -194,4 +215,3 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 	}
 
 }
-

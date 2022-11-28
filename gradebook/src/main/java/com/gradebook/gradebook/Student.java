@@ -85,7 +85,6 @@ public class Student extends User {
 	}
 	
 	public double getGPA() {
-		updateGPA();
 		return this.gpa;
 	}
 	

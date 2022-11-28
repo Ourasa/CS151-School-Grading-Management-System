@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -38,7 +39,7 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 	public AdminAddUser(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		String[] types = { "Admin", "Professor", "Student" };
 		addUserTypeBox = new AutoComplete(types);
@@ -89,6 +90,23 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 		addPwdLabel.setBounds(30, 170, 100, 25);
 		this.add(addPwdLabel);
 
+//		JLabel welcome = new JLabel();
+//		welcome.setText("Administration");
+//		welcome.setBackground(Color.WHITE);
+//		welcome.setFont(new Font("Serif", Font.BOLD, 45));
+//		welcome.setForeground(Color.BLACK);
+//		welcome.setOpaque(true); // to display background of label
+//		//adminWelcomeLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates border for label
+//		welcome.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+//		welcome.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+//		//home.setLayout(null); // need a layout manager to adjust sizes
+//		welcome.setBounds(0, 0, 1000, 65); // sets x,y position of label w/ dimensions
+//		this.add(welcome);	
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+		
+		JLabel image = new JLabel(image3);
+		image.setBounds(0,0,1000,500);
+		this.add(image);
 
 	}
 
@@ -104,9 +122,7 @@ class AdminAddUser extends JScrollPane implements ActionListener {
 		addUserFNameField.setText("");
 		addUserLNameField.setText("");
 		addUserPwdField.setText("");
-		if(e.getSource() == addUserCancelBtn) {
-			frame.pageTransition(frame.adminOptionScroll);
-		}
+		frame.pageTransition(frame.adminOptionScroll);
 	}
 }
 
@@ -138,6 +154,8 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 		removeUserLabel.setHorizontalAlignment(JLabel.CENTER);
 		removeUserLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		removeUserLabel.setBounds(100, 30, 200, 25);
+		removeUserLabel.setBackground(Color.WHITE);
+		removeUserLabel.setOpaque(true);
 		this.add(removeUserLabel);
 
 		removeUserDeniedLabel = new JLabel("Denied: Must have minimum 1 Admin in System.");
@@ -160,6 +178,12 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 		removeUserListBox = new JComboBox<String>(userIds);
 		removeUserListBox.setBounds(100, 100, 200, 25);
 		add(removeUserListBox);
+		
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+		
+		JLabel image = new JLabel(image3);
+		image.setBounds(0,0,1000,500);
+		this.add(image);
 	}
 
 	@Override
@@ -187,6 +211,7 @@ class AdminRemoveUser extends JScrollPane implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Success. User removed: " + removeUserListBox.getSelectedItem());
 				removeUserDeniedLabel.setVisible(false);
 				removeUserListBox.setSelectedIndex(0);
+				frame.pageTransition(frame.adminOptionScroll);
 			}
 
 		}

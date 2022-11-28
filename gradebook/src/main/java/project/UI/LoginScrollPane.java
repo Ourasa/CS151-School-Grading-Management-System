@@ -1,12 +1,15 @@
 package project.UI;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -25,51 +28,87 @@ public class LoginScrollPane extends JScrollPane implements ActionListener {
 	JLabel loginPwdLabel;
 	JLabel loginHeadingLabel;
 	JLabel statusLabel;
+	JLabel mewLabel;
+	 JLabel label = new JLabel();
+	 JLabel rebel = new JLabel();
 	UserInterface frame;
 
-	public LoginScrollPane(UserInterface in) {
+	public LoginScrollPane(UserInterface in)  {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		loginIdField = new JTextField();
-		loginIdField.setBounds(125, 100, 200, 25);
+		loginIdField.setBounds(650, 200, 200, 25);
 		this.add(loginIdField);
 
 		loginIdLabel = new JLabel("ID: ");
-		loginIdLabel.setBounds(100, 100, 100, 25);
+		loginIdLabel.setBounds(550, 200, 100, 25);
 		this.add(loginIdLabel);
 
 		loginPwdField = new JPasswordField();
-		loginPwdField.setBounds(125, 140, 200, 25);
+		loginPwdField.setBounds(650, 250, 200, 25);
 		this.add(loginPwdField);
 
 		loginPwdLabel = new JLabel("Password: ");
-		loginPwdLabel.setBounds(55, 140, 100, 25);
+		loginPwdLabel.setBounds(550, 250, 100, 25);
 		this.add(loginPwdLabel);
 
 		loginButton = new JButton();
 		loginButton.addActionListener(this);
 		loginButton.setText("Login");
-		loginButton.setBounds(150, 210, 100, 25);
+		loginButton.setBounds(675, 350, 100, 25);
 		this.add(loginButton);
 
 		loginHeadingLabel = new JLabel();
-		loginHeadingLabel.setText("Gradebook Login");
+		loginHeadingLabel.setText("User Login");
+		loginHeadingLabel.setBackground(Color.BLACK);
 		loginHeadingLabel.setHorizontalAlignment(JLabel.CENTER);
-		loginHeadingLabel.setBounds(100, 50, 200, 25);
-		loginHeadingLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+		loginHeadingLabel.setBounds(675, 125, 150, 25);
+		loginHeadingLabel.setFont(new Font("Serif", Font.BOLD, 18));
+		loginHeadingLabel.setOpaque(true); // to display background of label
+		loginHeadingLabel.setForeground(Color.WHITE);
 		this.add(loginHeadingLabel);
 
 		statusLabel = new JLabel();
-		statusLabel.setBounds(100, 175, 200, 25);
+		statusLabel.setBounds(650, 300, 200, 25);
 		statusLabel.setForeground(Color.RED);
 		statusLabel.setHorizontalAlignment(JLabel.CENTER);
 		statusLabel.setText("Incorrect Username or Password");
 		statusLabel.setVisible(false);
 		this.add(statusLabel);
 
-	}
+		
+		label.setText("GradeBook");
+		label.setBackground(Color.RED);
+		label.setFont(new Font("Serif", Font.BOLD, 50));
+		label.setForeground(Color.WHITE);
+		label.setOpaque(true); // to display background of label
+		label.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates border for label
+		label.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+		label.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+		//home.setLayout(null); // need a layout manager to adjust sizes
+		label.setBounds(0, 0, 1000, 100); // sets x,y position of label w/ dimensions
+		this.add(label);		
+		
+		ImageIcon image2 = new ImageIcon("images/gradebookimage2.jpeg");
+		
+		rebel = new JLabel(image2);
+		rebel.setBounds(0,50,500,500);
+		this.add(rebel);
+		this.add(rebel);
+		
+	
+		
+		
+		
+		
+		
+		
+
+    }
+
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
