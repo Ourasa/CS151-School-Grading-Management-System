@@ -13,7 +13,6 @@ public class Driver {
 		
 //		con.addUser(defaultAdmin);
 //		con.addUser(defaultProfessor);
-		con.system.users.put(defaultProfessor.getId(),defaultProfessor);
 //		con.addUser(defaultStudent1);
 //		con.addUser(defaultStudent2);
 //		
@@ -50,7 +49,11 @@ public class Driver {
 //		con.printTranscript();
 		
 //		
-		con.loadTxtFile("gradeSystemSaveFile.txt");
+		try {
+			con.loadTxtFile("gradeSystemSaveFile.txt");
+		} catch (Exception e) {
+			System.out.println("Failure");
+		}
 //		con.generateTxtSaveFile();
 //		System.out.println(con.get);
 		
