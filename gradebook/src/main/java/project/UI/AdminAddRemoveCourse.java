@@ -142,7 +142,7 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 	public AdminRemoveCourse(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		removeCourseBox = new JComboBox<String>();
 
