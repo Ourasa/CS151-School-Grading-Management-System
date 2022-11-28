@@ -59,6 +59,17 @@ public class StudentOptionScroll extends JScrollPane implements ActionListener {
 			frame.pageTransition(frame.loginScroll);
 			frame.control.logoutUser();
 		} 
+		if (e.getSource() == frame.studentOptionScroll.studentOptionConfirmBtn) {
+			if((String)studentOptionsBox.getSelectedItem() == "View Courses and GPA") {
+				frame.viewGPA = new ViewGPA(frame);
+				frame.viewGPA.updateViewUsersScreen();
+				frame.pageTransition(frame.viewGPA);
+			}
+			if((String)studentOptionsBox.getSelectedItem() == "Print Transcript") {
+				frame.printTranscript = new PrintTranscript(frame);
+				frame.pageTransition(frame.printTranscript);
+			}
+		} 
 	}
 
 }
