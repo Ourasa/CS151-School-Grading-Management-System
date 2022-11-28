@@ -51,6 +51,23 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(1000, 500));
 		
+		ImageIcon image3 = new ImageIcon("images/Professor2.png");
+
+		JLabel image = new JLabel(image3);
+		image.setBounds(500, 20, 500, 500);
+		panel.add(image);
+
+		JLabel banner = new JLabel();
+		banner.setText("Welcome Professor");
+		banner.setBackground(Color.GRAY);
+		banner.setFont(new Font("Serif", Font.BOLD, 30));
+		banner.setForeground(Color.WHITE);
+		banner.setOpaque(true); // to display background of label
+		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
+		panel.add(banner);
+		
 		backButton = new JButton("Back");
 		backButton.setBounds(30, 30, 80, 25);
 		backButton.addActionListener(this);
@@ -71,7 +88,7 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 		grade = new JLabel("Grade");
 		grade.setBounds(310, 60, 100, 25);
 		panel.add(grade);
-		
+				
 		this.setViewportView(panel);
 	}
 
@@ -129,22 +146,7 @@ public class ViewStudentsGrades extends JScrollPane implements ActionListener {
 		this.validate();
 		this.repaint();
 		
-		ImageIcon image3 = new ImageIcon("images/Professor2.png");
-
-		JLabel image = new JLabel(image3);
-		image.setBounds(500, 20, 500, 500);
-		this.add(image);
-
-		JLabel banner = new JLabel();
-		banner.setText("Welcome Professor");
-		banner.setBackground(Color.GRAY);
-		banner.setFont(new Font("Serif", Font.BOLD, 30));
-		banner.setForeground(Color.WHITE);
-		banner.setOpaque(true); // to display background of label
-		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
-		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
-		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
-		this.add(banner);
+		
 	}
 
 	@Override
