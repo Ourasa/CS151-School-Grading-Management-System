@@ -161,7 +161,7 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 				String course = (String) courseListBox.getSelectedItem();
 				Course c = frame.control.getCourse(course);
 
-				if (newName.getText() != "") {
+				if (!newName.getText().isEmpty()) {
 					c.asgnNameList.remove(assignmentListBox.getSelectedItem());
 					c.asgnNameList.add(newName.getText());
 				}
@@ -169,7 +169,7 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 				for (Student student : c.getStudents()) {
 					for (Assignment assignment : c.studentBase.get(student)) {
 						if (assignment.getName() == assignmentListBox.getSelectedItem()) {
-							if (newName.getText() != "") {
+							if (!newName.getText().isEmpty()) {
 								assignment.setName(newName.getText());
 							}
 							if (!points.getText().isEmpty()) {
@@ -194,3 +194,4 @@ public class EditAssignment extends JScrollPane implements ActionListener {
 	}
 
 }
+
