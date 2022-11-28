@@ -41,6 +41,8 @@ public class Driver {
 
 		User defaultAdmin = new Admin("Sammy", "Spartan", "DA-0000", "Password1");
 		Professor defaultProfessor = new Professor("Abishek", "Gaikwad", "DP-0000", "Password2");
+		Student defaultStudent = new Student("Albert", "Einstein", "DS-0000", "Password3");
+		con.addUser(defaultStudent);
 		con.addUser(defaultAdmin);
 		con.addUser(defaultProfessor);
 		Course cs151 = new Course("CS-151", defaultProfessor);
@@ -60,7 +62,7 @@ public class Driver {
 				new Student("Albert", "Einstein", "DS-0000", "Password3"),
 
 		};
-		
+
 		for (int i = 0; i < 4; i++) {
 			String fn = firstName[random.nextInt(firstName.length)];
 			String ln = lastName[random.nextInt(lastName.length)];
@@ -72,12 +74,12 @@ public class Driver {
 				String randName = "CS-" + random.nextInt(150);
 				con.addCourse(new Course(randName));
 				Course tempCourse = con.system.getCourse(randName);
-				tempCourse.setProfessor((Professor)con.system.getUser(id));
-				Professor temp = (Professor)con.system.getUser(id);
+				tempCourse.setProfessor((Professor) con.system.getUser(id));
+				Professor temp = (Professor) con.system.getUser(id);
 				temp.addCourse(tempCourse);
 			}
 		}
-		
+
 		for (int i = 0; i < 100; i++) {
 			String fn = firstName[random.nextInt(firstName.length)];
 			String ln = lastName[random.nextInt(lastName.length)];

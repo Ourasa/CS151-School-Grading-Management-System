@@ -60,11 +60,11 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 		selectStudentLabel = new JLabel("Student:");
 		selectStudentLabel.setBounds(100, 70, 100, 25);
 		this.add(selectStudentLabel);
-		
-	ImageIcon image3 = new ImageIcon("images/Professor2.png");
-		
+
+		ImageIcon image3 = new ImageIcon("images/Professor2.png");
+
 		JLabel image = new JLabel(image3);
-		image.setBounds(500,20,500,500);
+		image.setBounds(500, 20, 500, 500);
 		this.add(image);
 
 	}
