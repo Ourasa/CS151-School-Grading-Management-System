@@ -578,7 +578,7 @@ public class GradeSystem {
 	// ------------------------------------------------------ MAKE/LOAD FILE 
 	// INTO SYSTEM ------------------------------------------------------
   
-	public void generateTxtSaveFile() {
+	public String generateTxtSaveFile() {
 		try {
 			String fileName = "gradeSystemSaveFile.txt";
 			File file = new File(fileName);
@@ -598,10 +598,14 @@ public class GradeSystem {
 			
 			writer.write("EndFile");
 			writer.close();		
+			
+			return fileName;
 		} catch (IOException e) {
 			System.out.println("Error during Txt file generation.");
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
 	private void writeUsers(FileWriter writer) {
@@ -692,7 +696,7 @@ public class GradeSystem {
 	}
 	
 	
-	public void loadTxtFile(File file) {
+	public void loadTxtFile(File file) throws Exception {
 		try {
 			Scanner scan = new Scanner(file);
 			
@@ -709,7 +713,7 @@ public class GradeSystem {
 		}
 	}
 	
-	private void loadUsers(Scanner scan) {
+	private void loadUsers(Scanner scan) throws Exception {
 		try {
 			if (!scan.nextLine().equals("StartUsers")) {	//First check to ensure format is remotely proper
 				scan.close();
@@ -731,7 +735,7 @@ public class GradeSystem {
 		}
 	}
 	
-	private void loadActiveCourses(Scanner scan) {
+	private void loadActiveCourses(Scanner scan) throws Exception {
 		try {
 			String curLine = scan.nextLine();		//Should have startCourse. If not, loop below not entered.
 			String[] lineComp = curLine.split(",");
@@ -790,8 +794,7 @@ public class GradeSystem {
 		}
 	}
 	
-	private void loadPastCourses(Scanner scan) {
-		try {
+	private void loadPastCourses(Scanner scan) throws Exception {
 			String curLine = scan.nextLine();		
 			String[] lineComp = curLine.split(",");	//If it contains StartPastCourseStudent, load the stuff in. 			
 			
@@ -815,11 +818,11 @@ public class GradeSystem {
 				lineComp = curLine.split(",");	//Either contains StartPastCourseStudent or EndFile
 			}
 			
-		} catch (Exception e) {
-			System.out.println("Unable to process file. Likely incorrect file format for past Courses.");
-			e.printStackTrace();
-			control.setSystem(new GradeSystem(control)); //Clear out this system. 
-		}
+//		} catch (Exception e) {
+//			System.out.println("Unable to process file. Likely incorrect file format for past Courses.");
+//			e.printStackTrace();
+//			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+//		}
 	}
 	
 }

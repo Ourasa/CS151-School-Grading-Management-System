@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class AdminOptionScroll extends JScrollPane implements ActionListener {
@@ -26,7 +27,7 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 
 		String[] adminOptions = { "Add User", "Remove User", "Add Course", "Remove Course", "Set Professor for Course",
 				"Remove Professor from Course", "Add Student to Course", "Remove Student from Course",
-				"View All Users" };
+				"View All Users" , "Generate Save File" , "Load Save File"};
 		autoComplete = new AutoComplete(adminOptions);
 		this.add(autoComplete);
 
@@ -91,6 +92,12 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 				frame.adminViewUsers = new AdminViewUser(frame);
 				frame.adminViewUsers.updateViewUsersScreen();
 				frame.pageTransition(frame.adminViewUsers);
+			} else if (((String) autoComplete.getSelectedItem()).equals("Generate Save File")) {
+				String name = frame.control.generateTxtSaveFile();
+				JOptionPane.showMessageDialog(this, "Sucessfully generated txt save file: " + name);
+			} else if (((String) autoComplete.getSelectedItem()).equals("Load Save File")) {
+				frame.adminLoadFile = new AdminLoadFile(frame);
+				frame.pageTransition(frame.adminLoadFile);
 			}
 		} else {
 			frame.adminOptionScroll.autoComplete.setSelectedIndex(0);

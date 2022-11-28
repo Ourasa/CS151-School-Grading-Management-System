@@ -50,11 +50,16 @@ public class Driver {
 //		con.printTranscript();
 		
 //		
-		con.loadTxtFile("gradeSystemSaveFile.txt");
+		try {
+			con.loadTxtFile("gradeSystemSaveFile.txt");
+		} catch (Exception e) {
+			System.out.println("Failure");
+		}
+		
 //		con.generateTxtSaveFile();
 //		System.out.println(con.get);
 		
-		con.generateClassRosterTxt(defaultProfessor.getId());
+//		con.generateClassRosterTxt(defaultProfessor.getId());
 
 	}
 
