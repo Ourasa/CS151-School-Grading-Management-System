@@ -1,11 +1,13 @@
 package project.UI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -30,9 +32,12 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 	public AdminAddCourse(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		addCourseProfessorBox = new JComboBox<String>();
+		addCourseProfessorBox.setVisible(true);
+
+		this.add(addCourseProfessorBox);
 
 		addCourseConfirmBtn = new JButton("Confirm");
 		addCourseConfirmBtn.setBounds(210, 200, 90, 25);
@@ -55,7 +60,9 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 		addCourseTitleLabel = new JLabel("Add Course");
 		addCourseTitleLabel.setHorizontalAlignment(JLabel.CENTER);
 		addCourseTitleLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-		addCourseTitleLabel.setBounds(100, 30, 200, 25);
+		addCourseTitleLabel.setBounds(100, 30, 150, 25);
+		addCourseTitleLabel.setBackground(Color.WHITE);
+		addCourseTitleLabel.setOpaque(true);
 		this.add(addCourseTitleLabel);
 
 		addCourseProfLabel = new JLabel("Assign Professor:");
@@ -97,6 +104,12 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 		addCourseProfessorBox = new JComboBox<String>(profsBox);
 		addCourseProfessorBox.setBounds(170, 130, 130, 25);
 		this.add(addCourseProfessorBox);
+
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+
+		JLabel image = new JLabel(image3);
+		image.setBounds(0, 0, 1000, 500);
+		this.add(image);
 	}
 
 }
@@ -154,6 +167,12 @@ class AdminRemoveCourse extends JScrollPane implements ActionListener {
 		removeCourseBox = new JComboBox<String>(coursesBox);
 		removeCourseBox.setBounds(150, 110, 150, 25);
 		this.add(removeCourseBox);
+
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+
+		JLabel image = new JLabel(image3);
+		image.setBounds(0, 0, 1000, 500);
+		this.add(image);
 	}
 
 	@Override

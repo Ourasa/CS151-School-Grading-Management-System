@@ -1,10 +1,12 @@
 package project.UI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -23,11 +25,11 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 	public AdminOptionScroll(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 275));
+		this.setPreferredSize(new Dimension(1000, 500));
 
 		String[] adminOptions = { "Add User", "Remove User", "Add Course", "Remove Course", "Set Professor for Course",
-				"Add Student to Course", "Remove Student from Course",
-				"View All Users" , "Generate Save File" , "Load Save File"};
+				"Add Student to Course", "Remove Student from Course", "View All Users", "Generate Save File",
+				"Load Save File" };
 		autoComplete = new AutoComplete(adminOptions);
 		this.add(autoComplete);
 
@@ -49,6 +51,24 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 		adminWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		adminWelcomeLabel.setBounds(90, 50, 225, 25);
 		this.add(adminWelcomeLabel);
+
+		adminWelcomeLabel.setText("Administration");
+		adminWelcomeLabel.setBackground(Color.WHITE);
+		adminWelcomeLabel.setFont(new Font("Serif", Font.BOLD, 45));
+		adminWelcomeLabel.setForeground(Color.BLACK);
+		adminWelcomeLabel.setOpaque(true); // to display background of label
+		// adminWelcomeLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15));
+		// // creates border for label
+		adminWelcomeLabel.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+		adminWelcomeLabel.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+		// home.setLayout(null); // need a layout manager to adjust sizes
+		adminWelcomeLabel.setBounds(0, 0, 1000, 65); // sets x,y position of label w/ dimensions
+		this.add(adminWelcomeLabel);
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+
+		JLabel image = new JLabel(image3);
+		image.setBounds(0, 0, 1000, 500);
+		this.add(image);
 	}
 
 	@Override
@@ -78,8 +98,7 @@ public class AdminOptionScroll extends JScrollPane implements ActionListener {
 				frame.setProfessorToCourse = new SetProfessorToCourse(frame);
 				frame.setProfessorToCourse.courseListBox();
 				frame.pageTransition(frame.setProfessorToCourse);
-//			} else if (((String) autoComplete.getSelectedItem()).equals("Remove Professor from Course")) {
-				
+
 			} else if (((String) autoComplete.getSelectedItem()).equals("Add Student to Course")) {
 				frame.addStudentToCourse = new AddStudentToCourse(frame);
 				frame.addStudentToCourse.courseListBox();

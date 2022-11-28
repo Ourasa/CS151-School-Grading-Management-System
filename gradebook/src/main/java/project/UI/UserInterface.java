@@ -142,6 +142,9 @@ public class UserInterface {
 		contentPane.add(after);
 		contentPane.repaint();
 		contentPane.revalidate();
+
+		frame.setSize(1000, 500);
+
 		frame.pack();
 	}
 

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,12 +13,11 @@ import javax.swing.JScrollPane;
 
 import com.gradebook.gradebook.*;
 
-
 public class AdminViewUser extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
 	JPanel panel;
-	
+
 	JLabel viewUsersFNameLabel;
 	JLabel viewUsersLNameLabel;
 	JLabel viewUsersIdLabel;
@@ -27,13 +27,16 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 
 	public AdminViewUser(UserInterface in) {
 		frame = in;
-		//this.setLayout(null);
-		//this.setPreferredSize(new Dimension(600, 500));
 
 		panel = new JPanel();
 		panel.setLayout(null);
-		panel.setPreferredSize(new Dimension(400, 275));
+		panel.setPreferredSize(new Dimension(1000, 500));
 		
+		ImageIcon image3 = new ImageIcon("images/Administration.jpeg");
+		JLabel image = new JLabel(image3);
+		image.setBounds(0, 0, 1000, 500);
+		panel.add(image);
+	
 		viewUsersTypeLabel = new JLabel("Type");
 		viewUsersTypeLabel.setBounds(50, 30, 100, 25);
 		panel.add(viewUsersTypeLabel);
@@ -58,7 +61,7 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 		viewUsersExitBtn.setBounds(40, 200, 100, 25);
 		viewUsersExitBtn.addActionListener(this);
 		panel.add(viewUsersExitBtn);
-		
+
 		this.setViewportView(panel);
 
 	}
@@ -112,7 +115,7 @@ public class AdminViewUser extends JScrollPane implements ActionListener {
 		panel.add(viewUsersExitBtn);
 
 //		if (arr.size() < 25) {
-			panel.setPreferredSize(new Dimension(600, arr.size() * 20 + 100));
+		panel.setPreferredSize(new Dimension(600, arr.size() * 20 + 100));
 //		} else {
 //			panel.setPreferredSize(new Dimension(600, 600)); // Ensures we don't have an oversized window.
 //		}
