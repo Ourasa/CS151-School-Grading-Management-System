@@ -699,7 +699,9 @@ public class GradeSystem {
 	
 	
 	public void loadTxtFile(File file) throws Exception {
+		GradeSystem sys = (GradeSystem)this.clone();
 		try {
+			
 			Scanner scan = new Scanner(file);
 			
 			loadUsers(scan);
@@ -711,7 +713,7 @@ public class GradeSystem {
 		} catch (Exception e) {
 			System.out.println("Unable to process file. Likely incorrect file format.");
 			e.printStackTrace();
-			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+			throw new Exception();
 		}
 	}
 	
@@ -734,7 +736,7 @@ public class GradeSystem {
 		} catch (Exception e) {
 			System.out.println("Unable to process file. Likely incorrect file format for Users.");
 			e.printStackTrace();
-			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+			throw new Exception();
 		}
 	}
 	
@@ -795,11 +797,12 @@ public class GradeSystem {
 		} catch (Exception e) {
 			System.out.println("Unable to process file. Likely incorrect file format for active Courses.");
 			e.printStackTrace();
-			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+			throw new Exception();
 		}
 	}
 	
 	private void loadPastCourses(Scanner scan) throws Exception {
+		try {
 			String curLine = scan.nextLine();		
 			String[] lineComp = curLine.split(",");	//If it contains StartPastCourseStudent, load the stuff in. 			
 			
@@ -823,11 +826,11 @@ public class GradeSystem {
 				lineComp = curLine.split(",");	//Either contains StartPastCourseStudent or EndFile
 			}
 			
-//		} catch (Exception e) {
-//			System.out.println("Unable to process file. Likely incorrect file format for past Courses.");
-//			e.printStackTrace();
-//			control.setSystem(new GradeSystem(control)); //Clear out this system. 
-//		}
+		} catch (Exception e) {
+			System.out.println("Unable to process file. Likely incorrect file format for past Courses.");
+			e.printStackTrace();
+			throw new Exception();
+		}
 	}
 	
 }
