@@ -173,10 +173,11 @@ public class Controller {
 	
 	//Reads and loads a gradebook. To be completed
 	public void loadTxtFile(String fileName) throws Exception {
-		this.system = new GradeSystem(this);
+		GradeSystem sys = new GradeSystem(this);
 		File file = new File(fileName);
 		try {
-			system.loadTxtFile(file);
+			sys.loadTxtFile(file);
+			this.system = sys;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
