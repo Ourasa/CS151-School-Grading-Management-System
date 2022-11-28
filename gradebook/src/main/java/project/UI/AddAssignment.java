@@ -112,11 +112,13 @@ public class AddAssignment extends JScrollPane implements ActionListener {
 		if (e.getSource() == confirmButton) {
 			if (points.getText().matches("[0-9]+")) {
 				String course = (String) addUserTypeBox.getSelectedItem();
+
 				Course c = frame.control.getCourse(course);
-				Assignment newAssignment = new Assignment(assignmentName.getText(), 0,
-						Integer.parseInt(points.getText()));
+				c.asgnNameList.add(assignmentName.getText());
+	
 				for (Student student : c.getStudents()) {
-					frame.control.addAssignment(course, student.getId(), newAssignment);
+					c.studentBase.get(student).add(new Assignment(assignmentName.getText(), 0,
+						Integer.parseInt(points.getText())));
 				}
 				JOptionPane.showMessageDialog(this,
 						"Assignment: " + assignmentName.getText() + ", was successfully added to " + course);
