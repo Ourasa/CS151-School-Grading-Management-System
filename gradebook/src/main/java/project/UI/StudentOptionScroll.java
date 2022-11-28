@@ -50,17 +50,15 @@ public class StudentOptionScroll extends JScrollPane implements ActionListener {
 		studentWelcomeLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 		studentWelcomeLabel.setBounds(90, 50, 225, 25);
 		this.add(studentWelcomeLabel);
+		
 		JLabel banner = new JLabel();
 		banner.setText("Welcome Student");
 		banner.setBackground(Color.GREEN);
 		banner.setFont(new Font("Serif", Font.BOLD, 30));
 		banner.setForeground(Color.WHITE);
 		banner.setOpaque(true); // to display background of label
-		// banner.setBorder(BorderFactory.createLineBorder(Color.BLACK, 15)); // creates
-		// border for label
 		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
 		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
-		// home.setLayout(null); // need a layout manager to adjust sizes
 		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
 		this.add(banner);
 

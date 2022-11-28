@@ -1,6 +1,8 @@
 package project.UI;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -36,7 +38,7 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 	public ViewGPA(UserInterface in) {
 		frame = in;
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(400, 200));
+		this.setPreferredSize(new Dimension(1000, 500));
 		addComponents();
 
 	}
@@ -106,6 +108,23 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 		gpa.setText(g.toString());
 		this.validate();
 		this.repaint();
+		
+		JLabel banner = new JLabel();
+		banner.setText("Welcome Student");
+		banner.setBackground(Color.GREEN);
+		banner.setFont(new Font("Serif", Font.BOLD, 30));
+		banner.setForeground(Color.WHITE);
+		banner.setOpaque(true); // to display background of label
+		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
+		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
+		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
+		this.add(banner);
+
+		ImageIcon image3 = new ImageIcon("images/student.jpeg");
+
+		JLabel image = new JLabel(image3);
+		image.setBounds(500, 20, 500, 500);
+		this.add(image);
 	}
 
 	@Override
