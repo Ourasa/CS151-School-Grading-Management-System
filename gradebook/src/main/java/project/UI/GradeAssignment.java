@@ -213,10 +213,12 @@ public class GradeAssignment extends JScrollPane implements ActionListener {
 			}
 		});
 		this.add(assignmentListBox);
-
+		try {
 		totalPoints.setText("/" + course.assignments.get(assignmentListBox.getSelectedItem()).getPointsTotal());
 		points.setText("");
-
+		} catch (Exception e) {
+			System.out.println("Debugging purposes: This class has no assignments! Probably.");
+		}
 		this.validate();
 		this.repaint();
 
