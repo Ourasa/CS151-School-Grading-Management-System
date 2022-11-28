@@ -18,6 +18,9 @@ import com.gradebook.gradebook.User;
 public class ViewGPA extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
+	
+	JPanel panel;
+	
 	JButton backButton;
 
 	JLabel overallGPA;
@@ -35,37 +38,43 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 
 	public ViewGPA(UserInterface in) {
 		frame = in;
-		this.setLayout(null);
+		//this.setLayout(null);
 		this.setPreferredSize(new Dimension(400, 200));
 		addComponents();
 
 	}
 
 	public void addComponents() {
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(400, 200));
+		
 		backButton = new JButton("Back");
 		backButton.setBounds(30, 30, 80, 25);
 		backButton.addActionListener(this);
-		this.add(backButton);
+		panel.add(backButton);
 
 		gpa = new JLabel();
 		gpa.setBounds(200, 30, 140, 25);
-		this.add(gpa);
+		panel.add(gpa);
 
 		overallGPA = new JLabel("Overall GPA:");
 		overallGPA.setBounds(120, 30, 140, 25);
-		this.add(overallGPA);
+		panel.add(overallGPA);
 
 		courseName = new JLabel("Course Name:");
 		courseName.setBounds(30, 60, 150, 25);
-		this.add(courseName);
+		panel.add(courseName);
 
 		professor = new JLabel("Professor:");
 		professor.setBounds(160, 60, 120, 25);
-		this.add(professor);
+		panel.add(professor);
 
 		grade = new JLabel("Grade:");
 		grade.setBounds(310, 60, 100, 25);
-		this.add(grade);
+		panel.add(grade);
+		
+		this.setViewportView(panel);
 	}
 
 	public void updateViewUsersScreen() {
@@ -83,9 +92,9 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 			JLabel pwd = new JLabel(gr);
 			pwd.setBounds(315, 80 + 20 * i, 100, 25);
 
-			this.add(name);
-			this.add(prof);
-			this.add(pwd);
+			panel.add(name);
+			panel.add(prof);
+			panel.add(pwd);
 
 			i++;
 		}
@@ -97,21 +106,20 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 			JLabel pwd = new JLabel(gr);
 			pwd.setBounds(315, 80 + 20 * i, 100, 25);
 
-			this.add(name);
-			this.add(pwd);
+			panel.add(name);
+			panel.add(pwd);
 
 			i++;
 		}
 		Double g = currentStudent.getGPA();
 		gpa.setText(g.toString());
-		this.validate();
-		this.repaint();
+		panel.validate();
+		panel.repaint();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		frame.pageTransition(frame.studentOptionScroll);
-
 	}
 
 }
