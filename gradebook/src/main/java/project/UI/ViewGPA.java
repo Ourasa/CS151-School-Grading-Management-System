@@ -20,6 +20,7 @@ import com.gradebook.gradebook.User;
 public class ViewGPA extends JScrollPane implements ActionListener {
 
 	UserInterface frame;
+	JPanel panel;
 	JButton backButton;
 
 	JLabel overallGPA;
@@ -37,37 +38,43 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 
 	public ViewGPA(UserInterface in) {
 		frame = in;
-		this.setLayout(null);
+		//this.setLayout(null);
 		this.setPreferredSize(new Dimension(1000, 500));
 		addComponents();
 
 	}
 
 	public void addComponents() {
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(1000, 500));
+		
 		backButton = new JButton("Back");
 		backButton.setBounds(30, 30, 80, 25);
 		backButton.addActionListener(this);
-		this.add(backButton);
+		panel.add(backButton);
 
 		gpa = new JLabel();
 		gpa.setBounds(200, 30, 140, 25);
-		this.add(gpa);
+		panel.add(gpa);
 
 		overallGPA = new JLabel("Overall GPA:");
 		overallGPA.setBounds(120, 30, 140, 25);
-		this.add(overallGPA);
+		panel.add(overallGPA);
 
 		courseName = new JLabel("Course Name:");
 		courseName.setBounds(30, 60, 150, 25);
-		this.add(courseName);
+		panel.add(courseName);
 
 		professor = new JLabel("Professor:");
 		professor.setBounds(160, 60, 120, 25);
-		this.add(professor);
+		panel.add(professor);
 
 		grade = new JLabel("Grade:");
 		grade.setBounds(310, 60, 100, 25);
-		this.add(grade);
+		panel.add(grade);
+		
+		this.setViewportView(panel);
 	}
 
 	public void updateViewUsersScreen() {
@@ -85,9 +92,9 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 			JLabel pwd = new JLabel(gr);
 			pwd.setBounds(315, 80 + 20 * i, 100, 25);
 
-			this.add(name);
-			this.add(prof);
-			this.add(pwd);
+			panel.add(name);
+			panel.add(prof);
+			panel.add(pwd);
 
 			i++;
 		}
@@ -99,15 +106,15 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 			JLabel pwd = new JLabel(gr);
 			pwd.setBounds(315, 80 + 20 * i, 100, 25);
 
-			this.add(name);
-			this.add(pwd);
+			panel.add(name);
+			panel.add(pwd);
 
 			i++;
 		}
 		Double g = currentStudent.getGPA();
 		gpa.setText(g.toString());
-		this.validate();
-		this.repaint();
+		panel.validate();
+		panel.repaint();
 		
 		JLabel banner = new JLabel();
 		banner.setText("Welcome Student");
@@ -118,13 +125,13 @@ public class ViewGPA extends JScrollPane implements ActionListener {
 		banner.setHorizontalAlignment(JLabel.CENTER); // horizontal position to text+image in label
 		banner.setVerticalAlignment(JLabel.CENTER); // vertical position of text+image in label
 		banner.setBounds(500, 0, 500, 50); // sets x,y position of label w/ dimensions
-		this.add(banner);
+		panel.add(banner);
 
 		ImageIcon image3 = new ImageIcon("images/student.jpeg");
 
 		JLabel image = new JLabel(image3);
 		image.setBounds(500, 20, 500, 500);
-		this.add(image);
+		panel.add(image);
 	}
 
 	@Override

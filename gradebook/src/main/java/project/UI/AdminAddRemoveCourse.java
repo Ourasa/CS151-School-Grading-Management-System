@@ -72,17 +72,33 @@ class AdminAddCourse extends JScrollPane implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {		
 		if (e.getSource() == addCourseConfirmBtn) {
-			frame.control.addCourse((String) addCourseNameField.getText(),
-					(String) addCourseProfessorBox.getSelectedItem());
-			JOptionPane.showMessageDialog(this, "Successfully added course.");
+			if (frame.control.getCourse((String) addCourseNameField.getText()) != null) {
+				JOptionPane.showMessageDialog(this, "Course of that name already exists.");
+			} else {
+				if ( ((String) addCourseProfessorBox.getSelectedItem()).equals("N/a")) {
+					frame.control.addCourse((String) addCourseNameField.getText());
+					JOptionPane.showMessageDialog(this, "Successfully added course.");
+				} else {
+					frame.control.addCourse((String) addCourseNameField.getText(),
+							(String) addCourseProfessorBox.getSelectedItem());
+					JOptionPane.showMessageDialog(this, "Successfully added course.");
+					Professor prof = (Professor) frame.control.system.getUser((String) addCourseProfessorBox.getSelectedItem());
+					prof.addCourse(frame.control.getCourse((String) addCourseNameField.getText()));
+				}
+				
+				addCourseNameField.setText("");
+				addCourseProfessorBox.setSelectedIndex(0);
+				frame.pageTransition(frame.adminOptionScroll);
+			}
+			
+		} else if (e.getSource() == addCourseCancelBtn) {
+			addCourseNameField.setText("");
+			addCourseProfessorBox.setSelectedIndex(0);
+			frame.pageTransition(frame.adminOptionScroll);
+			frame.pageTransition(frame.adminOptionScroll);
 		}
-		Professor prof = (Professor) frame.control.system.getUser((String) addCourseProfessorBox.getSelectedItem());
-		prof.addCourse(frame.control.getCourse((String) addCourseNameField.getText()));
-		addCourseNameField.setText("");
-		addCourseProfessorBox.setSelectedIndex(0);
-		frame.pageTransition(frame.adminOptionScroll);
 
 	}
 

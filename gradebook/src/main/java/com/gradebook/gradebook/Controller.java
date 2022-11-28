@@ -59,6 +59,10 @@ public class Controller {
 	public void addCourse(Course course) {
 		system.addCourse(course);
 	}
+	
+	public void addCourse(String courseName) {
+		system.addCourse(courseName);
+	}
 
 	public void addCourse(String courseName, String professorID) {
 		system.addCourse(courseName, professorID);
