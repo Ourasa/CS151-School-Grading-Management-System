@@ -53,7 +53,7 @@ public class Driver {
 		try {
 			con.loadTxtFile("gradeSystemSaveFile.txt");
 		} catch (Exception e) {
-			System.out.println("Failure");
+			System.out.println("Failure to load txt file.");
 		}
 
 		// con.generateTxtSaveFile();

@@ -284,13 +284,16 @@ public class GradeSystem {
 	}
 
 	// ----------- Remove Student from Course -----------
-	public void removeStudentFromCourse(String courseName, String studentId) {
+	public boolean removeStudentFromCourse(String courseName, String studentId) {
 		Student student = ((Student) users.get(studentId));
 		Course course = courses.get(courseName);
 
-		student.getCurCourses().remove(course);
-		course.removeStudent(student);
-
+		if (student.getCurCourses().containsKey(course)) {
+			student.getCurCourses().remove(course);
+			course.removeStudent(student);
+			return true;
+		}
+		return false;
 	}
 
 	// ------------------------------------------------------ Professor Options

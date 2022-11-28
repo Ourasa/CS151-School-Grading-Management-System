@@ -103,14 +103,20 @@ class RemoveStudentFromCourse extends JScrollPane implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == confirmButton) {
-			String course = (String) courseComboBox.getSelectedItem();
+			if ( ((String) courseComboBox.getSelectedItem()).equals("Select a Course")) {
+				JOptionPane.showMessageDialog(this, "Please select a Course");
+			} else {
+				String course = (String) courseComboBox.getSelectedItem();
+				String studentId = (String) studentListComboBox.getSelectedItem();
+				// User student = frame.control.system.getUser((String)
+				// studentListComboBox.getSelectedItem());
 
-			String studentId = (String) studentListComboBox.getSelectedItem();
-			// User student = frame.control.system.getUser((String)
-			// studentListComboBox.getSelectedItem());
-
-			frame.control.removeStudentFromCourse(course, (String) studentListComboBox.getSelectedItem());
-			JOptionPane.showMessageDialog(this, "Removed student: " + studentId + ", from course " + course);
+				if (frame.control.removeStudentFromCourse(course, (String) studentListComboBox.getSelectedItem())) {
+					JOptionPane.showMessageDialog(this, "Removed student: " + studentId + ", from course " + course);
+				} else {
+					JOptionPane.showMessageDialog(this, "Failed: " + studentId + " is not enrolled in course " + course);
+				}
+			}
 		}
 		if (e.getSource() == cancelButton) {
 			if (frame.control.getCurrentUser() instanceof Professor) {
