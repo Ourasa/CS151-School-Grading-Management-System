@@ -772,7 +772,9 @@ public class GradeSystem {
 					lineComp = curLine.split(",");
 					
 					while (!lineComp[0].equals("EndCourseStudent")) {
-						course.addAssignment(student, new Assignment(lineComp[0], Double.parseDouble(lineComp[1]), Double.parseDouble(lineComp[2])));
+						Assignment asgn = new Assignment(lineComp[0], Double.parseDouble(lineComp[1]), Double.parseDouble(lineComp[2]));
+						course.addAssignment(student, asgn);
+						course.addAssignment(asgn.getName(), asgn);
 						curLine = scan.nextLine();		
 						lineComp = curLine.split(",");
 					}
