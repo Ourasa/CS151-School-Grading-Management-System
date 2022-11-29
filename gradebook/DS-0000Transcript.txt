@@ -1,0 +1,10 @@
+Student Name: Albert Einstein
+
+ID: DS-0000
+
+GPA: 4.0
+
+=======| CURRENT COURSES |==========
+CS-151        		A
+
+=======|  PAST COURSES  |==========

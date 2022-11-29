@@ -55,7 +55,7 @@ public class Driver {
 		courses.add(cs151);
 		con.addStudentToCourse(cs151.getName(),defaultStudent.getId());
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 15; i++) {
 			String fn = firstName[random.nextInt(firstName.length)];
 			String ln = lastName[random.nextInt(lastName.length)];
 			String id = con.system.idGenerator(fn.charAt(0), ln.charAt(0));
@@ -73,7 +73,7 @@ public class Driver {
 			}
 		}
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 400; i++) {
 			String fn = firstName[random.nextInt(firstName.length)];
 			String ln = lastName[random.nextInt(lastName.length)];
 			String id = con.system.idGenerator(fn.charAt(0), ln.charAt(0));
