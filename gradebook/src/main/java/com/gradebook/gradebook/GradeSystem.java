@@ -387,7 +387,7 @@ public class GradeSystem {
 			
 		} catch (Exception e) {
 			System.out.println("Error during class roster txt generation");
-			e.printStackTrace();
+			
 		}
 		
 	}
@@ -426,7 +426,7 @@ public class GradeSystem {
 			
 		} catch (Exception e) {
 			System.out.println("Error during class roster txt generation");
-			e.printStackTrace();
+			
 		}
 		
 	}
@@ -458,7 +458,7 @@ public class GradeSystem {
 
 		} catch (IOException e) {
 			System.out.println("Error occurred");
-			e.printStackTrace();
+			
 		}
 	}
 
@@ -604,7 +604,7 @@ public class GradeSystem {
 			return fileName;
 		} catch (IOException e) {
 			System.out.println("Error during Txt file generation.");
-			e.printStackTrace();
+			
 		}
 		
 		return null;
@@ -633,7 +633,7 @@ public class GradeSystem {
 			writer.write("EndUsers\n");
 		} catch (IOException e) {
 			System.out.println("Error during Txt file generation: User");
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -672,7 +672,7 @@ public class GradeSystem {
 			writer.write("EndCourseAdditions\n");
 		} catch (IOException e) {
 			System.out.println("Error during Txt file generation: Courses");
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -693,7 +693,7 @@ public class GradeSystem {
 			}
 		} catch (IOException e) {
 			System.out.println("Error during Txt file generation: Courses");
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -710,8 +710,7 @@ public class GradeSystem {
 			
 		} catch (Exception e) {
 			System.out.println("Unable to process file. Likely incorrect file format.");
-			e.printStackTrace();
-			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+			throw new Exception();
 		}
 	}
 	
@@ -719,7 +718,7 @@ public class GradeSystem {
 		try {
 			if (!scan.nextLine().equals("StartUsers")) {	//First check to ensure format is remotely proper
 				scan.close();
-				throw new IOException();
+				throw new Exception();
 			}
 			
 			String curLine = scan.nextLine();
@@ -733,8 +732,7 @@ public class GradeSystem {
 			}
 		} catch (Exception e) {
 			System.out.println("Unable to process file. Likely incorrect file format for Users.");
-			e.printStackTrace();
-			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+			throw new Exception();
 		}
 	}
 	
@@ -794,12 +792,12 @@ public class GradeSystem {
 			}
 		} catch (Exception e) {
 			System.out.println("Unable to process file. Likely incorrect file format for active Courses.");
-			e.printStackTrace();
-			control.setSystem(new GradeSystem(control)); //Clear out this system. 
+			throw new Exception();
 		}
 	}
 	
 	private void loadPastCourses(Scanner scan) throws Exception {
+		try {
 			String curLine = scan.nextLine();		
 			String[] lineComp = curLine.split(",");	//If it contains StartPastCourseStudent, load the stuff in. 			
 			
@@ -823,11 +821,10 @@ public class GradeSystem {
 				lineComp = curLine.split(",");	//Either contains StartPastCourseStudent or EndFile
 			}
 			
-//		} catch (Exception e) {
-//			System.out.println("Unable to process file. Likely incorrect file format for past Courses.");
-//			e.printStackTrace();
-//			control.setSystem(new GradeSystem(control)); //Clear out this system. 
-//		}
+		} catch (Exception e) {
+			System.out.println("Unable to process file. Likely incorrect file format for past Courses.");
+			throw new Exception();
+		}
 	}
 	
 }

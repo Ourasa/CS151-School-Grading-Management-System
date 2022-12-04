@@ -82,6 +82,7 @@ public class UserInterface {
 	GradeAssignment gradeAssignment;
 	RemoveAssignment removeAssignment;
 	ViewStudentsGrades viewGrades;
+	ProfessorCompleteCourse completeCourse;
 	// Professor - Edit an assignment for all students in a course.
 
 	// Professor - Remove an assignment for all students in a course.
