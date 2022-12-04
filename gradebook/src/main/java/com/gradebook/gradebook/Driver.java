@@ -21,11 +21,11 @@ public class Driver {
 		con.addUser(defaultAdmin);
 	
 //  Tester may use this option to load in a save file preemptively on startup. 		
-	try {
-		con.loadTxtFile("gradeSystemSaveFile (1).txt");
-	} catch (Exception e) {
-		System.out.println("Failure to load file");
-	}
+//	try {
+//		con.loadTxtFile("gradeSystemSaveFile (1).txt");
+//	} catch (Exception e) {
+//		System.out.println("Failure to load file");
+//	}
 		
 		
 //		Random random = new Random();
