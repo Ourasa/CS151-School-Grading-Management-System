@@ -179,8 +179,7 @@ public class Controller {
 			sys.loadTxtFile(file);
 			this.system = sys;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception();
 		}
 	}
 	

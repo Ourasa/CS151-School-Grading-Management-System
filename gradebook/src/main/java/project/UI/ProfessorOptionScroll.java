@@ -28,7 +28,8 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 		this.setPreferredSize(new Dimension(1000, 500));
 
 		String[] profOptions = { "Add Student to Course", "Remove Student from Course", "Add an Assignment",
-				"Edit an Assignment", "Grade an Assignment", "Remove an Assignment", "View Students + Grades" };
+				"Edit an Assignment", "Grade an Assignment", "Remove an Assignment", "View Students + Grades", 
+				"Complete a Course"};
 		profOptionsBox = new JComboBox<String>(profOptions);
 		profOptionsBox.setBounds(100, 110, 200, 25);
 		this.add(profOptionsBox);
@@ -108,8 +109,12 @@ public class ProfessorOptionScroll extends JScrollPane implements ActionListener
 				frame.viewGrades.updateCourseList(0);
 				frame.viewGrades.updateViewUsersScreen(0);
 				frame.pageTransition(frame.viewGrades);
+			} else if (((String) profOptionsBox.getSelectedItem()).equals("Complete a Course")) {
+				frame.completeCourse = new ProfessorCompleteCourse(frame);
+				frame.completeCourse.courseListBox();
+				frame.pageTransition(frame.completeCourse);
 			}
-			// Professor cancels adding a student
+			
 		} else if (e.getSource() == frame.professorOptionScroll.profLogoutBtn) {
 			frame.professorOptionScroll.profOptionsBox.setSelectedIndex(0);
 			frame.loginScroll = new LoginScrollPane(frame);
